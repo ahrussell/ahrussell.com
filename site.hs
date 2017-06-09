@@ -2,6 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
+import           System.FilePath
 
 
 --------------------------------------------------------------------------------
@@ -11,9 +12,19 @@ main = hakyll $ do
         route   idRoute
         compile copyFileCompiler
 
+        -- (fromList ["css/*",
+        --              "css/font-awesome/css/*",
+        --              "css/font-awesome/less/*",
+        --              "css/font-awesome/fonts/*",
+        --              "css/font-awesome/scss/*"])
+
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
+
+    match "font-awesome/**" $ do
+        route appendCssRoute
+        compile getResourceLBS
 
     match (fromList ["about.rst", "contact.markdown"]) $ do
         route   $ setExtension "html"
@@ -65,3 +76,7 @@ postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+
+appendCssRoute :: Routes
+appendCssRoute = customRoute $ 
+                    \idt -> "css" </> toFilePath idt
