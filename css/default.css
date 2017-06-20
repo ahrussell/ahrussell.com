@@ -1,566 +1,278 @@
-	html, body
-	{
-		height: 100%;
-	}
-	
-	body
-	{
-		margin: 0px;
-		padding: 0px;
-		background: #202020;
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 12pt;
-		font-weight: 300;
-		color: #444444;
-	}
-	
-	
-	h1, h2, h3
-	{
-		margin: 0;
-		padding: 0;
-		font-weight: 600;
-		color: #333333;
-	}
-	
-	p, ol, ul
-	{
-		margin-top: 0;
-	}
-	
-	ol, ul
-	{
-		padding: 0;
-		list-style: none;
-	}
-	
-	p
-	{
-		line-height: 180%;
-	}
-	
-	strong
-	{
-	}
-	
-	a
-	{
-		color: #2980b9;
-	}
-	
-	a:hover
-	{
-		text-decoration: none;
-	}
-	
-	.container
-	{
-		overflow: hidden;
-		margin: 0em auto;
-		width: 1200px;
-	}
-	
-/*********************************************************************************/
-/* Image Style                                                                   */
-/*********************************************************************************/
+html, body
+{
+    height: 100%;
+}
 
-	.image
-	{
-		display: inline-block;
-	}
-	
-	.image img
-	{
-		display: block;
-		width: 100%;
-	}
-	
-	.image-full
-	{
-		display: block;
-		width: 100%;
-		margin: 0 0 2em 0;
-	}
-	
-	.image-left
-	{
-		float: left;
-		margin: 0 2em 2em 0;
-	}
-	
-	.image-centered
-	{
-		display: block;
-		margin: 0 0 2em 0;
-	}
-	
-	.image-centered img
-	{
-		margin: 0 auto;
-		width: auto;
-	}
+body
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 12pt;
+    font-weight: 300;
+    color: #444444;
+}
 
-/*********************************************************************************/
-/* List Styles                                                                   */
-/*********************************************************************************/
+.container
+{
+    overflow: hidden;
+    margin: 0em auto;
+    width: 1300px;
+}
 
-	ul.style1
-	{
-		margin: 0 auto;
-		padding: 0;
-		width: 80%;
-		overflow: hidden;
-		list-style: none;
-		text-align: left;
-		color: #6c6c6c
-	}
-	
-	ul.style1 li
-	{
-		padding: 1.6em 0em 0em 0em;
-		margin: 0 0 2.5em 0;
-		border-top: 1px solid rgba(0,0,0,.1); 
-	}
-	
-	ul.style1 li:first-child
-	{
-		border-top: none;
-	}
-	
-	ul.style1 p
-	{
-		margin: 0;
-	}
-	
-	ul.style1 a
-	{
-		display: block;
-		text-decoration: none;
-		color: #2D2D2D;
-	}
-	
-	ul.style1 a:hover
-	{
-		text-decoration: underline;
-	}
-	
-	ul.style1 h3
-	{
-		padding: 1em 0em 5px 0em;
-		text-transform: uppercase;
-		font-size: 1em;
-		font-weight: 400;
-	}
-	
-	ul.style1 .first
-	{
-		padding-top: 0;
-		background: none;
-	}
-	
-	ul.style1 .date
-	{
-		float: left;
-		position: relative;
-		width: 80px;
-		height: 70px;
-		margin: 0.5em 1.5em 0em 0.5em;
-		padding: 1.5em 0em 1.5em 0em;
-		box-shadow: 0px 0px 0px 5px rgba(255,255,255,0.1);
-		line-height: normal;
-		text-align: center;
-		text-transform: uppercase;
-		text-shadow: 0px 1px 0px rgba(0,0,0,.2);
-		font-size: 1em;
-		font-weight: 400;
-		border-right: 1px solid rgba(0,0,0,.1); 
-	}
-	
-	ul.style1 .date:after
-	{
-		content: '';
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		border-radius: 6px;
-	}
-	
-	ul.style1 .date b
-	{
-		margin: 0;
-		padding: 0;
-		display: block;
-		margin-top: -5px;
-		font-size: 1.8em;
-		font-weight: 700;
-	}
-	
-	ul.style1 .date a
-	{
-	}
-	
-	ul.style1 .date a:hover
-	{
-		text-decoration: none;
-	}
+/* 
+ * Navigation 
+ */
 
+#nav
+{
+   position: relative;
+   float: left;
+   width: 250px;
+   padding: 0em 1em;
+   margin-top: 2em;
+}
 
-/*********************************************************************************/
-/* Social Icon Styles                                                            */
-/*********************************************************************************/
+#logo 
+{
+    text-align: center;
+}
 
-	ul.contact
-	{
-		margin: 0;
-		padding: 2em 0em 0em 0em;
-		list-style: none;
-	}
-	
-	ul.contact li
-	{
-		display: inline-block;
-		padding: 0em 0.30em;
-		font-size: 1em;
-	}
-	
-	ul.contact li span
-	{
-		display: none;
-		margin: 0;
-		padding: 0;
-	}
-	
-	ul.contact li a
-	{
-		color: #FFF;
-	}
-	
-	ul.contact li a:before
-	{
-		display: inline-block;
-		background: #3f3f3f;
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		border-radius: 20px;
-		text-align: center;
-		color: #FFFFFF;
-	}
-	
-	ul.contact li a.icon-twitter:before { background: #2DAAE4; }
-	ul.contact li a.icon-facebook:before { background: #39599F; }
-	ul.contact li a.icon-dribbble:before { background: #C4376B;	}
-	ul.contact li a.icon-tumblr:before { background: #31516A; }
-	ul.contact li a.icon-rss:before { background: #F2600B; }
+#logo img
+{
+    width: 50%;
+    height: relative;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
 
-/*********************************************************************************/
-/* Button Style                                                                  */
-/*********************************************************************************/
+#border-group
+{
+    padding: 0px;
+    margin: 0px;
+}
 
-	.button
-	{
-		display: inline-block;
-		padding: 1em 3em 1em 2em;
-		letter-spacing: 0.20em;
-		text-decoration: none;
-		text-transform: uppercase;
-		font-weight: 400;
-		font-size: 0.90em;
-		color: #FFF;
-	}
-	
-	.button:before
-	{
-		display: inline-block;
-		background: #FFC31F;
-		margin-right: 1em;
-		width: 40px;
-		height: 40px;
-		line-height: 40px;
-		border-radius: 20px;
-		text-align: center;
-		color: #272925;
-	}
-		
-/*********************************************************************************/
-/* 4-column                                                                      */
-/*********************************************************************************/
+#border-group h1
+{
+    margin-left: .5em;
+    margin-top: .25em;
+    margin-bottom: 0em;
+    margin-right: 0px;
+    padding-right: 0em;
+    font-weight: 600;
+}
 
-	.box1,
-	.box2,
-	.box3,
-	.box4
-	{
-		width: 235px;
-	}
-	
-	.box1,
-	.box2,
-	.box3,
-	{
-		float: left;
-		margin-right: 20px;
-	}
-	
-	.box4
-	{
-		float: right;
-	}
-	
-/*********************************************************************************/
-/* 3-column                                                                      */
-/*********************************************************************************/
+#border-group a
+{
+    text-decoration: none;
+    color: #444444;
+}
 
-	.boxA,
-	.boxB,
-	.boxC
-	{
-		width: 320px;
-	}
+#logo a
+{
+    text-decoration: none;
+    color: #444444;
+}
 
-	.boxA,
-	.boxB,
-	{
-		float: left;
-		margin-right: 20px;
-	}
-	
-	.boxC
-	{
-		float: right;
-	}
+#menu
+{
+}
 
-/*********************************************************************************/
-/* 2-column                                                                      */
-/*********************************************************************************/
+#border-group
+{
+    /*border-right: 1px solid #999;*/
+}
 
-	.tbox1,
-	.tbox2
-	{
-		width: 575px;
-	}
-	
-	.tbox1
-	{
-		float: left;
-	}
+#menu ul
+{
+    list-style-type: none;
+    padding: 0em 0em 0em 1em;
+    margin: 0;
+}
 
-	.tbox2
-	{
-		float: right;
-	}
+#menu li
+{
+    text-decoration: none;
+    padding-top: 1em;
+    color: #444;
+}
 
-/*********************************************************************************/
-/* Heading Titles                                                                */
-/*********************************************************************************/
+#menu li a
+{
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    color: #444;
+}
 
-	.title
-	{
-		margin-bottom: 3em;
-	}
-	
-	.title h2
-	{
-		text-transform: lowercase;
-		font-size: 2.8em;
-	}
-	
-	.title .byline
-	{
-		font-size: 1.3em;
-		color: #6F6F6F;
-	}
-		
-/*********************************************************************************/
-/* Header                                                                        */
-/*********************************************************************************/
+#menu li a:hover, #menu li a:visited, #menu li a:link, #menu li a:active, 
+{
+    color: #444;
+}
 
-	#header
-	{
-		position: relative;
-		float: left;
-		width: 300px;
-		padding: 3em 0em;
-	}
+#menu li a.current-page
+{
+    color: #6cade2;
+}
 
-/*********************************************************************************/
-/* Logo                                                                          */
-/*********************************************************************************/
+#social
+{
+    margin-top: .5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 0;
+    /*border-top: 1px solid #999;*/
+    text-align: center;
+}
 
-	#logo
-	{
-		text-align: center;
-		margin-bottom: 4em;
-	}
-	
-	#logo h1
-	{
-		display: block;
-	}
-	
-	#logo a
-	{
-		text-decoration: none;
-		color: #FFF;
-	}
-	
-	#logo span
-	{
-		padding-right: 0.5em;
-		text-transform: uppercase;
-		font-size: 0.90em;
-		color: rgba(255,255,255,0.3);
-	}
+#social a
+{
+    display: inline;
+}
 
-	#logo span a
-	{
-		color: rgba(255,255,255,0.5);
-	}
-	
-	#logo img
-	{
-		display: inline-block;
-		margin-bottom: 1em;
-		border-radius: 50%;
-	}
+/* 
+ * Title
+ */
 
-/*********************************************************************************/
-/* Menu                                                                          */
-/*********************************************************************************/
+#title
+{
+    text-align: right;
+    border-bottom: 1px solid #999;
+    padding: 0em;
+    margin-bottom: 1em;
+    margin-top: 0em;
+}
 
-	#menu
-	{
-	}
-	
-	#menu ul
-	{
-	}
-	
-	#menu li
-	{
-		border-top: 1px solid rgba(255,255,255,0.08);
-	}
-	
-	#menu li a, #menu li span
-	{
-		display: block;
-		padding: 2em 1.5em;
-		text-align: center;
-		text-decoration:  none;
-		text-transform: uppercase;
-		font-weight: 700;
-		color: rgba(255,255,255,0.5);
-	}
-	
-	#menu li:hover a, #menu li.active a, #menu li.active span
-	{
-	}
-	
-	#menu .current_page_item a
-	{
-		background: #2980b9;
-		color: rgba(255,255,255,1);
-	}
-	
-	#menu .icon
-	{
-	}
+#title h1
+{
+    padding: 0px;
+    margin: 0px;
+}
 
-/*********************************************************************************/
-/* Banner                                                                        */
-/*********************************************************************************/
+/*
+ * Main
+ */
 
-	#banner
-	{
-		margin-bottom: 4em;
-	}
+#main
+{
+    overflow: hidden;
+    float: right;
+    width: 900px;
+    padding: 3em 50px 5em 50px;
+    text-align: center;
+}
 
-/*********************************************************************************/
-/* Page                                                                          */
-/*********************************************************************************/
+#banner-img
+{
+    margin-top: 0px;
+    width: 800px;
+    height: relative;
+    border: 1px solid #ccc;
+}
 
-	#page
-	{
-		background: #2a2a2a;
-	}
+/* 
+ * Post list
+ */
 
-/*********************************************************************************/
-/* Main                                                                          */
-/*********************************************************************************/
+ul.style1
+{
+    margin: 0 auto;
+    padding: 0;
+    width: 80%;
+    overflow: hidden;
+    list-style: none;
+    text-align: left;
+    color: #6c6c6c
+}
 
-	#main
-	{
-		overflow: hidden;
-		float: right;
-		width: 800px;
-		padding: 3em 50px 5em 50px;
-		background: #FFF;
-		border-top: 6px solid #2980b9;
-		text-align: center;
-	}
+ul.style1 li
+{
+    padding: 1.6em 0em 0em 0em;
+    margin: 0 0 2.5em 0;
+    border-top: 1px solid rgba(0,0,0,.1); 
+}
 
-/*********************************************************************************/
-/* Featured                                                                      */
-/*********************************************************************************/
+ul.style1 li:first-child
+{
+    border-top: none;
+}
 
-	#featured
-	{
-		overflow: hidden;
-		margin-bottom: 3em;
-		padding-top: 5em;
-		border-top: 1px solid rgba(0,0,0,0.08);
-	}
+ul.style1 p
+{
+    margin: 0;
+}
 
-/*********************************************************************************/
-/* Sidebar                                                                       */
-/*********************************************************************************/
+ul.style1 a
+{
+    display: block;
+    text-decoration: none;
+    color: #2D2D2D;
+}
 
-	#sidebar
-	{
-	}
+ul.style1 a:hover
+{
+    text-decoration: none;
+}
 
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
+ul.style1 h3
+{
+    padding: 1em 0em 5px 0em;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 400;
+}
 
-	#footer
-	{
-	}
+ul.style1 .first
+{
+    padding-top: 0;
+    background: none;
+}
 
-/*********************************************************************************/
-/* Copyright                                                                     */
-/*********************************************************************************/
+ul.style1 .date
+{
+    float: left;
+    position: relative;
+    width: 80px;
+    height: 70px;
+    margin: 0.5em 1.5em 0em 0.5em;
+    padding: 1.5em 0em 1.5em 0em;
+    box-shadow: 0px 0px 0px 5px rgba(255,255,255,0.1);
+    line-height: normal;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px rgba(0,0,0,.2);
+    font-size: 1em;
+    font-weight: 400;
+    border-right: 1px solid rgba(0,0,0,.1); 
+}
 
-	#copyright
-	{
-		overflow: hidden;
-		padding: 5em 0em;
-		border-top: 1px solid rgba(0,0,0,0.08);
-	}
-	
-	#copyright span
-	{
-		display: block;
-		letter-spacing: 0.20em;
-		line-height: 2.5em;
-		text-align: center;
-		text-transform: uppercase;
-		font-size: 0.80em;
-		color: rgba(0,0,0,0.7);
-	}
-	
-	#copyright a
-	{
-		text-decoration: none;
-		color: rgba(0,0,0,0.9);
-	}
+ul.style1 .date:after
+{
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
 
-	.fa
-	{
-		display: block;
-		color: #000;
-		background: red;
-	}
+ul.style1 .date b
+{
+    margin: 0;
+    padding: 0;
+    display: block;
+    margin-top: -5px;
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+ul.style1 .date a
+{
+}
+
+ul.style1 .date a:hover
+{
+    text-decoration: none;
+}
