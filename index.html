@@ -1,13 +1,617 @@
----
-title: Home
----
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Andrew Russell</title>
+    <meta name="description" content="Andrew Russell – personal site and CV" />
 
-<div id="banner">
-    <img src="/images/banner.jpg" alt="" id="banner-img">
-</div>
+    <!-- Typography options (we'll switch between these via CSS variables) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&family=Source+Sans+3:wght@300;400;600&family=Inter:wght@300;400;500;600&family=Fraunces:wght@400;500;600&family=Spectral:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=DM+Serif+Display&family=EB+Garamond:wght@400;500;600&family=Bodoni+Moda:wght@400;500;600&family=Manrope:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-<div id="content">
-    <div id="featured">
-        $partial("templates/post-list.html")$
-    </div>
-</div>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- React via CDN for now so we don't depend on a bundler -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-presets="env,react">
+      const PALETTES = [
+        {
+          id: 'lettera-classic',
+          name: 'Lettera Classic',
+          description: 'Teal body, warm paper, charcoal text, red accent.',
+          values: {
+            bg: '#e9e3d6', // desk / paper
+            surface: '#f7f2e7',
+            surfaceAlt: '#d5d0c4',
+            keycap: '#1d2023',
+            text: '#202124',
+            textMuted: '#555555',
+            accent: '#4fa7a0', // body teal
+            accentSoft: '#c4dedb',
+            accentStrong: '#c0392b', // red key
+            border: '#c2bbad',
+          },
+        },
+        {
+          id: 'ink-and-paper',
+          name: 'Ink & Paper',
+          description: 'Soft off-white, near-black ink, minimal color.',
+          values: {
+            bg: '#f5f4f1',
+            surface: '#ffffff',
+            surfaceAlt: '#e0ded8',
+            keycap: '#111111',
+            text: '#141414',
+            textMuted: '#666666',
+            accent: '#404a52',
+            accentSoft: '#d6dde3',
+            accentStrong: '#8b1e1e',
+            border: '#d3d0c8',
+          },
+        },
+        {
+          id: 'evening-desk',
+          name: 'Evening Desk',
+          description: 'Warm desk wood tones with a restrained teal accent.',
+          values: {
+            bg: '#252424',
+            surface: '#34312f',
+            surfaceAlt: '#3f3b38',
+            keycap: '#111111',
+            text: '#f4efe8',
+            textMuted: '#c3b8ab',
+            accent: '#5fb0a8',
+            accentSoft: '#425c59',
+            accentStrong: '#e07a63',
+            border: '#514a44',
+          },
+        },
+        {
+          id: 'studio-light',
+          name: 'Studio Light',
+          description: 'Crisp studio whites with gentle teal and graphite.',
+          values: {
+            bg: '#f9fafb',
+            surface: '#ffffff',
+            surfaceAlt: '#e3e8ee',
+            keycap: '#111827',
+            text: '#111827',
+            textMuted: '#6b7280',
+            accent: '#4b9ea0',
+            accentSoft: '#c9e3e3',
+            accentStrong: '#F31940',
+            border: '#d1d5db',
+          },
+        },
+      ];
+
+      const HEADING_FONTS = [
+        {
+          id: 'spectral',
+          name: 'Spectral',
+          description: 'Text-forward serif designed for long-form reading.',
+          css: '"Spectral", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'fraunces',
+          name: 'Fraunces',
+          description: 'Artisanal serif with personality but still disciplined.',
+          css: '"Fraunces", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'plex-serif',
+          name: 'IBM Plex Serif',
+          description: 'Rational serif with a technical heritage.',
+          css: '"IBM Plex Serif", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'playfair',
+          name: 'Playfair Display',
+          description: 'High-contrast display serif, common on editorial/art sites.',
+          css: '"Playfair Display", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'dm-serif-display',
+          name: 'DM Serif Display',
+          description: 'Elegant, sculpted serif often used for branding.',
+          css: '"DM Serif Display", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'eb-garamond',
+          name: 'EB Garamond',
+          description: 'Classic Garamond for a literary, bookish tone.',
+          css: '"EB Garamond", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'bodoni-moda',
+          name: 'Bodoni Moda',
+          description: 'Modern Bodoni revival – strong, fashion-adjacent display.',
+          css: '"Bodoni Moda", "Didot", "Bodoni MT", serif',
+        },
+        {
+          id: 'cormorant',
+          name: 'Cormorant Garamond',
+          description: 'Bookish, high-contrast serif for a more literary feel.',
+          css: '"Cormorant Garamond", "Iowan Old Style", "Georgia", serif',
+        },
+        {
+          id: 'space-grotesk',
+          name: 'Space Grotesk',
+          description: 'Grotesk sans with a bit of character.',
+          css: '"Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+      ];
+
+      const BODY_FONTS = [
+        {
+          id: 'plex-sans',
+          name: 'IBM Plex Sans',
+          description: 'Workhorse sans with a subtle technical flavor.',
+          css: '"IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+        {
+          id: 'inter',
+          name: 'Inter',
+          description: 'Neutral, modern, very readable.',
+          css: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+        {
+          id: 'source-sans',
+          name: 'Source Sans 3',
+          description: 'Warm, editorial sans that still feels precise.',
+          css: '"Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+        {
+          id: 'manrope',
+          name: 'Manrope',
+          description: 'Geometric sans popular in contemporary product and studio sites.',
+          css: '"Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+        {
+          id: 'dm-sans',
+          name: 'DM Sans',
+          description: 'Soft, rounded sans with a calm, contemporary feel.',
+          css: '"DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+        {
+          id: 'work-sans',
+          name: 'Work Sans',
+          description: 'Versatile sans often used for creative studio and portfolio sites.',
+          css: '"Work Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+      ];
+
+      const MONO_FONT =
+        '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+
+      const SNAPSHOT_KEYS = [
+        {
+          id: 'africa',
+          label: 'Africa',
+          emoji: '🌍',
+          icon: './africa.png',
+          iconAlt: 'Outline of the African continent',
+          tooltip:
+            '4 years developing agri-fintech products for smallholder farmers in sub-Saharan Africa.',
+        },
+        {
+          id: 'google',
+          label: 'Google',
+          emoji: '🔍',
+          icon: './google.png',
+          iconAlt: 'Google logo icon',
+          tooltip: '3 years as a software engineer developing security & privacy software for companies like Google and Microsoft.',
+        },
+        {
+          id: 'cryptography',
+          label: 'Cryptography',
+          emoji: '🔐',
+          icon: './cryptography.png',
+          iconAlt: 'Cryptography diagram icon',
+          tooltip:
+            '2 years in UT Austin’s CS PhD program studying cryptography.',
+        },
+        {
+          id: 'windmill',
+          label: 'Netherlands',
+          emoji: '🌬️',
+          icon: './windmill.png',
+          iconAlt: 'Windmill icon',
+          tooltip:
+            'Currently based out of Amsterdam; willing & able to work in the EU and US.',
+        },
+        {
+          id: 'art',
+          label: 'Art',
+          emoji: '🎨',
+          icon: './art.png',
+          iconAlt: 'Art icon',
+          tooltip:
+            'Amateur artist with pieces exploring the social and political impacts of technology.',
+        },
+        {
+          id: 'running',
+          label: 'Running',
+          emoji: '🏃',
+          icon: './running.png',
+          iconAlt: 'Running figure icon',
+          tooltip:
+            'Ultramarathoner and top 10% worldwide Hyrox athlete.',
+        },
+        {
+          id: 'violin',
+          label: 'Violin',
+          emoji: '🎻',
+          icon: './violin.png',
+          iconAlt: 'Violin icon',
+          tooltip:
+            '15+ years studying classical violin.',
+        },
+      ];
+
+      function App() {
+        const [paletteId, setPaletteId] = React.useState('studio-light');
+        const [headingFontId, setHeadingFontId] = React.useState('dm-serif-display');
+        const [bodyFontId, setBodyFontId] = React.useState('plex-sans');
+        const [hoveredKeyId, setHoveredKeyId] = React.useState(null);
+        const [tooltipPosition, setTooltipPosition] = React.useState({ x: 0, y: 0 });
+
+        const palette = React.useMemo(
+          () => PALETTES.find((p) => p.id === paletteId) || PALETTES[0],
+          [paletteId]
+        );
+
+        const headingFont = React.useMemo(
+          () => HEADING_FONTS.find((f) => f.id === headingFontId) || HEADING_FONTS[0],
+          [headingFontId]
+        );
+
+        const bodyFont = React.useMemo(
+          () => BODY_FONTS.find((f) => f.id === bodyFontId) || BODY_FONTS[0],
+          [bodyFontId]
+        );
+
+        React.useEffect(() => {
+          const root = document.documentElement;
+          const vars = {
+            '--bg': palette.values.bg,
+            '--bg-elevated': palette.values.surface,
+            '--bg-elevated-alt': palette.values.surfaceAlt,
+            '--keycap': palette.values.keycap,
+            '--text-main': palette.values.text,
+            '--text-muted': palette.values.textMuted,
+            '--accent': palette.values.accent,
+            '--accent-soft': palette.values.accentSoft,
+            '--accent-strong': palette.values.accentStrong,
+            '--border-subtle': palette.values.border,
+            '--font-body': bodyFont.css,
+            '--font-heading': headingFont.css,
+            '--font-mono': MONO_FONT,
+          };
+
+          Object.entries(vars).forEach(([key, value]) => {
+            root.style.setProperty(key, value);
+          });
+        }, [palette, headingFont, bodyFont]);
+
+        const hoveredKey = React.useMemo(
+          () => SNAPSHOT_KEYS.find((item) => item.id === hoveredKeyId) || null,
+          [hoveredKeyId]
+        );
+
+        const tooltipStyle = React.useMemo(() => {
+          if (!hoveredKey) return { visibility: 'hidden', opacity: 0 };
+          const padding = 12;
+          const tooltipWidth = 260;
+          const tooltipHeight = 80;
+          const viewportWidth = window.innerWidth || 0;
+          const viewportHeight = window.innerHeight || 0;
+
+          let x = tooltipPosition.x + 14;
+          let y = tooltipPosition.y + 18;
+
+          if (x + tooltipWidth + padding > viewportWidth) {
+            x = viewportWidth - tooltipWidth - padding;
+          }
+          if (x < padding) x = padding;
+
+          if (y + tooltipHeight + padding > viewportHeight) {
+            y = tooltipPosition.y - tooltipHeight - 18;
+          }
+          if (y < padding) y = padding;
+
+          return {
+            visibility: 'visible',
+            opacity: 1,
+            left: `${x}px`,
+            top: `${y}px`,
+          };
+        }, [hoveredKey, tooltipPosition]);
+
+        return (
+          <div className="app-shell link-style-quiet">
+            <header className="top-bar">
+              <div className="top-bar-inner">
+                <div className="brand">
+                  <div className="brand-mark" aria-hidden="true">AR</div>
+                  <div className="brand-text">
+                    <div className="brand-name">Andrew Russell</div>
+                    <div className="brand-subtitle">
+                      Ex-Google, Microsoft — tech, product, data, operations, emerging markets 
+                    </div>
+                  </div>
+                </div>
+
+                <div className="toggles" aria-label="Design controls">
+                  <div className="toggle-group">
+                    <label htmlFor="palette-select">Palette</label>
+                    <select
+                      id="palette-select"
+                      value={paletteId}
+                      onChange={(e) => setPaletteId(e.target.value)}
+                    >
+                      {PALETTES.map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="toggle-group">
+                    <label htmlFor="heading-font-select">Headings</label>
+                    <select
+                      id="heading-font-select"
+                      value={headingFontId}
+                      onChange={(e) => setHeadingFontId(e.target.value)}
+                    >
+                      {HEADING_FONTS.map((f) => (
+                        <option key={f.id} value={f.id}>
+                          {f.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="toggle-group">
+                    <label htmlFor="body-font-select">Body text</label>
+                    <select
+                      id="body-font-select"
+                      value={bodyFontId}
+                      onChange={(e) => setBodyFontId(e.target.value)}
+                    >
+                      {BODY_FONTS.map((f) => (
+                        <option key={f.id} value={f.id}>
+                          {f.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            <main className="page">
+              <section className="hero" aria-labelledby="hero-title">
+                <div className="hero-main">
+                  <h1 id="hero-title">Product leader in emerging market startups</h1>
+                  <p className="hero-lede">
+                   I build and deliver technology for underserved customers in emerging markets, working across engineering, data, operations, and field teams.
+                   Trained as a cryptographer and software engineer, I design systems for adversarial conditions and parse data with a clear view of what models can (and cannot) tell us in practice.
+                  </p>
+                  <div className="hero-actions">
+                    <a href="#about" className="button-primary">About &amp; CV</a>
+                    <a href="#contact" className="button-secondary">Get in touch</a>
+                  </div>
+                </div>
+
+                <aside className="hero-aside" aria-label="Snapshot">
+                  <div className="card key-stats">
+                    <div className="key-stats-body">
+                      <div className="headshot-wrap">
+                        <img
+                          src="./headshot.png"
+                          alt="Portrait illustration of Andrew Russell"
+                          className="headshot-image"
+                        />
+                      </div>
+                      <div className="snapshot-rows" aria-label="Snapshot overview">
+                        <div className="snapshot-row snapshot-row--top">
+                          {SNAPSHOT_KEYS.slice(0, 4).map((item) => (
+                            <button
+                              key={item.id}
+                              type="button"
+                              className="snapshot-key"
+                              onMouseEnter={() => setHoveredKeyId(item.id)}
+                              onMouseLeave={() => setHoveredKeyId(null)}
+                              onMouseMove={(e) =>
+                                setTooltipPosition({ x: e.clientX, y: e.clientY })
+                              }
+                              onFocus={() => setHoveredKeyId(item.id)}
+                              onBlur={() => setHoveredKeyId(null)}
+                            >
+                              <span className="snapshot-emoji" aria-hidden="true">
+                                {item.icon ? (
+                                  <img
+                                    src={item.icon}
+                                    alt={item.iconAlt}
+                                    className="snapshot-image"
+                                  />
+                                ) : (
+                                  item.emoji
+                                )}
+                              </span>
+                              <span className="sr-only">{item.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                        <div className="snapshot-row snapshot-row--bottom">
+                          {SNAPSHOT_KEYS.slice(4).map((item) => (
+                            <button
+                              key={item.id}
+                              type="button"
+                              className="snapshot-key"
+                              onMouseEnter={() => setHoveredKeyId(item.id)}
+                              onMouseLeave={() => setHoveredKeyId(null)}
+                              onMouseMove={(e) =>
+                                setTooltipPosition({ x: e.clientX, y: e.clientY })
+                              }
+                              onFocus={() => setHoveredKeyId(item.id)}
+                              onBlur={() => setHoveredKeyId(null)}
+                            >
+                              <span className="snapshot-emoji" aria-hidden="true">
+                                {item.icon ? (
+                                  <img
+                                    src={item.icon}
+                                    alt={item.iconAlt}
+                                    className="snapshot-image"
+                                  />
+                                ) : (
+                                  item.emoji
+                                )}
+                              </span>
+                              <span className="sr-only">{item.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+              </section>
+
+              <section id="about" className="section" aria-labelledby="about-heading">
+                <div className="section-header">
+                  <h2 id="about-heading">Work</h2>
+                  <p className="section-kicker"></p>
+                </div>
+
+                <div className="section-grid">
+                  <article className="card">
+                    <h3 className="card-title">How I work</h3>
+                    <p>
+                      I like hard, messy problems where technology, incentives, and human behavior all collide. I tend to
+                      sit at the intersection of product, data, and operations: translating between field realities,
+                      commercial constraints, and what is technically possible.
+                    </p>
+                    <p>
+                      I am comfortable:
+                    </p>
+                    <ul className="simple-list">
+                      <li>Owning a P&amp;L</li>
+                      <li>Building &amp; scaling technical systems</li>
+                      <li>Spending weeks with customers, field staff, and the raw data to understand what is actually going on</li>
+                      <li>Digesting complex new topics from e.g. academic papers</li>
+                    </ul>
+                  </article>
+
+                  <article className="card card--cv-highlights">
+                    <button type="button" className="download-key" aria-label="Download CV">
+                      <img src="./download.png" alt="Download icon" className="download-key-image" />
+                      <span className="download-key-label">CV</span>
+                    </button>
+                    <h3 className="card-title">CV Highlights</h3>
+                    <ul className="role-list">
+                      <li>
+                        <div className="role-heading">
+                          <span className="role-title">Emerging market agri-fintech startup</span>
+                          <span className="role-org">Head of Data &amp; Product Lead</span>
+                        </div>
+                        <div className="role-meta">2021 – 2025 · Amsterdam / Nairobi / Lusaka</div>
+                        <p className="role-body">
+                          Scaled a data org. Helped define two company-wide strategic pivots with market research. Led a $10m revenue business unit in Zambia.
+                        </p>
+                      </li>
+                      <li>
+                        <div className="role-heading">
+                          <span className="role-title">Software engineer &amp; cryptographer</span>
+                          <span className="role-org">Google, Microsoft, Stanford, UT Austin, University of Bristol, Clef</span>
+                        </div>
+                        <div className="role-meta">2013 – 2021</div>
+                        <p className="role-body">
+                          Shipped security and privacy technology impacting billions. Published peer-reviewed cryptography
+                          research in secure computation.
+                        </p>
+                      </li>
+                    </ul>
+                  </article>
+
+                </div>
+              </section>
+
+              <section id="cv" className="section" aria-labelledby="cv-heading">
+                <div className="section-header">
+                  <h2 id="cv-heading">Art Projects &amp; Writing</h2>
+                  <p className="section-kicker"></p>
+                </div>
+
+                <div className="cv-grid">
+                  <article className="cv-column">
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                      <img 
+                        src="./phonebooth.png" 
+                        alt="Phone booth illustration" 
+                        style={{ 
+                          width: '80px', 
+                          height: 'auto', 
+                          flexShrink: 0,
+                          objectFit: 'contain'
+                        }} 
+                      />
+                      <div>
+                        <h3 className="cv-subheading">The Voicemail of Reason</h3>
+                        <p>
+                           A risky confessional in the form of a phone booth. Built for Burning Man 2025, but remains unlaunched due to the weather that year. 
+                          Project website <a href="https://voicemailofreason.com/" className="text-link">here</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article className="cv-column">
+                    <h3 className="cv-subheading">Writing</h3>
+                    <p>
+                       Stay tuned!
+                    </p>
+                  </article>
+                </div>
+              </section>
+
+            </main>
+
+            <footer className="site-footer">
+              <div className="site-footer-inner">
+                <span>
+                  © {new Date().getFullYear()} Andrew Russell
+                </span>
+                <span className="footer-note">
+                  
+                </span>
+              </div>
+            </footer>
+            {hoveredKey && (
+              <div className="snapshot-tooltip" style={tooltipStyle} role="status">
+                {hoveredKey.tooltip}
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      const rootElement = document.getElementById('root');
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
