@@ -118,11 +118,9 @@ body {
   color: var(--text-muted);
 }
 
-.toggles {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+ .toggles {
+  /* Hide design controls in production; controls still exist in markup for future tweaking */
+  display: none;
 }
 
 .toggle-group {
