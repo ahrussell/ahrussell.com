@@ -200,7 +200,9 @@
           id: 'africa',
           label: 'Africa',
           emoji: '🌍',
-          icon: './africa.png',
+          icon: './africa-32.png',
+          iconSrcSet: './africa-32.png 32w, ./africa-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Outline of the African continent',
           tooltip:
             '4 years developing agri-fintech products for smallholder farmers in sub-Saharan Africa.',
@@ -209,7 +211,9 @@
           id: 'google',
           label: 'Google',
           emoji: '🔍',
-          icon: './google.png',
+          icon: './google-32.png',
+          iconSrcSet: './google-32.png 32w, ./google-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Google logo icon',
           tooltip: '3 years as a software engineer developing security & privacy software for companies like Google and Microsoft.',
         },
@@ -217,7 +221,9 @@
           id: 'cryptography',
           label: 'Cryptography',
           emoji: '🔐',
-          icon: './cryptography.png',
+          icon: './cryptography-32.png',
+          iconSrcSet: './cryptography-32.png 32w, ./cryptography-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Cryptography diagram icon',
           tooltip:
             '2 years in UT Austin’s CS PhD program studying cryptography.',
@@ -226,7 +232,9 @@
           id: 'windmill',
           label: 'Netherlands',
           emoji: '🌬️',
-          icon: './windmill.png',
+          icon: './windmill-32.png',
+          iconSrcSet: './windmill-32.png 32w, ./windmill-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Windmill icon',
           tooltip:
             'Currently based out of Amsterdam; willing & able to work in the EU, US, and Kenya.',
@@ -235,7 +243,9 @@
           id: 'art',
           label: 'Art',
           emoji: '🎨',
-          icon: './art.png',
+          icon: './art-32.png',
+          iconSrcSet: './art-32.png 32w, ./art-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Art icon',
           tooltip:
             'Amateur artist with pieces exploring the social and political impacts of technology.',
@@ -244,7 +254,9 @@
           id: 'running',
           label: 'Running',
           emoji: '🏃',
-          icon: './running.png',
+          icon: './running-32.png',
+          iconSrcSet: './running-32.png 32w, ./running-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Running figure icon',
           tooltip:
             'Ultramarathoner and top 30% worldwide Hyrox athlete.',
@@ -253,7 +265,9 @@
           id: 'violin',
           label: 'Violin',
           emoji: '🎻',
-          icon: './violin.png',
+          icon: './violin-32.png',
+          iconSrcSet: './violin-32.png 32w, ./violin-64.png 64w',
+          iconSizes: '28px',
           iconAlt: 'Violin icon',
           tooltip:
             '15+ years studying classical violin.',
@@ -421,9 +435,14 @@
                     <div className="key-stats-body">
                       <div className="headshot-wrap">
                         <img
-                          src="./headshot.png"
+                          src="./headshot-400.jpg"
+                          srcSet="./headshot-200.jpg 200w, ./headshot-400.jpg 400w, ./headshot-600.jpg 600w"
+                          sizes="(max-width: 900px) 60vw, 195px"
                           alt="Portrait illustration of Andrew Russell"
                           className="headshot-image"
+                          loading="eager"
+                          decoding="async"
+                          fetchpriority="high"
                         />
                       </div>
                       <div className="snapshot-rows" aria-label="Snapshot overview">
@@ -445,8 +464,12 @@
                                 {item.icon ? (
                                   <img
                                     src={item.icon}
+                                    srcSet={item.iconSrcSet}
+                                    sizes={item.iconSizes}
                                     alt={item.iconAlt}
                                     className="snapshot-image"
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                 ) : (
                                   item.emoji
@@ -474,8 +497,12 @@
                                 {item.icon ? (
                                   <img
                                     src={item.icon}
+                                    srcSet={item.iconSrcSet}
+                                    sizes={item.iconSizes}
                                     alt={item.iconAlt}
                                     className="snapshot-image"
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                 ) : (
                                   item.emoji
@@ -519,10 +546,24 @@
                   </article>
 
                   <article className="card card--cv-highlights">
-                    <button type="button" className="download-key" aria-label="Download CV">
-                      <img src="./download.png" alt="Download icon" className="download-key-image" />
+                    <a
+                      href="./Andrew_Russell_CV_2026.pdf"
+                      className="download-key"
+                      aria-label="Open CV in a new tab"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <img
+                        src="./download-24.png"
+                        srcSet="./download-24.png 24w, ./download-48.png 48w"
+                        sizes="22px"
+                        alt="Download icon"
+                        className="download-key-image"
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <span className="download-key-label">CV</span>
-                    </button>
+                    </a>
                     <h3 className="card-title">CV Highlights</h3>
                     <ul className="role-list">
                       <li>
@@ -562,7 +603,9 @@
                   <article className="cv-column">
                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                       <img 
-                        src="./phonebooth.png" 
+                        src="./phonebooth-80.png" 
+                        srcSet="./phonebooth-80.png 80w, ./phonebooth-160.png 160w"
+                        sizes="80px"
                         alt="Phone booth illustration" 
                         style={{ 
                           width: '80px', 
@@ -570,6 +613,8 @@
                           flexShrink: 0,
                           objectFit: 'contain'
                         }} 
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div>
                         <h3 className="cv-subheading">The Voicemail of Reason</h3>
