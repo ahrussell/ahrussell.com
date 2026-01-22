@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Andrew Russell – CV</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f9fafb;
+        --bg-elevated: #ffffff;
+        --bg-elevated-alt: #e3e8ee;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --accent: #4b9ea0;
+        --accent-soft: #c9e3e3;
+        --accent-strong: #F31940;
+        --border-subtle: #d1d5db;
+        --font-body: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-heading: "DM Serif Display", "Iowan Old Style", "Georgia", serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html, body {
+        font-family: var(--font-body);
+        font-size: 10pt;
+        line-height: 1.5;
+        color: var(--text-main);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .cv-page {
+        max-width: 8.5in;
+        margin: 0 auto;
+        padding: 0.4in 0.5in;
+        background: var(--bg-elevated);
+      }
+
+      /* Header */
+      .cv-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 0.15in;
+      }
+
+      .cv-header-left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cv-name {
+        font-family: var(--font-heading);
+        font-size: 25pt;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      .cv-tagline {
+        font-size: 8pt;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        margin-top: 0.02in;
+      }
+
+      .cv-header-right {
+        text-align: right;
+        font-size: 8.5pt;
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+
+      .cv-header-right a {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      /* Sections */
+      .cv-section {
+        margin-bottom: 0.18in;
+      }
+
+      .cv-section-title {
+        display: block;
+        font-family: var(--font-heading);
+        font-size: 12pt;
+        font-weight: 400;
+        color: var(--accent);
+        padding-bottom: 0.03in;
+        margin-bottom: 0.08in;
+        border-bottom: 1px solid var(--border-subtle);
+        position: relative;
+      }
+
+      .cv-section-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: var(--title-width, 0.8in);
+        height: 2px;
+        background: var(--accent);
+      }
+
+      /* Summary */
+      .cv-summary p {
+        font-size: 9.5pt;
+        line-height: 1.55;
+        color: var(--text-main);
+      }
+
+      /* Role entries */
+      .cv-role {
+        margin-bottom: 0.14in;
+        page-break-inside: avoid;
+      }
+
+      .cv-role:last-child {
+        margin-bottom: 0;
+      }
+
+      .cv-role-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.02in;
+      }
+
+      .cv-role-company {
+        font-weight: 600;
+        font-size: 10.5pt;
+      }
+
+      .cv-role-location {
+        font-size: 8.5pt;
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .cv-role-subheader {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.05in;
+      }
+
+      .cv-role-title {
+        font-size: 9pt;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+
+      .cv-role-dates {
+        font-size: 8.5pt;
+        color: var(--text-muted);
+      }
+
+      .cv-role-bullets {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .cv-role-bullets li {
+        position: relative;
+        padding-left: 0.15in;
+        font-size: 8.5pt;
+        line-height: 1.35;
+        margin-bottom: 0.02in;
+      }
+
+      .cv-role-bullets li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* Education */
+      .cv-edu {
+        margin-bottom: 0.12in;
+      }
+
+      .cv-edu:last-child {
+        margin-bottom: 0;
+      }
+
+      .cv-edu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .cv-edu-school {
+        font-weight: 600;
+        font-size: 10pt;
+      }
+
+      .cv-edu-location {
+        font-size: 8.5pt;
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .cv-edu-subheader {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .cv-edu-degree {
+        font-size: 9pt;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+
+      .cv-edu-dates {
+        font-size: 8.5pt;
+        color: var(--text-muted);
+      }
+
+      /* Fun stuff */
+      .cv-fun p {
+        font-size: 9pt;
+        line-height: 1.55;
+      }
+
+      /* Print styles */
+      @media print {
+        html, body {
+          background: white;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+
+        .cv-page {
+          padding: 0;
+          max-width: none;
+          box-shadow: none;
+        }
+
+        .cv-section {
+          page-break-inside: avoid;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+
+      @page {
+        size: letter;
+        margin: 0.4in 0.5in;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cv-page">
+      <header class="cv-header">
+        <div class="cv-header-left">
+          <h1 class="cv-name"><span style="color: var(--accent-strong);">A</span>ndrew Russell</h1>
+          <span class="cv-tagline">Ex-Google, Product leader in emerging markets</span>
+        </div>
+        <div class="cv-header-right">
+          <div>Amsterdam, NL · Nairobi, KE</div>
+          <div><a href="tel:+16023181382">+1-602-318-1382</a></div>
+          <div><a href="mailto:ahr12012@mymail.pomona.edu">ahr12012@mymail.pomona.edu</a></div>
+        </div>
+      </header>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title" style="--title-width: 0.65in;">Summary</h2>
+        <div class="cv-summary">
+          <p>
+            I build and deliver technology for underserved customers in emerging markets, working across engineering, data, operations, and field teams.
+            Trained as a cryptographer and software engineer, I design systems for adversarial conditions and parse data with a clear view of what models can (and cannot) tell us in practice.
+          </p>
+          <p style="margin-top: 0.08in;">
+            I have extensive field experience with customers and field staff, shaping practical, customer-informed strategies in emerging markets.
+          </p>
+        </div>
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title" style="--title-width: 1.2in;">Work Experience</h2>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Apollo Agriculture</span>
+            <span class="cv-role-location">Netherlands / Kenya / Zambia</span>
+          </div>
+          <div class="cv-role-subheader">
+            <span class="cv-role-title">Senior Product Manager</span>
+            <span class="cv-role-dates">May 2024 – Dec 2025</span>
+          </div>
+          <ul class="cv-role-bullets">
+            <li>Joined the product team to get closer to the strategic and operational core of the business. Reported to Chief Product Officer; partnered directly with C-suite to tackle company-defining commercial and operational challenges across markets.</li>
+            <li>Authored two company-wide retrospectives following major customer contraction, combining market research, customer/staff feedback, and internal operational analysis; findings drove pivots in business model and multi-year growth strategy.</li>
+            <li>Appointed by C-suite to lead Zambia's $10M revenue business unit in the middle of a challenging repayment season, with remit to stabilize credit portfolio and drive multi-year growth.</li>
+            <li>Accountable for commercial performance, strategy execution, product development, and operational delivery across sales, credit, product, engineering, marketing, and procurement.</li>
+            <li>Piloted a wholesaling initiative to reduce risk from multi-million-dollar fertilizer holdings.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Apollo Agriculture</span>
+            <span class="cv-role-location">Amsterdam, NL / Nairobi, KE</span>
+          </div>
+          <div class="cv-role-subheader">
+            <span class="cv-role-title">Software Engineer → Tech Lead → Head of Data</span>
+            <span class="cv-role-dates">Apr 2021 – Mar 2024</span>
+          </div>
+          <ul class="cv-role-bullets">
+            <li>Built and scaled Apollo's core data infrastructure. Led migration of legacy analytics to modern stack, improving query speeds by 97% and cutting costs by 60%.</li>
+            <li>Led cross-functional strategic analytics and reporting to manage our sales & operations, enabling multi-country operations and supporting record 200% annual growth.</li>
+            <li>Promoted to Tech Lead and then Head of Data to oversee a remote/hybrid team of 8 engineers and analysts across Europe and Africa.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Google, Microsoft, UT Austin, Stanford University, University of Bristol, Clef</span>
+            <span class="cv-role-location"></span>
+          </div>
+          <div class="cv-role-subheader">
+            <span class="cv-role-title">Early Career – Software Engineering & Cryptography Research</span>
+            <span class="cv-role-dates">2013 – 2021</span>
+          </div>
+          <ul class="cv-role-bullets">
+            <li>Shipped production software at Google and Microsoft impacting billions of users.</li>
+            <li>Published peer-reviewed cryptography research.</li>
+            <li>Built secure authentication systems at startup Clef (first employee), later acquired by Twilio.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title" style="--title-width: 0.75in;">Education</h2>
+
+        <div class="cv-edu">
+          <div class="cv-edu-header">
+            <span class="cv-edu-school">The University of Texas at Austin</span>
+            <span class="cv-edu-location">Austin, TX</span>
+          </div>
+          <div class="cv-edu-subheader">
+            <span class="cv-edu-degree">Ph.D. coursework and research in Computer Science</span>
+            <span class="cv-edu-dates">2017 – 2019</span>
+          </div>
+          <div class="cv-edu-subheader">
+            <span class="cv-edu-degree">M.S. in Computer Science</span>
+            <span class="cv-edu-dates">2017 – 2019</span>
+          </div>
+        </div>
+
+        <div class="cv-edu">
+          <div class="cv-edu-header">
+            <span class="cv-edu-school">Pomona College</span>
+            <span class="cv-edu-location">Claremont, CA</span>
+          </div>
+          <div class="cv-edu-subheader">
+            <span class="cv-edu-degree">B.A. in Mathematics and Computer Science</span>
+            <span class="cv-edu-dates">2012 – 2016</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title" style="--title-width: 0.7in;">Fun Stuff</h2>
+        <div class="cv-fun">
+          <p>
+            Ultramarathoner, Division I club athlete, and 2x Dutch national champion in ultimate frisbee. Eagle Scout, thru-hiker & backpacker across 25+ countries. Violinist for 15+ years; former member of the Phoenix Youth Symphony. Founded a world-champion e-sports team in high school. Adventure motorcyclist.
+          </p>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
