@@ -494,6 +494,14 @@ body {
   line-height: 1.6;
 }
 
+.section p.compact-intro {
+  margin-bottom: 0.15rem;
+}
+
+.section p.compact-intro + .simple-list {
+  margin-top: 0.2rem;
+}
+
 .simple-list,
 .role-list,
 .edu-list,
