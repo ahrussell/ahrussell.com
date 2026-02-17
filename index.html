@@ -282,6 +282,17 @@
         const [hoveredKeyId, setHoveredKeyId] = React.useState(null);
         const [tooltipPosition, setTooltipPosition] = React.useState({ x: 0, y: 0 });
 
+        // Close tooltip when clicking outside
+        React.useEffect(() => {
+          const handleClickOutside = (e) => {
+            if (hoveredKeyId && !e.target.closest('.snapshot-key')) {
+              setHoveredKeyId(null);
+            }
+          };
+          document.addEventListener('click', handleClickOutside);
+          return () => document.removeEventListener('click', handleClickOutside);
+        }, [hoveredKeyId]);
+
         const palette = React.useMemo(
           () => PALETTES.find((p) => p.id === paletteId) || PALETTES[0],
           [paletteId]
@@ -461,6 +472,14 @@
                               onMouseMove={(e) =>
                                 setTooltipPosition({ x: e.clientX, y: e.clientY })
                               }
+                              onPointerUp={(e) => {
+                                if (e.pointerType === 'touch') {
+                                  e.stopPropagation();
+                                  setHoveredKeyId(hoveredKeyId === item.id ? null : item.id);
+                                  const rect = e.currentTarget.getBoundingClientRect();
+                                  setTooltipPosition({ x: rect.left + rect.width / 2, y: rect.bottom });
+                                }
+                              }}
                               onFocus={() => setHoveredKeyId(item.id)}
                               onBlur={() => setHoveredKeyId(null)}
                             >
@@ -494,6 +513,14 @@
                               onMouseMove={(e) =>
                                 setTooltipPosition({ x: e.clientX, y: e.clientY })
                               }
+                              onPointerUp={(e) => {
+                                if (e.pointerType === 'touch') {
+                                  e.stopPropagation();
+                                  setHoveredKeyId(hoveredKeyId === item.id ? null : item.id);
+                                  const rect = e.currentTarget.getBoundingClientRect();
+                                  setTooltipPosition({ x: rect.left + rect.width / 2, y: rect.bottom });
+                                }
+                              }}
                               onFocus={() => setHoveredKeyId(item.id)}
                               onBlur={() => setHoveredKeyId(null)}
                             >
@@ -517,6 +544,7 @@
                           ))}
                         </div>
                       </div>
+                      <p className="snapshot-hint">Tap icons for details</p>
                     </div>
                   </div>
                 </aside>
