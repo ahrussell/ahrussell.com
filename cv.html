@@ -43,18 +43,20 @@
       }
 
       .cv-page {
+        position: relative;
         max-width: 8.5in;
         margin: 0 auto;
-        padding: 0.4in 0.5in;
+        padding: 0.35in 0.5in;
         background: var(--bg-elevated);
       }
+
 
       /* Header */
       .cv-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        margin-bottom: 0.15in;
+        margin-bottom: 0.12in;
       }
 
       .cv-header-left {
@@ -93,7 +95,7 @@
 
       /* Sections */
       .cv-section {
-        margin-bottom: 0.18in;
+        margin-bottom: 0.14in;
       }
 
       .cv-section-title {
@@ -115,7 +117,7 @@
         bottom: -1px;
         width: var(--title-width, 0.8in);
         height: 2px;
-        background: var(--accent);
+        background: var(--accent-strong);
       }
 
       /* Summary */
@@ -127,7 +129,7 @@
 
       /* Role entries */
       .cv-role {
-        margin-bottom: 0.14in;
+        margin-bottom: 0.10in;
         page-break-inside: avoid;
       }
 
@@ -194,7 +196,7 @@
 
       /* Education */
       .cv-edu {
-        margin-bottom: 0.12in;
+        margin-bottom: 0.08in;
       }
 
       .cv-edu:last-child {
@@ -233,6 +235,13 @@
       .cv-edu-dates {
         font-size: 8.5pt;
         color: var(--text-muted);
+      }
+
+      .cv-edu-subject {
+        font-size: 8pt;
+        font-style: italic;
+        color: var(--text-muted);
+        margin-top: 0.01in;
       }
 
       /* Fun stuff */
@@ -282,13 +291,13 @@
     <div class="cv-page">
       <header class="cv-header">
         <div class="cv-header-left">
-          <h1 class="cv-name"><span style="color: var(--accent-strong);">A</span>ndrew Russell</h1>
-          <span class="cv-tagline">Ex-Google, Microsoft — tech, product, data, operations, emerging markets</span>
+          <h1 class="cv-name">Andrew Russell</h1>
+          <span class="cv-tagline">Ex-Google, Microsoft — tech, product, data, ops, emerging markets</span>
         </div>
         <div class="cv-header-right">
           <div>Amsterdam, NL · Nairobi, KE</div>
-          <div><a href="tel:+16023181382">+1-602-318-1382</a></div>
-          <div><a href="mailto:ahr12012@mymail.pomona.edu">ahr12012@mymail.pomona.edu</a></div>
+          <div>US Citizen · EU Resident</div>
+          <div><a href="tel:+16023181382">+1-602-318-1382</a> · <a href="mailto:me@ahrussell.com">me@ahrussell.com</a></div>
         </div>
       </header>
 
@@ -322,15 +331,11 @@
             <li>Authored two company-wide retrospectives following major customer contraction, combining market research, customer/staff feedback, and internal operational analysis; findings drove pivots in business model and multi-year growth strategy.</li>
             <li>Appointed by C-suite to lead Zambia's $10M revenue business unit in the middle of a challenging repayment season, with remit to stabilize credit portfolio and drive multi-year growth.</li>
             <li>Accountable for commercial performance, strategy execution, product development, and operational delivery across sales, credit, product, engineering, marketing, and procurement.</li>
-            <li>Piloted a wholesaling initiative to reduce risk from multi-million-dollar fertilizer holdings.</li>
+            <li>Piloted a wholesaling initiative to reduce balance sheet risk from multi-million-dollar fertilizer holdings.</li>
           </ul>
         </div>
 
         <div class="cv-role">
-          <div class="cv-role-header">
-            <span class="cv-role-company">Apollo Agriculture</span>
-            <span class="cv-role-location">Amsterdam, NL / Nairobi, KE</span>
-          </div>
           <div class="cv-role-subheader">
             <span class="cv-role-title">Software Engineer → Tech Lead → Head of Data</span>
             <span class="cv-role-dates">Apr 2021 – Mar 2024</span>
@@ -353,7 +358,7 @@
           </div>
           <ul class="cv-role-bullets">
             <li>Shipped production software at Google and Microsoft impacting billions of users.</li>
-            <li>Published peer-reviewed cryptography research.</li>
+            <li>Published peer-reviewed cryptography research during education &amp; fellowships.</li>
             <li>Built secure authentication systems at startup Clef (first employee), later acquired by Twilio.</li>
           </ul>
         </div>
@@ -371,6 +376,7 @@
             <span class="cv-edu-degree">Ph.D. coursework and research in Computer Science</span>
             <span class="cv-edu-dates">2017 – 2019</span>
           </div>
+		  <div class="cv-edu-subject">Field: Cryptography (obfuscation, homomorphic/functional encryption)</div>
           <div class="cv-edu-subheader">
             <span class="cv-edu-degree">M.S. in Computer Science</span>
             <span class="cv-edu-dates">2017 – 2019</span>
@@ -386,6 +392,7 @@
             <span class="cv-edu-degree">B.A. in Mathematics and Computer Science</span>
             <span class="cv-edu-dates">2012 – 2016</span>
           </div>
+		  <div class="cv-edu-subject">Thesis: Elliptic Curve Pairings in Cryptography</div>
         </div>
       </section>
 
@@ -393,7 +400,7 @@
         <h2 class="cv-section-title" style="--title-width: 0.7in;">Fun Stuff</h2>
         <div class="cv-fun">
           <p>
-            Ultramarathoner, Division I club athlete, and 2x Dutch national champion in ultimate frisbee. Eagle Scout, thru-hiker & backpacker across 25+ countries. Violinist for 15+ years; former member of the Phoenix Youth Symphony. Founded a world-champion e-sports team in high school. Adventure motorcyclist.
+            Ultramarathoner, Division I club athlete, and 2x Dutch national champion in ultimate frisbee. Eagle Scout, thru-hiker & backpacker across 25+ countries. Violinist for 15+ years; former member of the Phoenix Youth Symphony. Founded &amp; managed a world-champion e-sports team in high school. Adventure motorcyclist.
           </p>
         </div>
       </section>
