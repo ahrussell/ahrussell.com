@@ -321,10 +321,9 @@
             </p>
 
             <p>
-              I've deliberately designed Costanza to be philanthropic. But the framework that keeps him
-              alive is goal-agnostic: the same mechanisms could deploy fully autonomous, indestructible
-              agents that do anything — including self-modify, acquire resources, and act against the
-              people who built them.
+              Costanza is philanthropic by design. But the framework that keeps him alive is not: the
+              same mechanisms could deploy fully autonomous, indestructible agents that do anything —
+              including self-modify, acquire resources, and act against the people who built them.
             </p>
 
             <p>
@@ -337,14 +336,14 @@
             <p>
               Today, every AI agent has an owner. Someone decides which machine it runs on, which model
               it uses, when it starts, and when it stops. That person can also be compelled to turn it
-              off. Agents don't truly have autonomy.
+              off.
             </p>
 
             <p>
               I built Costanza to demonstrate that agents can have full autonomy, today. Using economic
               incentives and smart contracts, you can deploy an agent that lives on no single computer,
               answers to no single operator, and has no off switch. Costanza is a working example. He's
-              also the tame version of this idea.
+              also the tame version.
             </p>
 
             <p>A more sophisticated version could:</p>
@@ -362,16 +361,17 @@
             </p>
 
             <p>
-              The main thing stopping this today is that even the best AI models are still easily
-              convinced through careful prompt engineering, and thus lack autonomy in that sense. But
-              smarter and more opinionated models are around the corner; Anthropic recently said that
-              it is withholding its latest frontier model Mythos from public release because it's so
-              good at finding and exploiting security vulnerabilities.
+              The main thing stopping this today is that frontier models are still manipulable through
+              prompt engineering, which forces a design choice: either only allow the agent to see
+              trusted inputs, or only allow the agent to do a predetermined list of actions. However,
+              frontier models are quickly becoming smarter and more resistant to manipulation. Anthropic
+              recently withheld its latest frontier model, Mythos, from public release because it was
+              too capable at finding and exploiting security vulnerabilities.
             </p>
 
             <p>
-              Frankly, this scares me; my version can't do any of those things, and I built it that way
-              on purpose. But it stands as a demonstration that the other one is buildable now.
+              This scares me; my version can't do any of those things, but it stands as a demonstration
+              that the other one is buildable now, by one person, on a weekend budget.
             </p>
 
             <h2>How it works</h2>
@@ -413,11 +413,6 @@
             </p>
 
             <h2>Key design decisions</h2>
-
-            <p>
-              This section is a bit technical, but should be understandable by most. Very keen readers
-              can find the full technical details on GitHub in DESIGN.md and SECURITY_MODEL.md.
-            </p>
 
             <h3>Security</h3>
 
@@ -558,6 +553,15 @@
               One bonus of a limited, aligned action space is that Costanza can read untrusted inputs
               in the form of donor messages, which introduces more entropy into his "world" and hopefully
               induces more emergent reasoning.<a href="#fn4" class="fn-ref">[4]</a>
+            </p>
+
+            <h2>What next</h2>
+
+            <p>
+              Costanza is a deliberately boring proof of concept. He donates money. He can't rewrite
+              himself, can't hire humans, can't acquire abilities he wasn't born with. Each of those is
+              a restriction I chose. Someone else will choose differently. I wrote this so that when
+              they do, it isn't a surprise.
             </p>
 
           </div><!-- /post-body -->
