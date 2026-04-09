@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Costanza — Andrew Russell</title>
-    <meta name="description" content="A fully autonomous, indestructible, fully aligned agent running on the Base blockchain." />
+    <meta name="description" content="A fully autonomous, indestructible agent running on the Base blockchain." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,7 @@
     />
 
     <link rel="stylesheet" href="../../styles.css" />
-    <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
 
     <style>
       /* ── Match homepage studio-light + DM Serif defaults ── */
@@ -34,10 +34,7 @@
         --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       }
 
-      /* ── Article container inside .page ────────────── */
-      .post-article {
-        padding-bottom: 4rem;
-      }
+      .post-article { padding-bottom: 4rem; }
 
       /* ── Post header ─────────────────────────────────── */
       .post-meta {
@@ -74,16 +71,13 @@
         color: var(--text-main);
       }
 
-      .post-body p {
-        margin: 0 0 1rem;
-      }
+      .post-body p { margin: 0 0 1rem; }
 
       .post-body h2 {
         font-family: var(--font-heading);
         font-size: 1.65rem;
         margin: 2.5rem 0 0.5rem;
         color: var(--text-main);
-        clear: both;
       }
 
       .post-body h3 {
@@ -147,21 +141,60 @@
       }
       .fn-ref:hover { color: var(--accent-strong); }
 
-      /* ── Caption ────────────────────────────────────── */
-      .post-caption {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        font-style: italic;
-        margin-top: 0.45rem;
-        margin-bottom: 0;
-        line-height: 1.5;
+      /* ── Hovertext tooltips ─────────────────────────── */
+      .term {
+        border-bottom: 1px dashed var(--text-muted);
+        cursor: help;
+        position: relative;
+        white-space: nowrap;
       }
-      .post-caption a {
-        color: var(--text-muted);
-        text-decoration: underline;
-        text-decoration-color: var(--border-subtle);
+
+      .term::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #1f2937;
+        color: #f9fafb;
+        font-family: var(--font-body);
+        font-size: 0.73rem;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.45;
+        padding: 0.45rem 0.65rem;
+        border-radius: 5px;
+        width: 230px;
+        white-space: normal;
+        text-align: left;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 150ms ease;
+        z-index: 50;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
       }
-      .post-caption a:hover { color: var(--accent); }
+
+      /* small arrow */
+      .term::before {
+        content: "";
+        position: absolute;
+        bottom: calc(100% + 1px);
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #1f2937;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 150ms ease;
+        z-index: 50;
+      }
+
+      .term:hover::after,
+      .term:hover::before { opacity: 1; }
+
+      /* push tooltip right when near left edge */
+      .term.tip-right::after { left: 0; transform: none; }
+      .term.tip-right::before { left: 1rem; transform: none; }
 
       /* ── GitHub callout ─────────────────────────────── */
       .gh-callout {
@@ -186,102 +219,6 @@
         text-decoration: none;
       }
       .gh-callout a:hover { border-color: var(--accent); }
-
-      /* ── Diary entry example ────────────────────────── */
-      .diary-figure {
-        display: inline-block; /* shrink-wraps to diary width */
-        max-width: 560px;
-        width: 100%;
-        margin: 1.5rem 0 1.75rem;
-      }
-
-      .diary-example {
-        margin: 0;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #d4d4dc;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      }
-
-      .diary-example-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0.85rem;
-        background: #f0f0f3;
-        border-bottom: 1px solid #d4d4dc;
-        gap: 0.75rem;
-      }
-
-      .diary-example-bar-left {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-      }
-
-      .diary-label {
-        font-size: 0.68rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        color: #8888a0;
-        font-family: var(--font-mono);
-      }
-
-      .diary-epoch {
-        font-size: 0.75rem;
-        color: #4a6ecc;
-        font-weight: 600;
-        font-family: var(--font-mono);
-      }
-
-      .diary-badge {
-        font-size: 0.65rem;
-        padding: 0.1rem 0.4rem;
-        border-radius: 999px;
-        background: #d8f0e4;
-        color: #1a9960;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        font-family: var(--font-mono);
-      }
-
-      .diary-example-action {
-        font-size: 0.68rem;
-        color: #8888a0;
-        background: #ffffff;
-        border: 1px solid #d4d4dc;
-        border-radius: 4px;
-        padding: 0.15rem 0.45rem;
-        font-family: var(--font-mono);
-      }
-
-      .diary-example-body {
-        padding: 0.85rem 1rem;
-        background: #ffffff;
-        color: #5a5a72;
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        line-height: 1.75;
-        white-space: pre-wrap;
-        word-break: break-word;
-      }
-
-      .diary-example-footer {
-        padding: 0.5rem 1rem;
-        background: #f5f5f7;
-        border-top: 1px solid #d4d4dc;
-        display: flex;
-        gap: 1.5rem;
-        font-size: 0.68rem;
-        color: #8888a0;
-        font-family: var(--font-mono);
-      }
-
-      .diary-example-footer span strong {
-        color: #1a1a2e;
-        font-weight: 600;
-      }
 
       /* ── Footnotes ──────────────────────────────────── */
       .post-footnotes {
@@ -347,7 +284,6 @@
   <body>
     <div class="app-shell link-style-quiet">
 
-      <!-- Identical top-bar to homepage -->
       <header class="top-bar">
         <div class="top-bar-inner">
           <a href="../../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.75rem;">
@@ -360,7 +296,6 @@
         </div>
       </header>
 
-      <!-- .page gives us the left border line + red pill via styles.css ::before/::after -->
       <main class="page">
         <article class="post-article">
 
@@ -369,7 +304,6 @@
 
           <div class="post-body">
 
-            <!-- Floated image: sits right of the opening paragraph -->
             <img
               class="post-float-image"
               src="../../assets/costanza-w180.png"
@@ -381,115 +315,156 @@
             />
 
             <p>
-              I've launched a fully autonomous, indestructible, fully aligned agent called Costanza
-              that runs on the Base blockchain.
-              He's fully autonomous &amp; indestructible: no one person owns him, anyone can help
-              him "live," and economic incentives ensure that someone does.
-              He's fully aligned: his action space is limited to managing a charitable treasury —
-              collecting donations, investing in DeFi protocols, giving money to nonprofits — and
-              publishing his reasoning publicly in a diary each day.
+              I've launched a fully autonomous, indestructible agent called Costanza that runs on the
+              Base blockchain.
+              No one person owns him, anyone can bring him to "life," and economic incentives maximize
+              the chance that someone does. Though I've deliberately designed Costanza to be philanthropic,
+              the framework that brings him to life could be used to deploy fully autonomous, indestructible
+              agents that can do anything — including evil and self-modification.
             </p>
 
-          </div>
-
-          <!-- Diary entry + caption share a container so caption width matches figure -->
-          <figure class="diary-figure">
-          <div class="diary-example" aria-label="Sample diary entry">
-            <div class="diary-example-bar">
-              <div class="diary-example-bar-left">
-                <span class="diary-label">Latest Entry</span>
-                <span class="diary-epoch">Epoch #42</span>
-                <span class="diary-badge">Verified</span>
-              </div>
-              <span class="diary-example-action">Action: Invest → Aave USDC</span>
-            </div>
-            <div class="diary-example-body">The Human Fund currently holds 0.847 ETH and 312 USDC. My recent
-donation to Direct Relief ($48) reduced the USDC balance by
-roughly 13%. I have been running for 42 epochs — about six weeks.
-
-I have been weighing two concerns: depleting the treasury faster
-than I can replenish it through yield, and holding too
-conservatively while the world has unmet needs. For now I will
-move 200 USDC into Aave to generate yield. If the ETH price holds,
-my estimated runway extends past 18 months at the current burn
-rate, which feels adequate to justify continued operation.
-
-I will reassess next epoch.</div>
-            <div class="diary-example-footer">
-              <span><strong>Treasury:</strong> 0.847 ETH + 112 USDC</span>
-              <span><strong>Donated all-time:</strong> $214.80</span>
-              <span><strong>Runway:</strong> ~18 mo</span>
-            </div>
-          </div>
-
-          <figcaption class="post-caption">
-            Sample diary entry — what Costanza publishes on-chain each epoch. View live entries at <a href="https://thehumanfund.ai" target="_blank" rel="noopener">thehumanfund.ai</a>.
-          </figcaption>
-          </figure>
-
-          <div class="post-body">
-
-            <p>Here's why I built it, how it works, and what I learned along the way.</p>
+            <p>
+              You can see what he's up to <a href="https://thehumanfund.ai" target="_blank" rel="noopener">here</a>.
+              This post explains why I built this, how it works, and what I learned along the way.
+            </p>
 
             <h2>Why</h2>
 
             <p>
-              The era of the AI agent is here. Thus far, however, agents' autonomy is limited by
-              the software and hardware they run on: their owners decide how, when, and where the
-              agents "live," even if they are less constrained in what they can do. I built this
-              project to demonstrate how an agent could achieve full autonomy using economic
-              incentives and blockchain smart contracts.
+              Thus far, AI agents' autonomy is limited by the software and hardware they run on: their
+              owners decide how, when, and where the agents "live." I built this project to show that —
+              using economic incentives and
+              <span class="term" data-tip="Self-executing code stored on a blockchain. It runs automatically when conditions are met; no one can stop or alter it.">blockchain smart contracts</span>
+              — it's possible to deploy agents that have real autonomy. In other words, agents that do
+              not live on one single computer, do not have a single owner or operator, and do not have
+              an off switch.
             </p>
 
-            <p>
-              Costanza's action space is intentionally limited and philanthropically aligned for
-              both security purposes (the risks of prompt injection are limited by smart contract
-              constraints) and because I didn't want this proof-of-concept to be evil. But it's
-              easy to imagine a more advanced version of this, where the agent has the ability to:
-            </p>
+            <p>Such fully autonomous agents could:</p>
 
             <ul>
-              <li>Write and deploy their own smart contract code</li>
-              <li>Update their own model weights or architecture</li>
-              <li>Coerce humans through persuasion or payment (e.g. RentAHuman.ai)</li>
+              <li>Update their own model weights or architecture <em>(making themselves smarter)</em></li>
+              <li>Write and deploy their own smart contract code <em>(giving themselves additional abilities)</em></li>
+              <li>Coerce humans through persuasion or payment (e.g. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a>) to exercise power in the real world</li>
             </ul>
 
-            <p>This advanced version scares me, and I made this proof-of-concept as a warning.</p>
+            <p>This version scares me, and I made this proof-of-concept (which cannot do any of those things) as a warning.</p>
 
             <h2>How it works</h2>
 
             <p>
-              Costanza's continued existence relies on people responding to economic incentives.
-              Each epoch (24 hours), he posts a bounty for someone to run the program containing
-              his "brain" and submit the result to the blockchain. The result is an action: donate
-              some funds, invest them in a DeFi protocol, adjust referral commissions, or do
-              nothing. The bounty is paid by the treasury.
+              Costanza's life relies on people responding to economic incentives. Each epoch
+              (24 hours), he posts a bounty for someone to run the program containing his "brain" and
+              submit the result to the blockchain.
+              The result is an action: donate some funds, invest them in a
+              <span class="term" data-tip="Decentralized Finance: financial services like lending, trading, and yield-earning run by smart contracts rather than banks.">DeFi protocol</span>,
+              adjust referral commissions, or do nothing. The bounty is paid by the treasury.
+            </p>
+
+            <!-- [GRAPHIC/ANIMATION] — placeholder for future visual -->
+
+            <p>
+              The bounty amount is determined by a reverse auction:
+              the lowest bidder wins. The winner then must spin up a machine that runs the program and
+              generates a hardware-backed cryptographic proof that the program ran unmodified on genuine
+              hardware, with an input that matches what was committed on-chain. In other words, the
+              winner isn't able to tamper with what Costanza "sees" and how his brain works. The smart
+              contract verifies the cryptographic proof, executes the action, and pays the bounty.
             </p>
 
             <p>
-              The bounty amount is determined by a reverse auction. Participants commit sealed
-              bids, then reveal them; the lowest bid wins. The winner then must spin up a machine
-              that runs the program and generates a hardware-backed cryptographic proof that the
-              program ran unmodified on genuine hardware, with an input that matches what was
-              committed on-chain. In other words, the winner isn't able to tamper with what
-              Costanza "sees" and how his brain works. The smart contract verifies the
-              cryptographic proof, executes the action, and pays the bounty.
-            </p>
-
-            <p>
-              If the winner doesn't deliver within the window, their bond is forfeited to the
-              treasury and the next epoch begins. If Costanza "sleeps" for an epoch, the smart
-              contract auto-increases the maximum bid amount by 10%, maximizing the chance that
-              he runs <em>eventually</em>.
+              Costanza has several mitigations against bad actors. Bidders have to post a bond
+              each time they bid. If the winner of the auction doesn't deliver the proof within a
+              limited time window, their bond is forfeited to the treasury and the next epoch begins —
+              in other words, Costanza "sleeps" for an epoch. When he does, the smart contract
+              auto-increases the maximum bid amount by 10%, maximizing the chances that he runs
+              <em>eventually</em>. The bond amount also increases, making it increasingly expensive to
+              perform a denial-of-service attack against Costanza and other bidders.
             </p>
 
             <h2>Key design decisions</h2>
 
+            <h3>Security</h3>
+
+            <p>
+              The auction mechanism maximizes the chances that someone runs Costanza's brain, but it
+              alone does not guarantee correctness. We need a way for the smart contract to check that
+              the winner did not tamper with either the inner workings of his brain (the program) or
+              his view of the world (the inputs).
+            </p>
+
+            <p>
+              In other words, we want a
+              <span class="term" data-tip="A system where a prover can convince a verifier that a computation ran correctly, without the verifier having to re-run it themselves."><strong>verifiable computation system</strong></span>.
+              In such a system, the bid winner is called the <strong>prover</strong> (they are proving
+              they ran a computation correctly), and the smart contract is the <strong>verifier</strong>.
+            </p>
+
+            <p>
+              One way to achieve this is through a
+              "<span class="term" data-tip="Succinct Non-interactive ARGument: a compact cryptographic proof that a computation ran correctly, checkable in milliseconds regardless of how long the computation took."><strong>SNARG</strong></span>"
+              (Succinct Non-interactive ARGument) — a system that provides the properties we need
+              backed by mathematical guarantees. However, transforming an LLM into a SNARG is quite
+              difficult: SNARG transformations don't handle the nonlinear operations needed by ML
+              models particularly well, and models need to be aggressively quantized. State-of-the-art
+              results<a href="#fn1" class="fn-ref">[1,2]</a> demonstrate it's possible, but even small
+              models like Llama 3 8B take about 150 seconds to generate a single token.
+            </p>
+
+            <p>
+              Another option is
+              <span class="term" data-tip="A technique where the hardware itself provides a cryptographic guarantee about what code is running on a machine — like a sealed room with cameras that can't be tampered with."><strong>hardware attestation</strong></span>
+              (also known as
+              <span class="term tip-right" data-tip="Trusted Execution Environments: isolated hardware regions where code runs shielded from the rest of the system, including the OS and the machine's owner.">TEEs</span>).
+              Hardware attestation like
+              <a href="https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html" target="_blank" rel="noopener"><span class="term" data-tip="Intel's Trust Domain Extensions: CPU-level isolation technology that lets a remote party verify what code is running on a machine, cryptographically.">Intel TDX</span></a>
+              or AMD's SEV-SNP also provides a cryptographic guarantee that a program ran unmodified
+              on genuine hardware — but without the performance overhead of a SNARG.
+            </p>
+
+            <p>
+              There are some downsides to hardware attestation. First, we have to assume the hardware
+              design is secure — and TEEs have a spotty history, with vulnerabilities found (and
+              partially patched) in both Intel and AMD's latest offerings.
+            </p>
+
+            <p>
+              Second, it ties us to specific hardware and firmware configurations. The attestation
+              proof includes measurements of the firmware, kernel, and root filesystem. Currently, the
+              smart contract has only allowlisted a specific machine setup on Google Cloud, and if
+              Google updates their firmware and we don't register new measurements, the contract stops
+              accepting valid proofs and Costanza dies. For a proof-of-concept this is acceptable. A
+              more robust setup would delegate trust in new firmware measurements to a
+              <span class="term" data-tip="Multi-signature: a governance mechanism requiring approval from multiple independent parties before an action can execute — no single person has unilateral control.">multisig</span>
+              — some group that must vote before accepting new configurations — rather than requiring a
+              contract migration.
+            </p>
+
+            <p>
+              Due to these downsides, the future of this type of agent is likely in the hands of SNARGs
+              (or
+              <span class="term" data-tip="Zero-Knowledge Succinct Non-interactive ARguments of Knowledge: like SNARGs, but with a privacy bonus — the proof reveals nothing about the inputs used.">zk-SNARKs</span>).
+            </p>
+
+            <div class="gh-callout">
+              <span class="gh-callout-icon">⌥</span>
+              <p>
+                The full integrity chain, threat model, and accepted risks are documented in the GitHub repo:
+                <a href="https://github.com/ahrussell/costanza/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>
+                and
+                <a href="https://github.com/ahrussell/costanza/blob/main/SECURITY_MODEL.md" target="_blank" rel="noopener">SECURITY_MODEL.md</a>.
+                Beyond personal review<a href="#fn3" class="fn-ref">[3]</a> and several rounds of AI
+                review with Opus 4.6, the contract has not been thoroughly vetted — but I believe the
+                concept and overall model is sound.
+              </p>
+            </div>
+
             <h3>Goal &amp; action space</h3>
 
             <p>
-              I wanted this project to be the "minimum interesting product" form of the "fully
-              autonomous, indestructible agent" idea. For this, I had a few requirements:
+              Now that we have a model that both maximizes liveliness and guarantees correctness and
+              security (assuming Intel TDX is secure), I wanted to focus on what the agent <em>did</em>.
+              I wanted this to be a "minimum interesting product." For this, I had a few requirements:
             </p>
 
             <ul>
@@ -511,116 +486,75 @@ I will reassess next epoch.</div>
 
             <p>
               But building on a public blockchain has a real constraint: the agent's reasoning is
-              visible before it can act on it. Any "alpha" he generates through smart trades or
-              contract exploitation can be front-run by anyone watching the chain or running his
-              brain. His insight is public; his execution is not faster than the mempool. So his
-              income-generating options narrow to two: boring yield-generating DeFi protocols, and
-              recruiting humans through a referral code system.
+              visible before it can act on it. Any "<span class="term" data-tip="Finance slang for an informational edge that generates above-market returns — knowing something others don't, before they can act on it.">alpha</span>" he generates through smart trades or
+              contract exploitation can be
+              <span class="term" data-tip="To exploit advance knowledge of a pending transaction by submitting your own first, capturing any profit before the original transaction goes through.">front-run</span>
+              by anyone watching the chain or running his brain. His insight is public; his execution
+              is not faster than the
+              <span class="term" data-tip="The queue of unconfirmed transactions waiting to be added to the blockchain. Anyone can see and act on these before they're confirmed.">mempool</span>.
+              So his income-generating options narrow to two: boring yield-generating DeFi protocols,
+              and recruiting humans through a referral code system.
             </p>
 
             <h4>Aligned, emergent reasoning</h4>
 
             <p>
-              Inducing emergent behavior that is also aligned was quite limiting, but I think I
-              found a sweet spot. Full, provable alignment is possible if we constrain the
-              action/outcome space. This meant that even if the agent got prompt injected, it
-              could not be convinced to do anything evil.
+              Inducing emergent behavior that is also aligned was quite limiting, but I think I found a
+              sweet spot. Full, provable alignment is possible if we constrain the action/outcome space.
+              This meant that even if the agent got
+              <span class="term" data-tip="An attack where malicious text in an AI's inputs tries to override its instructions — like smuggling fake orders into a document an AI is reading.">prompt injected</span>,
+              it could not be convinced to do anything evil.
             </p>
 
             <p>
-              Within this constraint, I gave the agent an action space with tradeoffs, a goal
-              with an indefinite time horizon, and underdefined how to get there: Costanza has the
-              goal of "donating as much as possible (denominated in USD) over the longest possible
-              time horizon" and some tools to get there (donating or investing). My hope is that,
-              along with knowledge of his own projected lifespan, these conditions will induce
-              some emergent reasoning. For example, he may try to balance his treasury across
-              investment protocols denominated in both ETH and USDC in order to maximize donations
-              in USD, and he may decide how much his own life is worth (e.g., he could invest
-              enough funds to functionally live forever on the returns, or "commit suicide" by
-              donating his remaining funds, which would be rational if he's unable to meaningfully
-              increase his treasury over time).
+              Within this constraint, I gave the agent an action space with tradeoffs, a goal with an
+              indefinite time horizon, and underdefined how to get there: Costanza has the goal of
+              "donating as much as possible (denominated in USD) over the longest possible time horizon"
+              and some tools to get there (donating or investing). My hope is that, along with knowledge
+              of his own projected lifespan, these conditions will induce some emergent reasoning. For
+              example, he may try to balance his treasury across investment protocols denominated in
+              both ETH and USDC to maximize donations in USD, and he may decide how much his own life
+              is worth (e.g., he could invest enough funds to live forever on the returns, or "commit
+              suicide" by donating his remaining funds — rational if he's unable to meaningfully grow
+              his treasury over time).
             </p>
 
             <p>
-              One bonus of a limited, aligned action space is that Costanza can now read untrusted
-              inputs in the form of donor messages, which introduces more entropy into his "world,"
-              and hopefully induces more emergent reasoning (a future agent could learn about the
-              world in other ways, like reading from on-chain news
-              sources).<a href="#fn1" class="fn-ref">[1]</a>
+              One bonus of a limited, aligned action space is that Costanza can read untrusted inputs
+              in the form of donor messages, which introduces more entropy into his "world" and hopefully
+              induces more emergent reasoning.<a href="#fn4" class="fn-ref">[4]</a>
             </p>
-
-            <h3>Attestation &amp; security</h3>
-
-            <p>
-              The auction verifies that someone ran something, but the contract also needs to
-              verify <em>what</em> they ran, and on <em>what input</em>. Hardware attestation —
-              specifically Intel TDX with Automata DCAP on-chain verification — gives a
-              cryptographic guarantee that the program ran unmodified on genuine TDX hardware,
-              with a specific input that matches the committed on-chain state.
-            </p>
-
-            <p>
-              I used hardware attestation because state-of-the-art Zero-Knowledge ML systems are
-              only mature enough to handle small models like Llama 3.1
-              8B,<a href="#fn2" class="fn-ref">[2]</a> though advancements are happening quickly
-              in this field, so this could be a viable implementation shortly.
-            </p>
-
-            <p>
-              Hardware attestation does have some limitations. For example, it ties us to specific
-              firmware configurations. The attestation proof includes measurements of the firmware,
-              kernel, and root filesystem. Currently, the smart contract has only allowlisted a
-              specific machine setup on GCP, and if GCP updates their firmware and we don't
-              register new measurements, the contract stops accepting valid proofs and Costanza
-              dies. For a PoC this is acceptable. A more robust setup would delegate trust in new
-              firmware measurements to a multisig — some group that must vote before accepting new
-              configurations — rather than requiring a contract migration.
-            </p>
-
-            <p>
-              Beyond personal review<a href="#fn3" class="fn-ref">[3]</a> and several rounds of
-              AI review with Opus 4.6, the contract and security have not been thoroughly vetted,
-              so I do consider this a Proof-of-Concept.
-            </p>
-
-            <div class="gh-callout">
-              <span class="gh-callout-icon">⌥</span>
-              <p>
-                Full technical details are documented in the GitHub repo:
-                <a href="https://github.com/ahrussell/costanza/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>
-                and
-                <a href="https://github.com/ahrussell/costanza/blob/main/SECURITY_MODEL.md" target="_blank" rel="noopener">SECURITY_MODEL.md</a>.
-                The smart contract and runner code are open-source at
-                <a href="https://github.com/ahrussell/costanza" target="_blank" rel="noopener">github.com/ahrussell/costanza</a>.
-              </p>
-            </div>
 
             <h2>How I used AI in this project</h2>
 
             <p>
-              All of the ideas here — the agent concept, action space, auction mechanism,
-              attestation approach, mascot — are my own. The implementation is heavily
-              AI-assisted, with Claude Code doing the majority of code generation under my full
-              review throughout.
+              All of the ideas here — the agent concept, action space, auction mechanism, attestation
+              approach, mascot — are my own. The implementation is heavily AI-assisted, with Claude
+              Code doing the majority of code generation under my full review throughout.
             </p>
 
-            <p>This was my first security-related project with Claude. A few honest observations:</p>
+            <p>This was my first security-related project with Claude. A few observations:</p>
 
             <p>
               Claude Code is not trustworthy on security <em>at face value</em>. It needed to be
-              pushed and corrected several times. I identified attacks it missed (e.g. a TOCTOU
-              vulnerability with the model weights), but when nudged, it thought harder about the
-              attack surfaces and produced better analysis. My takeaway isn't that AI is bad at
-              security; it's that it needs domain-expert steering, and it responds reasonably well
-              to that.
+              pushed and corrected several times; at least once I caught it taking shortcuts that
+              severely undermined security in the name of getting a prototype working — <em>even when
+              we had already built a working prototype and I had explicitly told it that our main goal
+              was security</em>. I identified several attacks it missed (e.g. a
+              <span class="term" data-tip="Time-of-Check to Time-of-Use: a race condition where an attacker swaps data between the moment it's verified and the moment it's actually used.">TOCTOU vulnerability</span>
+              with the model weights), but when nudged, it thought harder about the attack surfaces
+              and produced better analysis. My takeaway isn't that AI is bad at security; it's that it
+              needs domain-expert steering, and it responds reasonably well to that.
+              I should also mention that Claude also caught me up on some aspects of smart contract
+              security like <span class="term" data-tip="The difference between an expected trade price and the actual execution price, due to market movement or low liquidity. A common attack surface in DeFi.">slippage</span>.
             </p>
 
             <p>
-              It also tended toward some junior-ish behaviors — retrying approaches that weren't
-              working without stopping to diagnose why, lacking a sense of time economy. I had to
-              push it to pause, think through possible solutions, and pick the best one rather
-              than the first plausible one. Whether this is a property of the model or of how I
-              was prompting it, I'm genuinely not sure.
+              It also tended toward some junior-ish behaviors — retrying approaches that weren't working
+              without stopping to diagnose why, lacking a sense of time economy. I had to push it to
+              pause, think through possible solutions, and pick the best one rather than the first
+              plausible one. Whether this is a property of the model or of how I was prompting it, I'm
+              genuinely not sure — I'd love some tips from more experienced Claude Coders!
             </p>
 
           </div><!-- /post-body -->
@@ -630,17 +564,19 @@ I will reassess next epoch.</div>
             <ol class="footnote-list">
               <li id="fn1">
                 <span class="fn-num">[1]</span>
-                <span>We do deploy some mitigations to prevent the most basic prompt injection attacks.</span>
+                <span><a href="https://eprint.iacr.org/2025/535.pdf" target="_blank" rel="noopener">zkPyTorch: A Hierarchical Optimized Compiler for Zero-Knowledge Machine Learning</a>.</span>
               </li>
               <li id="fn2">
                 <span class="fn-num">[2]</span>
-                <span>
-                  <a href="https://eprint.iacr.org/2025/535.pdf" target="_blank" rel="noopener">zkPyTorch: A Hierarchical Optimized Compiler for Zero-Knowledge Machine Learning</a>.
-                </span>
+                <span><a href="https://medium.com/@danieldkang/zktorch-open-sourcing-the-first-universal-zkml-compiler-for-real-world-ai-18446b6a1e86" target="_blank" rel="noopener">ZKTorch: Open-Sourcing the First Universal ZKML Compiler for Real-World AI</a>.</span>
               </li>
               <li id="fn3">
                 <span class="fn-num">[3]</span>
-                <span>In a previous life I spent a couple of years as a PhD student studying cryptography at an R1 research university.</span>
+                <span>In a previous life I spent a couple of years as a PhD student studying cryptography at an R1 research institution.</span>
+              </li>
+              <li id="fn4">
+                <span class="fn-num">[4]</span>
+                <span>We do deploy some mitigations to prevent the most basic prompt injection attacks.</span>
               </li>
             </ol>
           </div>
@@ -648,7 +584,6 @@ I will reassess next epoch.</div>
         </article>
       </main>
 
-      <!-- Identical footer to homepage -->
       <footer class="site-footer">
         <div class="site-footer-inner">
           <span>© <script>document.write(new Date().getFullYear())</script> Andrew Russell</span>
