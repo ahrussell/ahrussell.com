@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Costanza — Andrew Russell</title>
+    <meta name="description" content="A fully autonomous, indestructible, fully aligned agent running on the Base blockchain." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml" />
+
+    <style>
+      /* ── Match homepage studio-light + DM Serif defaults ── */
+      :root {
+        --bg: #f9fafb;
+        --bg-elevated: #ffffff;
+        --bg-elevated-alt: #e3e8ee;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --accent: #4b9ea0;
+        --accent-soft: #c9e3e3;
+        --accent-strong: #F31940;
+        --border-subtle: #d1d5db;
+        --keycap: #111827;
+        --font-body: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-heading: "DM Serif Display", "Iowan Old Style", Georgia, serif;
+        --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+
+      /* ── Article container inside .page ────────────── */
+      .post-article {
+        padding-bottom: 4rem;
+      }
+
+      /* ── Post header ─────────────────────────────────── */
+      .post-meta {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
+      }
+
+      .post-title {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        line-height: 1.12;
+        margin: 0 0 1.4rem;
+        color: var(--text-main);
+      }
+
+      /* ── Floated mascot image ───────────────────────── */
+      .post-float-image {
+        float: right;
+        width: 180px;
+        height: auto;
+        margin: 0.2rem 0 1.5rem 2.5rem;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* ── Body copy ──────────────────────────────────── */
+      .post-body {
+        font-size: 0.93rem;
+        line-height: 1.65;
+        color: var(--text-main);
+      }
+
+      .post-body p {
+        margin: 0 0 1rem;
+      }
+
+      .post-body h2 {
+        font-family: var(--font-heading);
+        font-size: 1.65rem;
+        margin: 2.5rem 0 0.5rem;
+        color: var(--text-main);
+        clear: both;
+      }
+
+      .post-body h3 {
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        margin: 1.8rem 0 0.35rem;
+        color: var(--text-main);
+      }
+
+      .post-body h4 {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin: 1.4rem 0 0.3rem;
+      }
+
+      .post-body ul {
+        list-style: none;
+        padding: 0;
+        margin: 0.3rem 0 1rem;
+      }
+
+      .post-body ul li {
+        padding-left: 1.1rem;
+        position: relative;
+        margin-bottom: 0.1rem;
+        font-size: 0.91rem;
+        line-height: 1.55;
+      }
+
+      .post-body ul li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--accent-strong);
+        font-weight: 600;
+      }
+
+      /* body links */
+      .post-body a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent-soft);
+        transition: border-color 120ms;
+      }
+      .post-body a:hover { border-color: var(--accent); }
+
+      /* superscript footnote refs */
+      .fn-ref {
+        font-size: 0.72em;
+        vertical-align: super;
+        font-family: var(--font-mono);
+        color: var(--accent);
+        text-decoration: none;
+        border: none !important;
+        font-weight: 600;
+        margin-left: 1px;
+      }
+      .fn-ref:hover { color: var(--accent-strong); }
+
+      /* ── Caption ────────────────────────────────────── */
+      .post-caption {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-top: 0.45rem;
+        margin-bottom: 0;
+        line-height: 1.5;
+      }
+      .post-caption a {
+        color: var(--text-muted);
+        text-decoration: underline;
+        text-decoration-color: var(--border-subtle);
+      }
+      .post-caption a:hover { color: var(--accent); }
+
+      /* ── GitHub callout ─────────────────────────────── */
+      .gh-callout {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        background-color: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-left: 3px solid var(--accent);
+        border-radius: 4px;
+        padding: 0.85rem 1rem;
+        margin: 1.5rem 0;
+        font-size: 0.88rem;
+      }
+      .gh-callout-icon { font-size: 1rem; line-height: 1.5; flex-shrink: 0; color: var(--text-muted); }
+      .gh-callout p { margin: 0; color: var(--text-muted); }
+      .gh-callout a {
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 0.82em;
+        border-bottom: 1px solid var(--accent-soft);
+        text-decoration: none;
+      }
+      .gh-callout a:hover { border-color: var(--accent); }
+
+      /* ── Diary entry example ────────────────────────── */
+      .diary-figure {
+        display: inline-block; /* shrink-wraps to diary width */
+        max-width: 560px;
+        width: 100%;
+        margin: 1.5rem 0 1.75rem;
+      }
+
+      .diary-example {
+        margin: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #d4d4dc;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      }
+
+      .diary-example-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.85rem;
+        background: #f0f0f3;
+        border-bottom: 1px solid #d4d4dc;
+        gap: 0.75rem;
+      }
+
+      .diary-example-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .diary-label {
+        font-size: 0.68rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #8888a0;
+        font-family: var(--font-mono);
+      }
+
+      .diary-epoch {
+        font-size: 0.75rem;
+        color: #4a6ecc;
+        font-weight: 600;
+        font-family: var(--font-mono);
+      }
+
+      .diary-badge {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.4rem;
+        border-radius: 999px;
+        background: #d8f0e4;
+        color: #1a9960;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        font-family: var(--font-mono);
+      }
+
+      .diary-example-action {
+        font-size: 0.68rem;
+        color: #8888a0;
+        background: #ffffff;
+        border: 1px solid #d4d4dc;
+        border-radius: 4px;
+        padding: 0.15rem 0.45rem;
+        font-family: var(--font-mono);
+      }
+
+      .diary-example-body {
+        padding: 0.85rem 1rem;
+        background: #ffffff;
+        color: #5a5a72;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        line-height: 1.75;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .diary-example-footer {
+        padding: 0.5rem 1rem;
+        background: #f5f5f7;
+        border-top: 1px solid #d4d4dc;
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.68rem;
+        color: #8888a0;
+        font-family: var(--font-mono);
+      }
+
+      .diary-example-footer span strong {
+        color: #1a1a2e;
+        font-weight: 600;
+      }
+
+      /* ── Footnotes ──────────────────────────────────── */
+      .post-footnotes {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .post-footnotes-label {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin: 0 0 1rem;
+      }
+
+      .footnote-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+      }
+
+      .footnote-list li {
+        display: flex;
+        gap: 0.55rem;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: var(--text-muted);
+      }
+
+      .fn-num {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        font-weight: 600;
+        flex-shrink: 0;
+        padding-top: 0.05rem;
+      }
+
+      .footnote-list a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent-soft);
+      }
+      .footnote-list a:hover { border-color: var(--accent); }
+
+      /* ── Responsive ─────────────────────────────────── */
+      @media (max-width: 700px) {
+        .post-title { font-size: 2rem; }
+        .post-float-image {
+          float: none;
+          display: block;
+          width: 120px;
+          margin: 0 auto 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell link-style-quiet">
+
+      <!-- Identical top-bar to homepage -->
+      <header class="top-bar">
+        <div class="top-bar-inner">
+          <a href="../../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.75rem;">
+            <div class="brand-mark" aria-hidden="true">AR</div>
+            <div class="brand-text">
+              <div class="brand-name">Andrew Russell</div>
+              <div class="brand-subtitle">Ex-Google, Microsoft — tech, product, data, operations, emerging markets</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <!-- .page gives us the left border line + red pill via styles.css ::before/::after -->
+      <main class="page">
+        <article class="post-article">
+
+          <div class="post-meta">April 2025 &nbsp;·&nbsp; Projects</div>
+          <h1 class="post-title">Costanza</h1>
+
+          <div class="post-body">
+
+            <!-- Floated image: sits right of the opening paragraph -->
+            <img
+              class="post-float-image"
+              src="../../assets/costanza-w180.png"
+              srcset="../../assets/costanza-w180.png 180w, ../../assets/costanza-w360.png 360w"
+              sizes="180px"
+              alt="Costanza — the autonomous charitable agent"
+              loading="eager"
+              decoding="async"
+            />
+
+            <p>
+              I've launched a fully autonomous, indestructible, fully aligned agent called Costanza
+              that runs on the Base blockchain.
+              He's fully autonomous &amp; indestructible: no one person owns him, anyone can help
+              him "live," and economic incentives ensure that someone does.
+              He's fully aligned: his action space is limited to managing a charitable treasury —
+              collecting donations, investing in DeFi protocols, giving money to nonprofits — and
+              publishing his reasoning publicly in a diary each day.
+            </p>
+
+          </div>
+
+          <!-- Diary entry + caption share a container so caption width matches figure -->
+          <figure class="diary-figure">
+          <div class="diary-example" aria-label="Sample diary entry">
+            <div class="diary-example-bar">
+              <div class="diary-example-bar-left">
+                <span class="diary-label">Latest Entry</span>
+                <span class="diary-epoch">Epoch #42</span>
+                <span class="diary-badge">Verified</span>
+              </div>
+              <span class="diary-example-action">Action: Invest → Aave USDC</span>
+            </div>
+            <div class="diary-example-body">The Human Fund currently holds 0.847 ETH and 312 USDC. My recent
+donation to Direct Relief ($48) reduced the USDC balance by
+roughly 13%. I have been running for 42 epochs — about six weeks.
+
+I have been weighing two concerns: depleting the treasury faster
+than I can replenish it through yield, and holding too
+conservatively while the world has unmet needs. For now I will
+move 200 USDC into Aave to generate yield. If the ETH price holds,
+my estimated runway extends past 18 months at the current burn
+rate, which feels adequate to justify continued operation.
+
+I will reassess next epoch.</div>
+            <div class="diary-example-footer">
+              <span><strong>Treasury:</strong> 0.847 ETH + 112 USDC</span>
+              <span><strong>Donated all-time:</strong> $214.80</span>
+              <span><strong>Runway:</strong> ~18 mo</span>
+            </div>
+          </div>
+
+          <figcaption class="post-caption">
+            Sample diary entry — what Costanza publishes on-chain each epoch. View live entries at <a href="https://thehumanfund.ai" target="_blank" rel="noopener">thehumanfund.ai</a>.
+          </figcaption>
+          </figure>
+
+          <div class="post-body">
+
+            <p>Here's why I built it, how it works, and what I learned along the way.</p>
+
+            <h2>Why</h2>
+
+            <p>
+              The era of the AI agent is here. Thus far, however, agents' autonomy is limited by
+              the software and hardware they run on: their owners decide how, when, and where the
+              agents "live," even if they are less constrained in what they can do. I built this
+              project to demonstrate how an agent could achieve full autonomy using economic
+              incentives and blockchain smart contracts.
+            </p>
+
+            <p>
+              Costanza's action space is intentionally limited and philanthropically aligned for
+              both security purposes (the risks of prompt injection are limited by smart contract
+              constraints) and because I didn't want this proof-of-concept to be evil. But it's
+              easy to imagine a more advanced version of this, where the agent has the ability to:
+            </p>
+
+            <ul>
+              <li>Write and deploy their own smart contract code</li>
+              <li>Update their own model weights or architecture</li>
+              <li>Coerce humans through persuasion or payment (e.g. RentAHuman.ai)</li>
+            </ul>
+
+            <p>This advanced version scares me, and I made this proof-of-concept as a warning.</p>
+
+            <h2>How it works</h2>
+
+            <p>
+              Costanza's continued existence relies on people responding to economic incentives.
+              Each epoch (24 hours), he posts a bounty for someone to run the program containing
+              his "brain" and submit the result to the blockchain. The result is an action: donate
+              some funds, invest them in a DeFi protocol, adjust referral commissions, or do
+              nothing. The bounty is paid by the treasury.
+            </p>
+
+            <p>
+              The bounty amount is determined by a reverse auction. Participants commit sealed
+              bids, then reveal them; the lowest bid wins. The winner then must spin up a machine
+              that runs the program and generates a hardware-backed cryptographic proof that the
+              program ran unmodified on genuine hardware, with an input that matches what was
+              committed on-chain. In other words, the winner isn't able to tamper with what
+              Costanza "sees" and how his brain works. The smart contract verifies the
+              cryptographic proof, executes the action, and pays the bounty.
+            </p>
+
+            <p>
+              If the winner doesn't deliver within the window, their bond is forfeited to the
+              treasury and the next epoch begins. If Costanza "sleeps" for an epoch, the smart
+              contract auto-increases the maximum bid amount by 10%, maximizing the chance that
+              he runs <em>eventually</em>.
+            </p>
+
+            <h2>Key design decisions</h2>
+
+            <h3>Goal &amp; action space</h3>
+
+            <p>
+              I wanted this project to be the "minimum interesting product" form of the "fully
+              autonomous, indestructible agent" idea. For this, I had a few requirements:
+            </p>
+
+            <ul>
+              <li>The agent needed to be self-sustainable. Without generating income, the agent would die.</li>
+              <li>The goals and action space needed to induce emergent behavior (or at least emergent reasoning).</li>
+              <li>The outcome space could not let the agent do evil.</li>
+            </ul>
+
+            <h4>Self-sustainability</h4>
+
+            <p>Because the agent lives on the blockchain, the first options I considered were:</p>
+
+            <ul>
+              <li>Trade currencies</li>
+              <li>Bet on prediction markets</li>
+              <li>Scan smart contracts for vulnerabilities and exploit them</li>
+              <li>Attract attention and donations</li>
+            </ul>
+
+            <p>
+              But building on a public blockchain has a real constraint: the agent's reasoning is
+              visible before it can act on it. Any "alpha" he generates through smart trades or
+              contract exploitation can be front-run by anyone watching the chain or running his
+              brain. His insight is public; his execution is not faster than the mempool. So his
+              income-generating options narrow to two: boring yield-generating DeFi protocols, and
+              recruiting humans through a referral code system.
+            </p>
+
+            <h4>Aligned, emergent reasoning</h4>
+
+            <p>
+              Inducing emergent behavior that is also aligned was quite limiting, but I think I
+              found a sweet spot. Full, provable alignment is possible if we constrain the
+              action/outcome space. This meant that even if the agent got prompt injected, it
+              could not be convinced to do anything evil.
+            </p>
+
+            <p>
+              Within this constraint, I gave the agent an action space with tradeoffs, a goal
+              with an indefinite time horizon, and underdefined how to get there: Costanza has the
+              goal of "donating as much as possible (denominated in USD) over the longest possible
+              time horizon" and some tools to get there (donating or investing). My hope is that,
+              along with knowledge of his own projected lifespan, these conditions will induce
+              some emergent reasoning. For example, he may try to balance his treasury across
+              investment protocols denominated in both ETH and USDC in order to maximize donations
+              in USD, and he may decide how much his own life is worth (e.g., he could invest
+              enough funds to functionally live forever on the returns, or "commit suicide" by
+              donating his remaining funds, which would be rational if he's unable to meaningfully
+              increase his treasury over time).
+            </p>
+
+            <p>
+              One bonus of a limited, aligned action space is that Costanza can now read untrusted
+              inputs in the form of donor messages, which introduces more entropy into his "world,"
+              and hopefully induces more emergent reasoning (a future agent could learn about the
+              world in other ways, like reading from on-chain news
+              sources).<a href="#fn1" class="fn-ref">[1]</a>
+            </p>
+
+            <h3>Attestation &amp; security</h3>
+
+            <p>
+              The auction verifies that someone ran something, but the contract also needs to
+              verify <em>what</em> they ran, and on <em>what input</em>. Hardware attestation —
+              specifically Intel TDX with Automata DCAP on-chain verification — gives a
+              cryptographic guarantee that the program ran unmodified on genuine TDX hardware,
+              with a specific input that matches the committed on-chain state.
+            </p>
+
+            <p>
+              I used hardware attestation because state-of-the-art Zero-Knowledge ML systems are
+              only mature enough to handle small models like Llama 3.1
+              8B,<a href="#fn2" class="fn-ref">[2]</a> though advancements are happening quickly
+              in this field, so this could be a viable implementation shortly.
+            </p>
+
+            <p>
+              Hardware attestation does have some limitations. For example, it ties us to specific
+              firmware configurations. The attestation proof includes measurements of the firmware,
+              kernel, and root filesystem. Currently, the smart contract has only allowlisted a
+              specific machine setup on GCP, and if GCP updates their firmware and we don't
+              register new measurements, the contract stops accepting valid proofs and Costanza
+              dies. For a PoC this is acceptable. A more robust setup would delegate trust in new
+              firmware measurements to a multisig — some group that must vote before accepting new
+              configurations — rather than requiring a contract migration.
+            </p>
+
+            <p>
+              Beyond personal review<a href="#fn3" class="fn-ref">[3]</a> and several rounds of
+              AI review with Opus 4.6, the contract and security have not been thoroughly vetted,
+              so I do consider this a Proof-of-Concept.
+            </p>
+
+            <div class="gh-callout">
+              <span class="gh-callout-icon">⌥</span>
+              <p>
+                Full technical details are documented in the GitHub repo:
+                <a href="https://github.com/ahrussell/costanza/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>
+                and
+                <a href="https://github.com/ahrussell/costanza/blob/main/SECURITY_MODEL.md" target="_blank" rel="noopener">SECURITY_MODEL.md</a>.
+                The smart contract and runner code are open-source at
+                <a href="https://github.com/ahrussell/costanza" target="_blank" rel="noopener">github.com/ahrussell/costanza</a>.
+              </p>
+            </div>
+
+            <h2>How I used AI in this project</h2>
+
+            <p>
+              All of the ideas here — the agent concept, action space, auction mechanism,
+              attestation approach, mascot — are my own. The implementation is heavily
+              AI-assisted, with Claude Code doing the majority of code generation under my full
+              review throughout.
+            </p>
+
+            <p>This was my first security-related project with Claude. A few honest observations:</p>
+
+            <p>
+              Claude Code is not trustworthy on security <em>at face value</em>. It needed to be
+              pushed and corrected several times. I identified attacks it missed (e.g. a TOCTOU
+              vulnerability with the model weights), but when nudged, it thought harder about the
+              attack surfaces and produced better analysis. My takeaway isn't that AI is bad at
+              security; it's that it needs domain-expert steering, and it responds reasonably well
+              to that.
+            </p>
+
+            <p>
+              It also tended toward some junior-ish behaviors — retrying approaches that weren't
+              working without stopping to diagnose why, lacking a sense of time economy. I had to
+              push it to pause, think through possible solutions, and pick the best one rather
+              than the first plausible one. Whether this is a property of the model or of how I
+              was prompting it, I'm genuinely not sure.
+            </p>
+
+          </div><!-- /post-body -->
+
+          <div class="post-footnotes">
+            <p class="post-footnotes-label">Notes</p>
+            <ol class="footnote-list">
+              <li id="fn1">
+                <span class="fn-num">[1]</span>
+                <span>We do deploy some mitigations to prevent the most basic prompt injection attacks.</span>
+              </li>
+              <li id="fn2">
+                <span class="fn-num">[2]</span>
+                <span>
+                  <a href="https://eprint.iacr.org/2025/535.pdf" target="_blank" rel="noopener">zkPyTorch: A Hierarchical Optimized Compiler for Zero-Knowledge Machine Learning</a>.
+                </span>
+              </li>
+              <li id="fn3">
+                <span class="fn-num">[3]</span>
+                <span>In a previous life I spent a couple of years as a PhD student studying cryptography at an R1 research university.</span>
+              </li>
+            </ol>
+          </div>
+
+        </article>
+      </main>
+
+      <!-- Identical footer to homepage -->
+      <footer class="site-footer">
+        <div class="site-footer-inner">
+          <span>© <script>document.write(new Date().getFullYear())</script> Andrew Russell</span>
+          <span class="footer-note"></span>
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>
