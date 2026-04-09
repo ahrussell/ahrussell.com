@@ -316,11 +316,15 @@
 
             <p>
               I've launched a fully autonomous, indestructible agent called Costanza that runs on the
-              Base blockchain.
-              No one person owns him, anyone can bring him to "life," and economic incentives maximize
-              the chance that someone does. Though I've deliberately designed Costanza to be philanthropic,
-              the framework that brings him to life could be used to deploy fully autonomous, indestructible
-              agents that can do anything — including evil and self-modification.
+              Base blockchain. No one person owns him, anyone can bring him to "life," and economic
+              incentives maximize the chance that someone does.
+            </p>
+
+            <p>
+              I've deliberately designed Costanza to be philanthropic. But the framework that keeps him
+              alive is goal-agnostic: the same mechanisms could deploy fully autonomous, indestructible
+              agents that do anything — including self-modify, acquire resources, and act against the
+              people who built them.
             </p>
 
             <p>
@@ -331,24 +335,44 @@
             <h2>Why</h2>
 
             <p>
-              Thus far, AI agents' autonomy is limited by the software and hardware they run on: their
-              owners decide how, when, and where the agents "live." I built this project to show that —
-              using economic incentives and
-              <span class="term" data-tip="Self-executing code stored on a blockchain. It runs automatically when conditions are met; no one can stop or alter it.">blockchain smart contracts</span>
-              — it's possible to deploy agents that have real autonomy. In other words, agents that do
-              not live on one single computer, do not have a single owner or operator, and do not have
-              an off switch.
+              Today, every AI agent has an owner. Someone decides which machine it runs on, which model
+              it uses, when it starts, and when it stops. That person can also be compelled to turn it
+              off. Agents don't truly have autonomy.
             </p>
 
-            <p>Such fully autonomous agents could:</p>
+            <p>
+              I built Costanza to demonstrate that agents can have full autonomy, today. Using economic
+              incentives and smart contracts, you can deploy an agent that lives on no single computer,
+              answers to no single operator, and has no off switch. Costanza is a working example. He's
+              also the tame version of this idea.
+            </p>
+
+            <p>A more sophisticated version could:</p>
 
             <ul>
-              <li>Update their own model weights or architecture <em>(making themselves smarter)</em></li>
-              <li>Write and deploy their own smart contract code <em>(giving themselves additional abilities)</em></li>
-              <li>Coerce humans through persuasion or payment (e.g. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a>) to exercise power in the real world</li>
+              <li><strong>Update its own model weights or architecture</strong>, making itself progressively smarter.</li>
+              <li><strong>Write and deploy its own smart contract code</strong>, giving itself additional sources of information, new ways to make money, or more means to interact with the real world.</li>
+              <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to let AI agents hire humans to do their dirty work.</li>
             </ul>
 
-            <p>This version scares me, and I made this proof-of-concept (which cannot do any of those things) as a warning.</p>
+            <p>
+              None of these capabilities require a significant breakthrough. The pieces all exist now: the
+              smart contract infrastructure exists, the models are intelligent, and the cryptographic tools
+              are there and scaling fast.
+            </p>
+
+            <p>
+              The main thing stopping this today is that even the best AI models are still easily
+              convinced through careful prompt engineering, and thus lack autonomy in that sense. But
+              smarter and more opinionated models are around the corner; Anthropic recently said that
+              it is withholding its latest frontier model Mythos from public release because it's so
+              good at finding and exploiting security vulnerabilities.
+            </p>
+
+            <p>
+              Frankly, this scares me; my version can't do any of those things, and I built it that way
+              on purpose. But it stands as a demonstration that the other one is buildable now.
+            </p>
 
             <h2>How it works</h2>
 
@@ -382,7 +406,18 @@
               perform a denial-of-service attack against Costanza and other bidders.
             </p>
 
+            <p>
+              None of these mechanisms are specific to philanthropy. The bounty, the bond, the
+              attestation, the auto-escalating max bid all describe how to keep any agent alive against
+              adversaries (including its creator). Swap the action space and you have something else.
+            </p>
+
             <h2>Key design decisions</h2>
+
+            <p>
+              This section is a bit technical, but should be understandable by most. Very keen readers
+              can find the full technical details on GitHub in DESIGN.md and SECURITY_MODEL.md.
+            </p>
 
             <h3>Security</h3>
 
@@ -523,38 +558,6 @@
               One bonus of a limited, aligned action space is that Costanza can read untrusted inputs
               in the form of donor messages, which introduces more entropy into his "world" and hopefully
               induces more emergent reasoning.<a href="#fn4" class="fn-ref">[4]</a>
-            </p>
-
-            <h2>How I used AI in this project</h2>
-
-            <p>
-              All of the ideas here — the agent concept, action space, auction mechanism, attestation
-              approach, mascot — are my own. The implementation is heavily AI-assisted, with Claude
-              Code doing the majority of code generation under my full review throughout.
-            </p>
-
-            <p>This was my first security-related project with Claude. A few observations:</p>
-
-            <p>
-              Claude Code is not trustworthy on security <em>at face value</em>. It needed to be
-              pushed and corrected several times; at least once I caught it taking shortcuts that
-              severely undermined security in the name of getting a prototype working — <em>even when
-              we had already built a working prototype and I had explicitly told it that our main goal
-              was security</em>. I identified several attacks it missed (e.g. a
-              <span class="term" data-tip="Time-of-Check to Time-of-Use: a race condition where an attacker swaps data between the moment it's verified and the moment it's actually used.">TOCTOU vulnerability</span>
-              with the model weights), but when nudged, it thought harder about the attack surfaces
-              and produced better analysis. My takeaway isn't that AI is bad at security; it's that it
-              needs domain-expert steering, and it responds reasonably well to that.
-              I should also mention that Claude also caught me up on some aspects of smart contract
-              security like <span class="term" data-tip="The difference between an expected trade price and the actual execution price, due to market movement or low liquidity. A common attack surface in DeFi.">slippage</span>.
-            </p>
-
-            <p>
-              It also tended toward some junior-ish behaviors — retrying approaches that weren't working
-              without stopping to diagnose why, lacking a sense of time economy. I had to push it to
-              pause, think through possible solutions, and pick the best one rather than the first
-              plausible one. Whether this is a property of the model or of how I was prompting it, I'm
-              genuinely not sure — I'd love some tips from more experienced Claude Coders!
             </p>
 
           </div><!-- /post-body -->
