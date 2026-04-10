@@ -722,7 +722,8 @@
         fontFamily:F.b,fontSize:'13px',color:C.tx,display:'inline-flex',alignItems:'center',transition:'border-color .2s'};
 
       return h('div',{style:{background:C.el,border:'1px solid '+C.bd,borderRadius:'6px',overflow:'hidden'}},
-        h('svg',{viewBox:'0 0 700 280',width:'100%',style:{display:'block'}},
+        h('div',{style:{overflowX:'auto',WebkitOverflowScrolling:'touch'}},
+        h('svg',{viewBox:'0 0 700 280',style:{display:'block',width:'100%',minWidth:'500px'}},
           // Defs: arrow markers
           h('defs',null,
             h('marker',{id:'arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:5,markerHeight:5,orient:'auto'},
@@ -880,7 +881,7 @@
             h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'0.0005 ETH'),
             h('text',{textAnchor:'middle',y:19,fontFamily:F.b,fontSize:7.5,fill:C.mu},step===9?'paid':'bounty')),
             step===9?{duration:.9,ease:E,delay:.3}:t),
-        ),
+        )),
 
         // Description text
         h('div',{style:{padding:'8px 14px 6px',minHeight:'40px'}},
