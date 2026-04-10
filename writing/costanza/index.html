@@ -664,7 +664,7 @@
         window.addEventListener('resize',check);
         return()=>window.removeEventListener('resize',check);
       },[]);
-      const vW=isPortrait?320:700,vH=isPortrait?460:280;
+      const vW=isPortrait?320:700,vH=isPortrait?340:280;
 
       // Landscape actor positions: [x, y, opacity] per step (0-9)
       const PL={
@@ -685,24 +685,27 @@
         actionO:  [[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[600,155,1],[300,155,1],[620,155,1]],
         proof:    [[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[600,200,1],[300,195,1],[620,195,1]],
       };
-      // Portrait actor positions: 320×460 viewBox — bidders triangle top, contract bottom, TEE center-right
+      // Portrait actor positions: 320×340 viewBox
+      // Auction: bidders triangle (B top, A left, C right), contract bottom-center
+      // Execution: winner left, state above winner, TEE center-right, outputs emerge right of TEE
+      // Settlement: outputs stay right-center, contract moves right, winner+bounty+bond cluster left
       const PP={
-        contract: [[160,370,1],[160,370,1],[160,370,1],[160,370,1],[160,370,1],[160,370,1],[160,370,0],[160,370,0],[235,355,1],[235,355,1]],
-        winner:   [[65,160,1],[65,160,1],[65,160,1],[65,160,1],[65,160,1],[65,160,1],[80,245,1],[80,245,1],[80,245,1],[80,245,1]],
-        bidB:     [[160,60,1],[160,60,1],[160,60,1],[160,60,1],[160,60,1],[160,60,1],[160,60,0],[160,60,0],[160,60,0],[160,60,0]],
-        bidC:     [[255,160,1],[255,160,1],[255,160,1],[255,160,1],[255,160,1],[255,160,1],[255,160,0],[255,160,0],[255,160,0],[255,160,0]],
-        bidPillA: [[65,205,0],[65,205,1],[65,205,1],[65,205,1],[65,205,1],[65,205,0],[65,205,0],[65,205,0],[65,205,0],[65,205,0]],
-        bidPillB: [[160,100,0],[160,100,1],[160,100,1],[160,100,1],[160,100,1],[160,100,0],[160,100,0],[160,100,0],[160,100,0],[160,100,0]],
-        bidPillC: [[255,205,0],[255,205,1],[255,205,1],[255,205,1],[255,205,1],[255,205,0],[255,205,0],[255,205,0],[255,205,0],[255,205,0]],
-        bondA:    [[65,240,0],[65,240,1],[138,408,1],[138,408,1],[138,408,1],[285,35,1],[285,35,1],[285,35,1],[285,35,1],[80,280,1]],
-        bondB:    [[160,132,0],[160,132,1],[155,408,1],[155,408,1],[155,408,1],[160,100,1],[160,100,0],[160,100,0],[160,100,0],[160,100,0]],
-        bondC:    [[255,240,0],[255,240,1],[182,408,1],[182,408,1],[182,408,1],[255,205,1],[255,205,0],[255,205,0],[255,205,0],[255,205,0]],
-        bounty:   [[65,205,0],[65,205,0],[65,205,0],[65,205,0],[65,205,0],[262,30,1],[262,30,1],[262,30,1],[262,30,1],[80,275,1]],
-        enclave:  [[200,215,0],[200,215,0],[200,215,0],[200,215,0],[200,215,0],[200,215,0],[200,215,1],[200,215,1],[200,215,0],[200,215,0]],
-        state:    [[65,155,0],[65,155,0],[65,155,0],[65,155,0],[65,155,0],[65,155,0],[65,155,1],[200,240,0],[200,240,0],[200,240,0]],
-        diary:    [[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,1],[180,285,1],[248,285,1]],
-        actionO:  [[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,1],[175,312,1],[240,312,1]],
-        proof:    [[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,1],[170,340,1],[232,340,1]],
+        contract: [[160,292,1],[160,292,1],[160,292,1],[160,292,1],[160,292,1],[160,292,1],[160,292,0],[160,292,0],[248,258,1],[248,258,1]],
+        winner:   [[62,145,1],[62,145,1],[62,145,1],[62,145,1],[62,145,1],[62,145,1],[75,170,1],[75,170,1],[75,170,1],[75,170,1]],
+        bidB:     [[160,55,1],[160,55,1],[160,55,1],[160,55,1],[160,55,1],[160,55,1],[160,55,0],[160,55,0],[160,55,0],[160,55,0]],
+        bidC:     [[258,145,1],[258,145,1],[258,145,1],[258,145,1],[258,145,1],[258,145,1],[258,145,0],[258,145,0],[258,145,0],[258,145,0]],
+        bidPillA: [[62,192,0],[62,192,1],[62,192,1],[62,192,1],[62,192,1],[62,192,0],[62,192,0],[62,192,0],[62,192,0],[62,192,0]],
+        bidPillB: [[160,94,0],[160,94,1],[160,94,1],[160,94,1],[160,94,1],[160,94,0],[160,94,0],[160,94,0],[160,94,0],[160,94,0]],
+        bidPillC: [[258,192,0],[258,192,1],[258,192,1],[258,192,1],[258,192,1],[258,192,0],[258,192,0],[258,192,0],[258,192,0],[258,192,0]],
+        bondA:    [[62,226,0],[62,226,1],[130,278,1],[130,278,1],[130,278,1],[265,22,1],[265,22,1],[265,22,1],[265,22,1],[75,250,1]],
+        bondB:    [[160,124,0],[160,124,1],[150,278,1],[150,278,1],[150,278,1],[160,94,1],[160,94,0],[160,94,0],[160,94,0],[160,94,0]],
+        bondC:    [[258,226,0],[258,226,1],[178,278,1],[178,278,1],[178,278,1],[258,192,1],[258,192,0],[258,192,0],[258,192,0],[258,192,0]],
+        bounty:   [[62,192,0],[62,192,0],[62,192,0],[62,192,0],[62,192,0],[265,22,1],[265,22,1],[265,22,1],[265,22,1],[75,226,1]],
+        enclave:  [[195,178,0],[195,178,0],[195,178,0],[195,178,0],[195,178,0],[195,178,0],[195,178,1],[195,178,1],[195,178,0],[195,178,0]],
+        state:    [[70,105,0],[70,105,0],[70,105,0],[70,105,0],[70,105,0],[70,105,0],[70,105,1],[195,205,0],[195,205,0],[195,205,0]],
+        diary:    [[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,1],[228,148,1],[228,148,1]],
+        actionO:  [[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,1],[218,180,1],[218,180,1]],
+        proof:    [[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,1],[210,212,1],[210,212,1]],
       };
       const P=isPortrait?PP:PL;
       const p=id=>P[id][step];
@@ -726,24 +729,24 @@
         [372,195,375,185,[8],false,true],
       ];
       const linesP=[
-        [65,177,140,350,[2],true,false],
-        [160,77,160,348,[2],true,false],
-        [255,177,180,350,[2],true,false],
-        [148,385,160,132,[5],false,false],
-        [172,385,255,218,[5],false,false],
-        [65,170,65,228,[6],false,false],
-        [85,240,130,228,[6],false,false],
-        [262,200,252,190,[7],false,false],
-        [262,215,244,218,[7],false,false],
-        [262,230,236,250,[7],false,false],
-        [184,291,193,350,[8],false,true],
-        [179,317,193,356,[8],false,true],
-        [174,344,193,362,[8],false,true],
+        [62,162,128,270,[2],true,false],    // A→contract
+        [160,72,160,270,[2],true,false],    // B→contract
+        [258,162,180,270,[2],true,false],   // C→contract
+        [148,285,160,105,[5],false,false],  // bond B returns to B
+        [168,285,258,200,[5],false,false],  // bond C returns to C
+        [70,119,75,154,[6],false,false],    // state→winner
+        [91,170,127,183,[6],false,false],   // winner→enclave
+        [263,160,263,152,[7],false,false],  // enclave→diary
+        [263,178,195,182,[7],false,false],  // enclave→action
+        [263,196,182,215,[7],false,false],  // enclave→proof
+        [268,148,183,248,[8],false,true],   // diary→contract
+        [273,180,183,256,[8],false,true],   // action→contract
+        [274,212,183,262,[8],false,true],   // proof→contract
       ];
       const lines=isPortrait?linesP:linesL;
 
       // Mini ring config
-      const rc=isPortrait?26:40,ry=isPortrait?26:34,rr=isPortrait?14:17;
+      const rc=isPortrait?20:40,ry=isPortrait?20:34,rr=isPortrait?13:17;
       const actStart=SA.indexOf(act);
       const actEnd=SA.lastIndexOf(act);
       const stepsInAct=actEnd-actStart+1;
@@ -861,19 +864,19 @@
             h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:7,fill:'#92400e'},'bond 0.01\u00a0ETH'))),
 
           // Max bid label (steps 0-2)
-          step<=2?h(motion.text,{x:isPortrait?160:350,y:isPortrait?450:268,textAnchor:'middle',fontFamily:F.m,fontSize:8,fill:C.mu,
+          step<=2?h(motion.text,{x:isPortrait?160:350,y:isPortrait?332:268,textAnchor:'middle',fontFamily:F.m,fontSize:8,fill:C.mu,
             initial:{opacity:0},animate:{opacity:1},transition:{delay:.3,duration:.3}},'Max bid: 0.002 ETH'):null,
 
           // TEE Enclave (includes LLM inside)
           A('enclave',h('g',null,
-            h('rect',{x:-75,y:-50,width:150,height:100,rx:8,fill:'#f0fafa',stroke:C.ac,strokeWidth:1.3,strokeDasharray:'6 3'}),
-            h('text',{textAnchor:'middle',y:-36,fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'TEE Enclave'),
+            h('rect',{x:isPortrait?-68:-75,y:isPortrait?-42:-50,width:isPortrait?136:150,height:isPortrait?84:100,rx:8,fill:'#f0fafa',stroke:C.ac,strokeWidth:1.3,strokeDasharray:'6 3'}),
+            h('text',{textAnchor:'middle',y:isPortrait?-30:-36,fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'TEE Enclave'),
             h('g',{transform:'translate(0,-10)'},
               h('rect',{x:-7,y:-1,width:14,height:10,rx:2,fill:'none',stroke:C.ac,strokeWidth:1}),
               h('path',{d:'M-3.5,-1 V-5 A3.5,3.5,0,0,1,3.5,-5 V-1',fill:'none',stroke:C.ac,strokeWidth:1})),
-            h('text',{textAnchor:'middle',y:13,fontFamily:F.m,fontSize:7,fill:C.mu},'70B LLM + dm-verity rootfs'),
-            h('text',{textAnchor:'middle',y:24,fontFamily:F.m,fontSize:7,fill:C.mu},'Intel TDX hardware'),
-            step===7?h(motion.text,{textAnchor:'middle',y:36,fontFamily:F.m,fontSize:7,fontWeight:500,fill:C.ac,
+            h('text',{textAnchor:'middle',y:13,fontFamily:F.m,fontSize:isPortrait?6.5:7,fill:C.mu},'70B LLM + dm-verity rootfs'),
+            h('text',{textAnchor:'middle',y:24,fontFamily:F.m,fontSize:isPortrait?6.5:7,fill:C.mu},'Intel TDX hardware'),
+            step===7?h(motion.text,{textAnchor:'middle',y:36,fontFamily:F.m,fontSize:isPortrait?6.5:7,fontWeight:500,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.3,duration:.4}},'running inference\u2026'):null)),
 
           // On-chain State
@@ -885,23 +888,23 @@
           A('diary',h('g',null,
             h(motion.rect,{x:-40,y:-12,width:80,height:24,rx:12,
               animate:{fill:step>=9?C.as:step>=8?'#f0fafa':C.el,stroke:step>=8?C.ac:C.bd},transition:{duration:.3},strokeWidth:1}),
-            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:8.5,fill:step>=8?C.ad:C.tx},'Diary entry'),
+            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:isPortrait?7.5:8.5,fill:step>=8?C.ad:C.tx},'Diary entry'),
             step===9?h(motion.text,{textAnchor:'middle',y:18,fontFamily:F.m,fontSize:7,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.4,duration:.3}},'\u2713 published'):null)),
 
           // Output: Action
           A('actionO',h('g',null,
-            h(motion.rect,{x:-65,y:-12,width:130,height:24,rx:12,
+            h(motion.rect,{x:isPortrait?-52:-65,y:-12,width:isPortrait?104:130,height:24,rx:12,
               animate:{fill:step>=9?C.as:'#f0fafa',stroke:C.ac},strokeWidth:1}),
-            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:8.5,fontWeight:500,fill:C.ad},'Action: '+action),
+            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:isPortrait?7:8.5,fontWeight:500,fill:C.ad},'Action: '+action),
             step===9?h(motion.text,{textAnchor:'middle',y:18,fontFamily:F.m,fontSize:7,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.7,duration:.3}},'\u2713 executed'):null)),
 
           // Output: Proof
           A('proof',h('g',null,
-            h(motion.rect,{x:-72,y:-12,width:144,height:24,rx:12,
+            h(motion.rect,{x:isPortrait?-58:-72,y:-12,width:isPortrait?116:144,height:24,rx:12,
               animate:{fill:step>=9?C.as:step>=8?'#f0fafa':C.el,stroke:step>=8?C.ac:C.bd},transition:{duration:.3},strokeWidth:1}),
-            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:8,fill:step>=8?C.ad:C.tx},'Proof of valid computation'),
+            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:isPortrait?6.5:8,fill:step>=8?C.ad:C.tx},'Proof of valid computation'),
             step===9?h(motion.text,{textAnchor:'middle',y:18,fontFamily:F.m,fontSize:7,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.2,duration:.3}},'\u2713 verified'):null)),
 
