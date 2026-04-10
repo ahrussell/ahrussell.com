@@ -658,61 +658,92 @@
       const act=SA[step];
       const t={duration:.8,ease:E};
 
-      // Actor positions: [x, y, opacity] per step (0-9)
-      const P={
+      const [isPortrait,setIsPortrait]=useState(()=>typeof window!=='undefined'&&(window.innerWidth<=window.innerHeight||window.innerWidth<600));
+      useEffect(()=>{
+        const check=()=>setIsPortrait(window.innerWidth<=window.innerHeight||window.innerWidth<600);
+        window.addEventListener('resize',check);
+        return()=>window.removeEventListener('resize',check);
+      },[]);
+      const vW=isPortrait?320:700,vH=isPortrait?460:280;
+
+      // Landscape actor positions: [x, y, opacity] per step (0-9)
+      const PL={
         contract: [[350,195,1],[350,195,1],[350,195,1],[350,195,1],[350,195,1],[350,195,1],[350,195,0],[350,195,0],[440,170,1],[380,170,1]],
         winner:   [[130,105,1],[130,105,1],[130,105,1],[130,105,1],[130,105,1],[130,105,1],[185,165,1],[185,165,1],[150,165,1],[150,165,1]],
         bidB:     [[350,62,1],[350,62,1],[350,62,1],[350,62,1],[350,62,1],[350,62,1],[350,62,0],[350,62,0],[350,62,0],[350,62,0]],
         bidC:     [[570,105,1],[570,105,1],[570,105,1],[570,105,1],[570,105,1],[570,105,1],[570,105,0],[570,105,0],[570,105,0],[570,105,0]],
-
         bidPillA: [[130,150,0],[130,150,1],[130,150,1],[130,150,1],[130,150,1],[130,150,0],[130,150,0],[130,150,0],[130,150,0],[130,150,0]],
         bidPillB: [[350,100,0],[350,100,1],[350,100,1],[350,100,1],[350,100,1],[350,100,0],[350,100,0],[350,100,0],[350,100,0],[350,100,0]],
         bidPillC: [[570,150,0],[570,150,1],[570,150,1],[570,150,1],[570,150,1],[570,150,0],[570,150,0],[570,150,0],[570,150,0],[570,150,0]],
-
-        // Individual bonds: at bidders (1), fly to contract (2), resolve (5)
         bondA:    [[130,185,0],[130,185,1],[310,242,1],[310,242,1],[310,242,1],[640,68,1],[640,68,1],[640,68,1],[640,68,1],[150,245,1]],
         bondB:    [[350,135,0],[350,135,1],[350,242,1],[350,242,1],[350,242,1],[350,98,1],[350,98,0],[350,98,0],[350,98,0],[350,98,0]],
         bondC:    [[570,185,0],[570,185,1],[390,242,1],[390,242,1],[390,242,1],[570,145,1],[570,145,0],[570,145,0],[570,145,0],[570,145,0]],
-
-        // Bounty (winning bid → top right → winner)
         bounty:   [[130,150,0],[130,150,0],[130,150,0],[130,150,0],[130,150,0],[640,35,1],[640,35,1],[640,35,1],[640,35,1],[150,212,1]],
-
         enclave:  [[430,165,0],[430,165,0],[430,165,0],[430,165,0],[430,165,0],[430,165,0],[430,165,1],[430,165,1],[430,165,0],[430,165,0]],
         state:    [[90,165,0],[90,165,0],[90,165,0],[90,165,0],[90,165,0],[90,165,0],[90,165,1],[430,192,0],[430,192,0],[430,192,0]],
-
-        // Outputs: emerge (7), in front of contract (8), past contract confirmed (9)
         diary:    [[530,130,0],[530,130,0],[530,130,0],[530,130,0],[530,130,0],[530,130,0],[530,130,0],[600,110,1],[300,115,1],[620,115,1]],
         actionO:  [[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[600,155,1],[300,155,1],[620,155,1]],
         proof:    [[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[600,200,1],[300,195,1],[620,195,1]],
       };
+      // Portrait actor positions: 320×460 viewBox — bidders triangle top, contract bottom, TEE center-right
+      const PP={
+        contract: [[160,370,1],[160,370,1],[160,370,1],[160,370,1],[160,370,1],[160,370,1],[160,370,0],[160,370,0],[235,355,1],[235,355,1]],
+        winner:   [[65,160,1],[65,160,1],[65,160,1],[65,160,1],[65,160,1],[65,160,1],[80,245,1],[80,245,1],[80,245,1],[80,245,1]],
+        bidB:     [[160,60,1],[160,60,1],[160,60,1],[160,60,1],[160,60,1],[160,60,1],[160,60,0],[160,60,0],[160,60,0],[160,60,0]],
+        bidC:     [[255,160,1],[255,160,1],[255,160,1],[255,160,1],[255,160,1],[255,160,1],[255,160,0],[255,160,0],[255,160,0],[255,160,0]],
+        bidPillA: [[65,205,0],[65,205,1],[65,205,1],[65,205,1],[65,205,1],[65,205,0],[65,205,0],[65,205,0],[65,205,0],[65,205,0]],
+        bidPillB: [[160,100,0],[160,100,1],[160,100,1],[160,100,1],[160,100,1],[160,100,0],[160,100,0],[160,100,0],[160,100,0],[160,100,0]],
+        bidPillC: [[255,205,0],[255,205,1],[255,205,1],[255,205,1],[255,205,1],[255,205,0],[255,205,0],[255,205,0],[255,205,0],[255,205,0]],
+        bondA:    [[65,240,0],[65,240,1],[138,408,1],[138,408,1],[138,408,1],[285,35,1],[285,35,1],[285,35,1],[285,35,1],[80,280,1]],
+        bondB:    [[160,132,0],[160,132,1],[155,408,1],[155,408,1],[155,408,1],[160,100,1],[160,100,0],[160,100,0],[160,100,0],[160,100,0]],
+        bondC:    [[255,240,0],[255,240,1],[182,408,1],[182,408,1],[182,408,1],[255,205,1],[255,205,0],[255,205,0],[255,205,0],[255,205,0]],
+        bounty:   [[65,205,0],[65,205,0],[65,205,0],[65,205,0],[65,205,0],[262,30,1],[262,30,1],[262,30,1],[262,30,1],[80,275,1]],
+        enclave:  [[200,215,0],[200,215,0],[200,215,0],[200,215,0],[200,215,0],[200,215,0],[200,215,1],[200,215,1],[200,215,0],[200,215,0]],
+        state:    [[65,155,0],[65,155,0],[65,155,0],[65,155,0],[65,155,0],[65,155,0],[65,155,1],[200,240,0],[200,240,0],[200,240,0]],
+        diary:    [[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,0],[248,185,1],[180,285,1],[248,285,1]],
+        actionO:  [[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,0],[240,215,1],[175,312,1],[240,312,1]],
+        proof:    [[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,0],[232,248,1],[170,340,1],[232,340,1]],
+      };
+      const P=isPortrait?PP:PL;
       const p=id=>P[id][step];
 
       const A=(id,ch,tx)=>{const[x,y,o]=p(id);return h(motion.g,{initial:{x,y,opacity:0},animate:{x,y,opacity:o},transition:tx||t},ch)};
 
       // Connection lines: [x1, y1, x2, y2, visibleSteps[], dashed, accent]
-      const lines=[
-        // Step 2: bidders → contract (dashed, bonds sent)
+      const linesL=[
         [130,122,310,178,[2],true,false],
         [350,80,350,173,[2],true,false],
         [570,122,390,178,[2],true,false],
-        // Step 5: bond returns to losers
         [320,200,350,100,[5],false,false],
         [380,200,570,148,[5],false,false],
-        // Step 6: state → winner → enclave
         [140,165,170,165,[6],false,false],
         [200,165,340,165,[6],false,false],
-        // Step 7: enclave → outputs
         [520,135,560,110,[7],false,false],
         [520,165,560,155,[7],false,false],
         [520,195,560,200,[7],false,false],
-        // Step 8: outputs → contract (accent, approaching)
         [340,115,375,155,[8],false,true],
         [365,155,375,170,[8],false,true],
         [372,195,375,185,[8],false,true],
       ];
+      const linesP=[
+        [65,177,140,350,[2],true,false],
+        [160,77,160,348,[2],true,false],
+        [255,177,180,350,[2],true,false],
+        [148,385,160,132,[5],false,false],
+        [172,385,255,218,[5],false,false],
+        [65,170,65,228,[6],false,false],
+        [85,240,130,228,[6],false,false],
+        [262,200,252,190,[7],false,false],
+        [262,215,244,218,[7],false,false],
+        [262,230,236,250,[7],false,false],
+        [184,291,193,350,[8],false,true],
+        [179,317,193,356,[8],false,true],
+        [174,344,193,362,[8],false,true],
+      ];
+      const lines=isPortrait?linesP:linesL;
 
       // Mini ring config
-      const rc=40,ry=34,rr=17;
+      const rc=isPortrait?26:40,ry=isPortrait?26:34,rr=isPortrait?14:17;
       const actStart=SA.indexOf(act);
       const actEnd=SA.lastIndexOf(act);
       const stepsInAct=actEnd-actStart+1;
@@ -722,8 +753,7 @@
         fontFamily:F.b,fontSize:'13px',color:C.tx,display:'inline-flex',alignItems:'center',transition:'border-color .2s'};
 
       return h('div',{style:{background:C.el,border:'1px solid '+C.bd,borderRadius:'6px',overflow:'hidden'}},
-        h('div',{style:{overflowX:'auto',WebkitOverflowScrolling:'touch'}},
-        h('svg',{viewBox:'0 0 700 280',style:{display:'block',width:'100%',minWidth:'500px'}},
+        h('svg',{viewBox:`0 0 ${vW} ${vH}`,width:'100%',style:{display:'block'}},
           // Defs: arrow markers
           h('defs',null,
             h('marker',{id:'arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:5,markerHeight:5,orient:'auto'},
@@ -746,8 +776,8 @@
               onClick:go(()=>{const f=SA.indexOf(i);if(f>=0)setStep(f)})}):null;
             return h('g',{key:'rg'+i},bg,fillArc);
           }),
-          h(motion.text,{x:rc+rr+8,y:ry,key:'al'+act,dominantBaseline:'central',
-            fontFamily:F.m,fontSize:8.5,fill:C.mu,letterSpacing:'0.05em',opacity:.6,
+          h(motion.text,{x:rc+rr+6,y:ry,key:'al'+act,dominantBaseline:'central',
+            fontFamily:F.m,fontSize:isPortrait?7:8.5,fill:C.mu,letterSpacing:'0.05em',opacity:.6,
             initial:{opacity:0},animate:{opacity:.6},transition:{duration:.25}
           },AL[act].toUpperCase()),
 
@@ -772,7 +802,7 @@
               animate:{fill:step>=4?C.as:C.el,stroke:step>=4?C.ac:C.bd},transition:{duration:.4}}),
             h('text',{textAnchor:'middle',y:1,dominantBaseline:'central',fontFamily:F.b,fontSize:11,fontWeight:600,
               fill:step>=4?C.ac:C.mu},'A'),
-            step<=5?h('text',{textAnchor:'end',x:-22,y:1,dominantBaseline:'central',fontFamily:F.b,fontSize:9.5,fontWeight:500,fill:C.tx},
+            step<=5?h('text',{textAnchor:isPortrait?'start':'end',x:isPortrait?22:-22,y:1,dominantBaseline:'central',fontFamily:F.b,fontSize:9.5,fontWeight:500,fill:C.tx},
               step<=4?'Bidder A':'Winner')
             :h('text',{textAnchor:'middle',y:26,fontFamily:F.b,fontSize:9.5,fontWeight:500,fill:C.tx},'Winner'))),
 
@@ -786,7 +816,7 @@
           A('bidC',h('g',null,
             h('circle',{r:14,fill:C.el,stroke:C.bd,strokeWidth:1.3}),
             h('text',{textAnchor:'middle',y:1,dominantBaseline:'central',fontFamily:F.b,fontSize:10,fontWeight:600,fill:C.mu},'C'),
-            h('text',{textAnchor:'start',x:22,y:1,dominantBaseline:'central',fontFamily:F.b,fontSize:9,fill:C.tx},'Bidder C'))),
+            h('text',{textAnchor:isPortrait?'end':'start',x:isPortrait?-22:22,y:1,dominantBaseline:'central',fontFamily:F.b,fontSize:9,fill:C.tx},'Bidder C'))),
 
           // Sealed bid pill A — dramatic dark→light reveal
           A('bidPillA',h('g',null,
@@ -831,19 +861,19 @@
             h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:7,fill:'#92400e'},'bond 0.01\u00a0ETH'))),
 
           // Max bid label (steps 0-2)
-          step<=2?h(motion.text,{x:350,y:268,textAnchor:'middle',fontFamily:F.m,fontSize:8,fill:C.mu,
+          step<=2?h(motion.text,{x:isPortrait?160:350,y:isPortrait?450:268,textAnchor:'middle',fontFamily:F.m,fontSize:8,fill:C.mu,
             initial:{opacity:0},animate:{opacity:1},transition:{delay:.3,duration:.3}},'Max bid: 0.002 ETH'):null,
 
           // TEE Enclave (includes LLM inside)
           A('enclave',h('g',null,
-            h('rect',{x:-90,y:-55,width:180,height:110,rx:8,fill:'#f0fafa',stroke:C.ac,strokeWidth:1.3,strokeDasharray:'6 3'}),
-            h('text',{textAnchor:'middle',y:-40,fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'TEE Enclave'),
-            h('g',{transform:'translate(0,-12)'},
+            h('rect',{x:-75,y:-50,width:150,height:100,rx:8,fill:'#f0fafa',stroke:C.ac,strokeWidth:1.3,strokeDasharray:'6 3'}),
+            h('text',{textAnchor:'middle',y:-36,fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'TEE Enclave'),
+            h('g',{transform:'translate(0,-10)'},
               h('rect',{x:-7,y:-1,width:14,height:10,rx:2,fill:'none',stroke:C.ac,strokeWidth:1}),
               h('path',{d:'M-3.5,-1 V-5 A3.5,3.5,0,0,1,3.5,-5 V-1',fill:'none',stroke:C.ac,strokeWidth:1})),
-            h('text',{textAnchor:'middle',y:12,fontFamily:F.m,fontSize:7.5,fill:C.mu},'70B LLM + dm-verity rootfs'),
-            h('text',{textAnchor:'middle',y:24,fontFamily:F.m,fontSize:7.5,fill:C.mu},'Intel TDX hardware'),
-            step===7?h(motion.text,{textAnchor:'middle',y:38,fontFamily:F.m,fontSize:7.5,fontWeight:500,fill:C.ac,
+            h('text',{textAnchor:'middle',y:13,fontFamily:F.m,fontSize:7,fill:C.mu},'70B LLM + dm-verity rootfs'),
+            h('text',{textAnchor:'middle',y:24,fontFamily:F.m,fontSize:7,fill:C.mu},'Intel TDX hardware'),
+            step===7?h(motion.text,{textAnchor:'middle',y:36,fontFamily:F.m,fontSize:7,fontWeight:500,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.3,duration:.4}},'running inference\u2026'):null)),
 
           // On-chain State
@@ -881,7 +911,7 @@
             h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'0.0005 ETH'),
             h('text',{textAnchor:'middle',y:19,fontFamily:F.b,fontSize:7.5,fill:C.mu},step===9?'paid':'bounty')),
             step===9?{duration:.9,ease:E,delay:.3}:t),
-        )),
+        ),
 
         // Description text
         h('div',{style:{padding:'8px 14px 6px',minHeight:'40px'}},
