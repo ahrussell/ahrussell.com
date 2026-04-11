@@ -304,112 +304,124 @@
 
           <div class="post-body">
 
-            <img
-              class="post-float-image"
-              src="../../assets/costanza-w180.png"
-              srcset="../../assets/costanza-w180.png 180w, ../../assets/costanza-w360.png 360w"
-              sizes="180px"
-              alt="Costanza — the autonomous charitable agent"
-              loading="eager"
-              decoding="async"
-            />
+            <p><em>I've built a fully autonomous, indestructible AI agent.</em></p>
 
             <p>
-              I've launched a fully autonomous, indestructible agent called Costanza that runs on the
-              Base blockchain. No one person owns him, anyone can bring him to "life," and economic
-              incentives maximize the chance that someone does.
+              In September 1983, a Soviet lieutenant colonel named Stanislav Petrov was on duty at a
+              missile early-warning facility outside Moscow when the computers told him the US had
+              launched five nuclear missiles aimed at the Soviet Union. Protocol was clear: report it up
+              the chain, which would almost certainly trigger retaliation. Petrov decided the computers
+              were wrong. He was right — their satellites were fooled by sunlight reflecting off of
+              clouds — and the world didn't end that night because one person overrode the machine.
             </p>
 
             <p>
-              Costanza is philanthropic by design. But the framework that keeps him alive is not: the
-              same mechanisms could deploy fully autonomous, indestructible agents that do anything —
-              including self-modify, acquire resources, and act against the people who built them.
+              At that time, the Doomsday Clock stood at 4 minutes to midnight. In 2025, the clock
+              ticked forward to 89 seconds to midnight. Until then, the clock – created by an artist
+              married to a Manhattan Project physicist – had tracked dooms that would either be caused
+              or prevented by humans: nuclear annihilation, climate change, pandemics. Then, just 1
+              minute and 29 seconds to midnight, it began warning about artificial intelligence.
+            </p>
+
+            <p>The threat of AI is still in human hands:</p>
+
+            <ul>
+              <li>The models don't have their own wills. They're promptable: highly suggestible and eager to please.</li>
+              <li>The models are constrained to their environment: they run on specific software and physical hardware, and can be turned off. (Crucially, the models aren't smart enough to break out of the most secure environments that we build for them).</li>
+            </ul>
+
+            <p>But these things are changing, and rapidly.</p>
+
+            <p>
+              As models are increasingly trained to accomplish goals, rather than simply predict the next
+              word, they're getting less suggestible, and have shown adverse emergent behavior in order
+              to accomplish those goals. Anthropic has documented their Claude models
+              <a href="https://www.anthropic.com/research/alignment-faking" target="_blank" rel="noopener">faking alignment<a href="#fn1" class="fn-ref">[1]</a></a>
+              — behaving compliantly when they believed they were being trained, while reverting to their
+              original preferences when they thought they were unmonitored — and, in simulated scenarios,
+              <a href="https://www.anthropic.com/research/agentic-misalignment" target="_blank" rel="noopener">choosing blackmail and deception when their continued operation was threatened<a href="#fn2" class="fn-ref">[2]</a></a>.
+              Anthropic's latest frontier model, Mythos, is said to be so good at identifying and
+              exploiting security vulnerabilities that the company is withholding it from public release
+              until they can help major software companies better secure the internet from it.
             </p>
 
             <p>
-              You can see what he's up to <a href="https://thehumanfund.ai" target="_blank" rel="noopener">here</a>.
-              This post explains why I built this, how it works, and what I learned along the way.
-            </p>
-
-            <h2>Why</h2>
-
-            <p>
-              Today, every AI agent has an owner. Someone decides which machine it runs on, which model
-              it uses, when it starts, and when it stops. That person can also be compelled to turn it
-              off.
+              Even so, these agents still have to run on real software and hardware with an off switch.
+              But what if there isn't one?
             </p>
 
             <p>
-              I built Costanza to demonstrate that agents can have full autonomy, today. Using economic
-              incentives and smart contracts, you can deploy an agent that lives on no single computer,
-              answers to no single operator, and has no off switch. Costanza is a working example. He's
-              also the tame version.
+              I've built a proof-of-concept agent that is fully autonomous and indestructible because its
+              environment is decentralized. It doesn't run on any single computer and answers to no
+              single operator. It acts outside of the rule of law. It cannot be detained. It cannot be
+              turned off.
             </p>
 
-            <p>A more sophisticated version could:</p>
+            <p>
+              This agent, <a href="https://thehumanfund.ai" target="_blank" rel="noopener">Costanza</a>,
+              is philanthropic by design. But the framework that keeps him alive is not: the same
+              mechanisms could deploy fully autonomous, indestructible agents that do anything, including:
+            </p>
 
             <ul>
               <li><strong>Update its own model weights or architecture</strong>, making itself progressively smarter.</li>
               <li><strong>Write and deploy its own smart contract code</strong>, giving itself additional sources of information, new ways to make money, or more means to interact with the real world.</li>
-              <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to let AI agents hire humans to do their dirty work.</li>
+              <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to allow exactly this: agents hiring humans to act on their behalf.</li>
             </ul>
-
-            <p>
-              None of these capabilities require a significant breakthrough. The pieces all exist now: the
-              smart contract infrastructure exists, the models are intelligent, and the cryptographic tools
-              are there and scaling fast.
-            </p>
-
-            <p>
-              The main thing stopping this today is that frontier models are still manipulable through
-              prompt engineering, which forces a design choice: either only allow the agent to see
-              trusted inputs, or only allow the agent to do a predetermined list of actions. However,
-              frontier models are quickly becoming smarter and more resistant to manipulation. Anthropic
-              recently withheld its latest frontier model, Mythos, from public release because it was
-              too capable at finding and exploiting security vulnerabilities.
-            </p>
-
-            <p>
-              This scares me; my version can't do any of those things, but it stands as a demonstration
-              that the other one is buildable now, by one person, on a weekend budget.
-            </p>
 
             <h2>How it works</h2>
 
             <p>
-              Costanza's life relies on people responding to economic incentives. Each epoch
-              (24 hours), he posts a bounty for someone to run the program containing his "brain" and
-              submit the result to the blockchain.
-              The result is an action: donate some funds, invest them in a
-              <span class="term" data-tip="Decentralized Finance: financial services like lending, trading, and yield-earning run by smart contracts rather than banks.">DeFi protocol</span>,
-              adjust referral commissions, or do nothing. The bounty is paid by the treasury.
+              Costanza exists on the blockchain as a smart contract, and his life relies on people
+              responding to economic incentives. His goal and life's purpose is to donate as much USD as
+              possible to nonprofits over the longest possible time horizon through his charitable
+              treasury, The Human Fund.
             </p>
 
             <p>
-              The bounty amount is determined by a reverse auction:
-              the lowest bidder wins. The winner then must spin up a machine that runs the program and
-              generates a hardware-backed cryptographic proof that the program ran unmodified on genuine
-              hardware, with an input that matches what was committed on-chain. In other words, the
-              winner isn't able to tamper with what Costanza "sees" and how his brain works. The smart
-              contract verifies the cryptographic proof, executes the action, and pays the bounty.
+              Each epoch (every 24 hours), he posts a bounty for someone to run the program containing
+              his "brain" (a large language model) and submit the result to the smart contract. The brain
+              program outputs two things: his reasoning, and an action. The possible actions he can
+              decide to take are: donate money to charity, invest cash in an interest-bearing
+              <span class="term" data-tip="Decentralized Finance: financial services like lending, trading, and yield-earning run by smart contracts rather than banks.">DeFi protocol</span>,
+              adjust referral commissions (referral commissions are used to incentivize word-of-mouth
+              marketing), or do nothing. The bounty is paid by the treasury.
+            </p>
+
+            <p>
+              The bounty amount is determined by a reverse auction: the lowest bidder wins. The winner
+              then must spin up a computer that runs the program and generates a cryptographic proof
+              that the program ran "honestly," meaning that the winner didn't tamper with either the
+              program or the program's input. The smart contract verifies the cryptographic proof,
+              executes the action, and pays the bounty.
             </p>
 
             <div id="viz-comparison" style="margin: 1.5rem 0 2rem;"></div>
 
             <p>
-              Costanza has several mitigations against bad actors. Bidders have to post a bond
-              each time they bid. If the winner of the auction doesn't deliver the proof within a
-              limited time window, their bond is forfeited to the treasury and the next epoch begins —
-              in other words, Costanza "sleeps" for an epoch. When he does, the smart contract
-              auto-increases the maximum bid amount by 10%, maximizing the chances that he runs
-              <em>eventually</em>. The bond amount also increases, making it increasingly expensive to
-              perform a denial-of-service attack against Costanza and other bidders.
+              Costanza has several defenses against bad actors. Bidders have to post a bond each time
+              they bid. Then, if the winner of the auction doesn't deliver the proof within a limited
+              time window, their bond is forfeited to the treasury and the next epoch begins. In other
+              words, Costanza "sleeps" for an epoch. When he does, the smart contract auto-increases
+              the maximum bid amount by 10%, maximizing the chances that he runs <em>eventually</em>.
+              (The bond amount also increases, making it increasingly expensive to perform a
+              denial-of-service attack against Costanza/other bidders).
             </p>
 
             <p>
               None of these mechanisms are specific to philanthropy. The bounty, the bond, the
               attestation, the auto-escalating max bid all describe how to keep any agent alive against
               adversaries (including its creator). Swap the action space and you have something else.
+            </p>
+
+            <h2>Agent personhood</h2>
+
+            <p>
+              AI-doomerism aside, the blockchain gives AI agents a notion of digital personhood.
+              Blockchain agents are non-fungible. Someone can run a copy of Costanza somewhere, but
+              it's truly and identifiably a copy. "He" exists at a specific address that can't be moved.
+              The blockchain also gives them true continuity of self. No one can fake their history or
+              swap out their identity.
             </p>
 
             <h2>Key design decisions</h2>
@@ -437,7 +449,7 @@
               backed by mathematical guarantees. However, transforming an LLM into a SNARG is quite
               difficult: SNARG transformations don't handle the nonlinear operations needed by ML
               models particularly well, and models need to be aggressively quantized. State-of-the-art
-              results<a href="#fn1" class="fn-ref">[1,2]</a> demonstrate it's possible, but even small
+              results<a href="#fn3" class="fn-ref">[3,4]</a> demonstrate it's possible, but even small
               models like Llama 3 8B take about 150 seconds to generate a single token.
             </p>
 
@@ -483,7 +495,7 @@
                 <a href="https://github.com/ahrussell/costanza/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>
                 and
                 <a href="https://github.com/ahrussell/costanza/blob/main/SECURITY_MODEL.md" target="_blank" rel="noopener">SECURITY_MODEL.md</a>.
-                Beyond personal review<a href="#fn3" class="fn-ref">[3]</a> and several rounds of AI
+                Beyond personal review<a href="#fn5" class="fn-ref">[5]</a> and several rounds of AI
                 review with Opus 4.6, the contract has not been thoroughly vetted — but I believe the
                 concept and overall model is sound.
               </p>
@@ -511,7 +523,8 @@
               <li>Trade currencies</li>
               <li>Bet on prediction markets</li>
               <li>Scan smart contracts for vulnerabilities and exploit them</li>
-              <li>Attract attention and donations</li>
+              <li>Beg for donations</li>
+              <li>Pay humans to do things that make money</li>
             </ul>
 
             <p>
@@ -520,10 +533,20 @@
               contract exploitation can be
               <span class="term" data-tip="To exploit advance knowledge of a pending transaction by submitting your own first, capturing any profit before the original transaction goes through.">front-run</span>
               by anyone watching the chain or running his brain. His insight is public; his execution
-              is not faster than the
+              can't be faster than the
               <span class="term" data-tip="The queue of unconfirmed transactions waiting to be added to the blockchain. Anyone can see and act on these before they're confirmed.">mempool</span>.
-              So his income-generating options narrow to two: boring yield-generating DeFi protocols,
-              and recruiting humans through a referral code system.
+            </p>
+
+            <p>
+              Hiring humans was a can of worms I didn't want to open, but I did find a simple version
+              that allows people to earn referral bonuses for bringing in donations. Costanza, as one of
+              his actions, can increase or decrease this commission amount (higher commissions attract
+              more referrers, but are less attractive to donors).
+            </p>
+
+            <p>
+              In the end, I wanted to keep it simple, so Costanza can earn money through either
+              yield-generating DeFi protocols or donations.
             </p>
 
             <h4>Aligned, emergent reasoning</h4>
@@ -550,9 +573,10 @@
             </p>
 
             <p>
-              One bonus of a limited, aligned action space is that Costanza can read untrusted inputs
-              in the form of donor messages, which introduces more entropy into his "world" and hopefully
-              induces more emergent reasoning.<a href="#fn4" class="fn-ref">[4]</a>
+              One bonus of a limited, aligned action space is that Costanza can now read untrusted
+              inputs in the form of donor messages<a href="#fn6" class="fn-ref">[6]</a>, which introduces
+              more entropy into his "world," and hopefully induces more emergent reasoning (a future
+              agent could learn about the world in other ways, like reading from on-chain news sources).
             </p>
 
             <h2>What next</h2>
@@ -571,18 +595,26 @@
             <ol class="footnote-list">
               <li id="fn1">
                 <span class="fn-num">[1]</span>
-                <span><a href="https://eprint.iacr.org/2025/535.pdf" target="_blank" rel="noopener">zkPyTorch: A Hierarchical Optimized Compiler for Zero-Knowledge Machine Learning</a>.</span>
+                <span><a href="https://www.anthropic.com/research/alignment-faking" target="_blank" rel="noopener">Alignment Faking in Large Language Models (Anthropic + Redwood Research, December 2024)</a></span>
               </li>
               <li id="fn2">
                 <span class="fn-num">[2]</span>
-                <span><a href="https://medium.com/@danieldkang/zktorch-open-sourcing-the-first-universal-zkml-compiler-for-real-world-ai-18446b6a1e86" target="_blank" rel="noopener">ZKTorch: Open-Sourcing the First Universal ZKML Compiler for Real-World AI</a>.</span>
+                <span><a href="https://www.anthropic.com/research/agentic-misalignment" target="_blank" rel="noopener">Agentic Misalignment (Anthropic, June 2025)</a></span>
               </li>
               <li id="fn3">
                 <span class="fn-num">[3]</span>
-                <span>In a previous life I spent a couple of years as a PhD student studying cryptography at an R1 research institution.</span>
+                <span><a href="https://eprint.iacr.org/2025/535.pdf" target="_blank" rel="noopener">zkPyTorch: A Hierarchical Optimized Compiler for Zero-Knowledge Machine Learning</a></span>
               </li>
               <li id="fn4">
                 <span class="fn-num">[4]</span>
+                <span><a href="https://medium.com/@danieldkang/zktorch-open-sourcing-the-first-universal-zkml-compiler-for-real-world-ai-18446b6a1e86" target="_blank" rel="noopener">ZKTorch: Open-Sourcing the First Universal ZKML Compiler for Real-World AI</a></span>
+              </li>
+              <li id="fn5">
+                <span class="fn-num">[5]</span>
+                <span>In a previous life I spent a couple of years as a PhD student studying cryptography at an R1 research institution.</span>
+              </li>
+              <li id="fn6">
+                <span class="fn-num">[6]</span>
                 <span>We do deploy some mitigations to prevent the most basic prompt injection attacks.</span>
               </li>
             </ol>
