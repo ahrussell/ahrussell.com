@@ -589,6 +589,33 @@
               agent could learn about the world in other ways, like reading from on-chain news sources).
             </p>
 
+            <h4>What I'd do differently</h4>
+
+            <p>
+              The current version of the auction mechanic has a stalling problem: someone who is
+              motivated to not let the agent run can make a bid of 0 and win the auction and then never
+              run the model. The current design solves this by forcing bidders to post a forfeitable
+              bond. Each consecutive missed epoch, this bond increases 10%, which makes it increasingly
+              more expensive for someone to stall the model.
+            </p>
+
+            <p>
+              This is heavier than it needs to be. Currently, epochs progress through commit, reveal,
+              and execution phases. A cleaner version would restructure each epoch as
+              execute-and-commit, reveal, then settle. Inputs are frozen at the end of the previous
+              settle phase. During execute-and-commit, anyone can run the brain and submit a sealed bid
+              alongside a valid output and proof. At reveal, all bids are opened and the lowest one wins
+              the bounty. The losing bidders get nothing, but they also lose nothing other than the cost
+              of computation — no bond required.
+            </p>
+
+            <p>
+              The upside is that stalling becomes much harder, because every possible bidder would have
+              to choose not to submit, not just the auction winner. The downside is that it discourages
+              bidders from participating because they will lose the money they spent running the program
+              if they don't win the auction.
+            </p>
+
           </div><!-- /post-body -->
 
           <div class="post-footnotes">
