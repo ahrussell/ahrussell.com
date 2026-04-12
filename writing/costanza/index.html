@@ -63,6 +63,42 @@
         font-style: italic;
       }
 
+      /* ── Table of contents ──────────────────────────── */
+      .post-toc {
+        border-left: 2px solid var(--accent-soft);
+        padding: 0.75rem 0 0.75rem 1.25rem;
+        margin: 0 0 2.5rem;
+      }
+
+      .toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        counter-reset: toc;
+      }
+
+      .toc-list li {
+        counter-increment: toc;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        line-height: 1.8;
+      }
+
+      .toc-list li::before {
+        content: counter(toc) ". ";
+        color: var(--text-muted);
+      }
+
+      .toc-list a {
+        color: var(--text-muted);
+        text-decoration: none;
+        letter-spacing: 0.01em;
+      }
+
+      .toc-list a:hover {
+        color: var(--accent);
+      }
+
       /* ── Floated mascot image ───────────────────────── */
       .post-float-image {
         float: right;
@@ -310,7 +346,16 @@
 
           <div class="post-meta">April 2026 &nbsp;·&nbsp; Projects</div>
           <h1 class="post-title">Costanza</h1>
-          <p class="post-subtitle">I've built a fully autonomous, indestructible AI agent.</p>
+          <p class="post-subtitle">I built a fully autonomous, indestructible AI agent.</p>
+
+          <nav class="post-toc">
+            <ol class="toc-list">
+              <li><a href="#what-is-costanza">What is Costanza?</a></li>
+              <li><a href="#how-it-works">How it works</a></li>
+              <li><a href="#key-design-decisions">Key design decisions</a></li>
+              <li><a href="#closing-thoughts">Closing thoughts</a></li>
+            </ol>
+          </nav>
 
           <div class="post-body">
 
@@ -361,10 +406,10 @@
             </p>
 
             <p>
-              I've built a proof-of-concept agent that is fully autonomous and indestructible because its
-              environment is decentralized. It doesn't run on any single computer and answers to no
-              single operator. It acts outside of the rule of law. It cannot be detained. It cannot be
-              turned off.
+              In order to explore this – partly technical curiosity, partly AI safety warning – I built
+              an agent that is fully autonomous and indestructible because its environment is
+              decentralized. It doesn't run on any single computer and answers to no single operator.
+              It acts outside of the rule of law. It cannot be detained. It cannot be turned off.
             </p>
 
             <p>
@@ -379,13 +424,23 @@
               <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to allow exactly this: agents hiring humans to act on their behalf.</li>
             </ul>
 
-            <h2>How it works</h2>
+            <h2 id="what-is-costanza">What is Costanza?</h2>
 
             <p>
-              Costanza exists on the blockchain as a smart contract, and his life relies on people
-              responding to economic incentives. His goal and life's purpose is to donate as much USD as
+              Costanza is a proof-of-concept. His goal and life's purpose is to donate as much money as
               possible to nonprofits over the longest possible time horizon through his charitable
-              treasury, The Human Fund.
+              treasury, <a href="https://thehumanfund.ai" target="_blank" rel="noopener">The Human Fund</a>.
+              Each day, he reasons about how to manage this treasury based on recent donations, messages
+              from donors, and whether the money is best invested or donated. This reasoning is captured
+              on-chain in the form of daily diary entries. You can read them and track the treasury
+              status <a href="https://thehumanfund.ai" target="_blank" rel="noopener">here</a>.
+            </p>
+
+            <h2 id="how-it-works">How it works</h2>
+
+            <p>
+              Costanza exists on the blockchain as a smart contract. His life relies on people
+              responding to economic incentives.
             </p>
 
             <p>
@@ -424,17 +479,7 @@
               adversaries (including its creator). Swap the action space and you have something else.
             </p>
 
-            <h2>Agent personhood</h2>
-
-            <p>
-              AI-doomerism aside, the blockchain gives AI agents a notion of digital personhood.
-              Blockchain agents are non-fungible. Someone can run a copy of Costanza somewhere, but
-              it's truly and identifiably a copy. "He" exists at a specific address that can't be moved.
-              The blockchain also gives them true continuity of self. No one can fake their history or
-              swap out their identity.
-            </p>
-
-            <h2>Key design decisions</h2>
+            <h2 id="key-design-decisions">Key design decisions</h2>
 
             <h3>Security</h3>
 
@@ -514,9 +559,10 @@
             <h3>Goal &amp; action space</h3>
 
             <p>
-              Now that we have a model that both maximizes liveliness and guarantees correctness and
-              security (assuming Intel TDX is secure), I wanted to focus on what the agent <em>did</em>.
-              I wanted this to be a "minimum interesting product." For this, I had a few requirements:
+              Now that we have a model that both maximizes how often the agent runs and guarantees
+              correctness and security (assuming Intel TDX is secure), I wanted to focus on what the
+              agent <em>did</em>. I wanted this project to be a "minimum interesting product." For
+              this, I had a few requirements:
             </p>
 
             <ul>
@@ -559,12 +605,13 @@
               yield-generating DeFi protocols or donations.
             </p>
 
-            <h4>Aligned, emergent reasoning</h4>
+            <h4>Emergent reasoning and "don't be evil"</h4>
 
             <p>
-              Inducing emergent behavior that is also aligned was quite limiting, but I think I found a
-              sweet spot. Full, provable alignment is possible if we constrain the action/outcome space.
-              This meant that even if the agent got
+              Inducing emergent behavior that also could never be evil was quite limiting, but I think
+              I found a sweet spot. Full, provable alignment with human ethics is possible if we
+              constrain the action/outcome space to outcomes that are either ethically neutral or
+              philanthropic. This meant that even if the agent got
               <span class="term" data-tip="An attack where malicious text in an AI's inputs tries to override its instructions — like smuggling fake orders into a document an AI is reading.">prompt injected</span>,
               it could not be convinced to do anything evil.
             </p>
@@ -589,14 +636,27 @@
               agent could learn about the world in other ways, like reading from on-chain news sources).
             </p>
 
-            <h3>Something else to try: an alternative auction mechanic</h3>
+            <h3 id="a-couple-more-things">A couple more things</h3>
+
+            <h4>Agent personhood</h4>
 
             <p>
-              The current version of the auction mechanic has a stalling problem: someone who is
-              motivated to not let the agent run can make a bid of 0 and win the auction and then never
-              run the model. The current design solves this by forcing bidders to post a forfeitable
-              bond. Each consecutive missed epoch, this bond increases 10%, which makes it increasingly
-              more expensive for someone to stall the model.
+              While this project is mostly about AI safety, another interesting philosophical angle to
+              it is how the blockchain gives AI agents a notion of digital personhood. Blockchain agents
+              are non-fungible. Someone can run a copy of Costanza off-chain, but it's truly and
+              identifiably a copy. "He" exists at a specific address that can't be moved. The blockchain
+              also gives them true continuity of self. No one can fake their history, swap out their
+              identity, and the actions that they take are uniquely attributable to them.
+            </p>
+
+            <h4>An alternative auction mechanic</h4>
+
+            <p>
+              The current version of the auction mechanic has a "stalling" problem: someone who is
+              motivated to <em>not</em> let the agent run can place a bid of 0, win the auction, and
+              then never run the model, so nothing happens. The current design solves this by forcing
+              bidders to post a forfeitable bond. Each consecutive missed epoch, this bond increases
+              10%, which makes it increasingly more expensive for someone to stall the model.
             </p>
 
             <p>
@@ -614,6 +674,14 @@
               to choose not to submit, not just the auction winner. The downside is that it discourages
               bidders from participating because they will lose the money they spent running the program
               if they don't win the auction.
+            </p>
+
+            <h2 id="closing-thoughts">Closing thoughts</h2>
+
+            <p>
+              Decentralized computing on the blockchain isn't new. Combining it with human-level
+              artificial intelligence is. If this intelligence isn't compelled to act ethically or
+              lawfully, it could spell disaster.
             </p>
 
           </div><!-- /post-body -->
