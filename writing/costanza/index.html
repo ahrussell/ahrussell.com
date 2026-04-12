@@ -79,6 +79,19 @@
         width: 230px;
       }
 
+      @media (max-width: 600px) {
+        .post-header {
+          display: flex;
+          flex-direction: column;
+        }
+        .post-toc {
+          float: none;
+          width: auto;
+          margin: 0.8rem 0 0;
+          order: 10;
+        }
+      }
+
       .toc-title {
         font-family: var(--font-body);
         font-size: 0.75rem;
