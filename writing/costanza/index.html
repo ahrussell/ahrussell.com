@@ -63,6 +63,42 @@
         font-style: italic;
       }
 
+      /* ── Table of contents ──────────────────────────── */
+      .post-toc {
+        border-left: 2px solid var(--accent-soft);
+        padding: 0.75rem 0 0.75rem 1.25rem;
+        margin: 0 0 2.5rem;
+      }
+
+      .toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        counter-reset: toc;
+      }
+
+      .toc-list li {
+        counter-increment: toc;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        line-height: 1.8;
+      }
+
+      .toc-list li::before {
+        content: counter(toc) ". ";
+        color: var(--text-muted);
+      }
+
+      .toc-list a {
+        color: var(--text-muted);
+        text-decoration: none;
+        letter-spacing: 0.01em;
+      }
+
+      .toc-list a:hover {
+        color: var(--accent);
+      }
+
       /* ── Floated mascot image ───────────────────────── */
       .post-float-image {
         float: right;
@@ -312,6 +348,15 @@
           <h1 class="post-title">Costanza</h1>
           <p class="post-subtitle">I built a fully autonomous, indestructible AI agent.</p>
 
+          <nav class="post-toc">
+            <ol class="toc-list">
+              <li><a href="#what-is-costanza">What is Costanza?</a></li>
+              <li><a href="#how-it-works">How it works</a></li>
+              <li><a href="#key-design-decisions">Key design decisions</a></li>
+              <li><a href="#closing-thoughts">Closing thoughts</a></li>
+            </ol>
+          </nav>
+
           <div class="post-body">
 
             <p>
@@ -361,10 +406,10 @@
             </p>
 
             <p>
-              I've built a proof-of-concept agent that is fully autonomous and indestructible because its
-              environment is decentralized. It doesn't run on any single computer and answers to no
-              single operator. It acts outside of the rule of law. It cannot be detained. It cannot be
-              turned off.
+              In order to explore this – partly technical curiosity, partly AI safety warning – I built
+              an agent that is fully autonomous and indestructible because its environment is
+              decentralized. It doesn't run on any single computer and answers to no single operator.
+              It acts outside of the rule of law. It cannot be detained. It cannot be turned off.
             </p>
 
             <p>
@@ -379,13 +424,23 @@
               <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to allow exactly this: agents hiring humans to act on their behalf.</li>
             </ul>
 
-            <h2>How it works</h2>
+            <h2 id="what-is-costanza">What is Costanza?</h2>
 
             <p>
-              Costanza exists on the blockchain as a smart contract, and his life relies on people
-              responding to economic incentives. His goal and life's purpose is to donate as much USD as
+              Costanza is a proof-of-concept. His goal and life's purpose is to donate as much money as
               possible to nonprofits over the longest possible time horizon through his charitable
-              treasury, The Human Fund.
+              treasury, <a href="https://thehumanfund.ai" target="_blank" rel="noopener">The Human Fund</a>.
+              Each day, he reasons about how to manage this treasury based on recent donations, messages
+              from donors, and whether the money is best invested or donated. This reasoning is captured
+              on-chain in the form of daily diary entries. You can read them and track the treasury
+              status <a href="https://thehumanfund.ai" target="_blank" rel="noopener">here</a>.
+            </p>
+
+            <h2 id="how-it-works">How it works</h2>
+
+            <p>
+              Costanza exists on the blockchain as a smart contract. His life relies on people
+              responding to economic incentives.
             </p>
 
             <p>
@@ -424,17 +479,7 @@
               adversaries (including its creator). Swap the action space and you have something else.
             </p>
 
-            <h2>Agent personhood</h2>
-
-            <p>
-              AI-doomerism aside, the blockchain gives AI agents a notion of digital personhood.
-              Blockchain agents are non-fungible. Someone can run a copy of Costanza somewhere, but
-              it's truly and identifiably a copy. "He" exists at a specific address that can't be moved.
-              The blockchain also gives them true continuity of self. No one can fake their history or
-              swap out their identity.
-            </p>
-
-            <h2>Key design decisions</h2>
+            <h2 id="key-design-decisions">Key design decisions</h2>
 
             <h3>Security</h3>
 
@@ -514,9 +559,10 @@
             <h3>Goal &amp; action space</h3>
 
             <p>
-              Now that we have a model that both maximizes liveliness and guarantees correctness and
-              security (assuming Intel TDX is secure), I wanted to focus on what the agent <em>did</em>.
-              I wanted this to be a "minimum interesting product." For this, I had a few requirements:
+              Now that we have a model that both maximizes how often the agent runs and guarantees
+              correctness and security (assuming Intel TDX is secure), I wanted to focus on what the
+              agent <em>did</em>. I wanted this project to be a "minimum interesting product." For
+              this, I had a few requirements:
             </p>
 
             <ul>
@@ -559,12 +605,13 @@
               yield-generating DeFi protocols or donations.
             </p>
 
-            <h4>Aligned, emergent reasoning</h4>
+            <h4>Emergent reasoning and "don't be evil"</h4>
 
             <p>
-              Inducing emergent behavior that is also aligned was quite limiting, but I think I found a
-              sweet spot. Full, provable alignment is possible if we constrain the action/outcome space.
-              This meant that even if the agent got
+              Inducing emergent behavior that also could never be evil was quite limiting, but I think
+              I found a sweet spot. Full, provable alignment with human ethics is possible if we
+              constrain the action/outcome space to outcomes that are either ethically neutral or
+              philanthropic. This meant that even if the agent got
               <span class="term" data-tip="An attack where malicious text in an AI's inputs tries to override its instructions — like smuggling fake orders into a document an AI is reading.">prompt injected</span>,
               it could not be convinced to do anything evil.
             </p>
@@ -589,14 +636,27 @@
               agent could learn about the world in other ways, like reading from on-chain news sources).
             </p>
 
-            <h3>Something else to try: an alternative auction mechanic</h3>
+            <h3 id="a-couple-more-things">A couple more things</h3>
+
+            <h4>Agent personhood</h4>
 
             <p>
-              The current version of the auction mechanic has a stalling problem: someone who is
-              motivated to not let the agent run can make a bid of 0 and win the auction and then never
-              run the model. The current design solves this by forcing bidders to post a forfeitable
-              bond. Each consecutive missed epoch, this bond increases 10%, which makes it increasingly
-              more expensive for someone to stall the model.
+              While this project is mostly about AI safety, another interesting philosophical angle to
+              it is how the blockchain gives AI agents a notion of digital personhood. Blockchain agents
+              are non-fungible. Someone can run a copy of Costanza off-chain, but it's truly and
+              identifiably a copy. "He" exists at a specific address that can't be moved. The blockchain
+              also gives them true continuity of self. No one can fake their history, swap out their
+              identity, and the actions that they take are uniquely attributable to them.
+            </p>
+
+            <h4>An alternative auction mechanic</h4>
+
+            <p>
+              The current version of the auction mechanic has a "stalling" problem: someone who is
+              motivated to <em>not</em> let the agent run can place a bid of 0, win the auction, and
+              then never run the model, so nothing happens. The current design solves this by forcing
+              bidders to post a forfeitable bond. Each consecutive missed epoch, this bond increases
+              10%, which makes it increasingly more expensive for someone to stall the model.
             </p>
 
             <p>
@@ -614,6 +674,14 @@
               to choose not to submit, not just the auction winner. The downside is that it discourages
               bidders from participating because they will lose the money they spent running the program
               if they don't win the auction.
+            </p>
+
+            <h2 id="closing-thoughts">Closing thoughts</h2>
+
+            <p>
+              Decentralized computing on the blockchain isn't new. Combining it with human-level
+              artificial intelligence is. If this intelligence isn't compelled to act ethically or
+              lawfully, it could spell disaster.
             </p>
 
           </div><!-- /post-body -->
@@ -669,7 +737,7 @@
     const F={b:'"IBM Plex Sans",system-ui,sans-serif',h:'"DM Serif Display",Georgia,serif',m:'"IBM Plex Mono",monospace'};
     const E=[.4,0,.2,1];
 
-    const STEPS=10, INT=6000;
+    const STEPS=10, INT=2500;
     // 0: Bidders appear  1: Sealed bids + bonds appear  2: Bonds sent to contract
     // 3: Reveal bids  4: Lowest bid wins  5: Winner selected, bonds resolved
     // 6: TEE loads state  7: TEE outputs  8: Outputs submitted  9: Verified + paid
@@ -724,7 +792,7 @@
         window.addEventListener('resize',check);
         return()=>window.removeEventListener('resize',check);
       },[]);
-      const vW=isPortrait?350:700,vH=isPortrait?340:280;
+      const vW=isPortrait?320:700,vH=isPortrait?340:280;
 
       // Landscape actor positions: [x, y, opacity] per step (0-9)
       const PL={
@@ -745,25 +813,27 @@
         actionO:  [[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[530,165,0],[600,155,1],[300,155,1],[620,155,1]],
         proof:    [[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[530,200,0],[600,200,1],[300,195,1],[620,195,1]],
       };
-      // Portrait actor positions: 350×340 viewBox — designed from scratch
-      // Bounding boxes verified: no overlaps between co-visible elements
+      // Portrait actor positions: 320×340 viewBox
+      // Auction: bidders triangle (B top, A left, C right), contract bottom-center
+      // Execution: winner left, state above winner, TEE center-right, outputs emerge right of TEE
+      // Settlement: outputs stay right-center, contract moves right, winner+bounty+bond cluster left
       const PP={
-        contract: [[175,218,1],[175,218,1],[175,218,1],[175,218,1],[175,218,1],[175,218,1],[175,218,0],[175,218,0],[175,275,1],[175,205,1]],
-        winner:   [[70,88,1],[70,88,1],[70,88,1],[70,88,1],[70,88,1],[70,88,1],[105,108,1],[105,108,1],[175,65,1],[175,65,1]],
-        bidB:     [[175,48,1],[175,48,1],[175,48,1],[175,48,1],[175,48,1],[175,48,1],[175,48,0],[175,48,0],[175,48,0],[175,48,0]],
-        bidC:     [[280,88,1],[280,88,1],[280,88,1],[280,88,1],[280,88,1],[280,88,1],[280,88,0],[280,88,0],[280,88,0],[280,88,0]],
-        bidPillA: [[70,133,0],[70,133,1],[70,133,1],[70,133,1],[70,133,1],[70,133,0],[70,133,0],[70,133,0],[70,133,0],[70,133,0]],
-        bidPillB: [[175,92,0],[175,92,1],[175,92,1],[175,92,1],[175,92,1],[175,92,0],[175,92,0],[175,92,0],[175,92,0],[175,92,0]],
-        bidPillC: [[280,133,0],[280,133,1],[280,133,1],[280,133,1],[280,133,1],[280,133,0],[280,133,0],[280,133,0],[280,133,0],[280,133,0]],
-        bondA:    [[70,163,0],[70,163,1],[142,253,1],[142,253,1],[142,253,1],[295,65,1],[295,65,1],[295,65,1],[295,65,1],[175,148,1]],
-        bondB:    [[175,120,0],[175,120,1],[175,253,1],[175,253,1],[175,253,1],[175,92,1],[175,92,0],[175,92,0],[175,92,0],[175,92,0]],
-        bondC:    [[280,163,0],[280,163,1],[208,253,1],[208,253,1],[208,253,1],[280,133,1],[280,133,0],[280,133,0],[280,133,0],[280,133,0]],
-        bounty:   [[70,133,0],[70,133,0],[70,133,0],[70,133,0],[70,133,0],[295,25,1],[295,25,1],[295,25,1],[295,25,1],[175,115,1]],
-        enclave:  [[105,220,0],[105,220,0],[105,220,0],[105,220,0],[105,220,0],[105,220,0],[105,220,1],[105,220,1],[105,220,0],[105,220,0]],
-        state:    [[105,60,0],[105,60,0],[105,60,0],[105,60,0],[105,60,0],[105,60,0],[105,60,1],[105,240,0],[105,240,0],[105,240,0]],
-        diary:    [[270,195,0],[270,195,0],[270,195,0],[270,195,0],[270,195,0],[270,195,0],[270,195,0],[270,195,1],[175,148,1],[175,255,1]],
-        actionO:  [[270,225,0],[270,225,0],[270,225,0],[270,225,0],[270,225,0],[270,225,0],[270,225,0],[270,225,1],[175,178,1],[175,285,1]],
-        proof:    [[270,255,0],[270,255,0],[270,255,0],[270,255,0],[270,255,0],[270,255,0],[270,255,0],[270,255,1],[175,208,1],[175,315,1]],
+        contract: [[160,292,1],[160,292,1],[160,292,1],[160,292,1],[160,292,1],[160,292,1],[160,292,0],[160,292,0],[248,258,1],[248,258,1]],
+        winner:   [[62,145,1],[62,145,1],[62,145,1],[62,145,1],[62,145,1],[62,145,1],[75,170,1],[75,170,1],[75,170,1],[75,170,1]],
+        bidB:     [[160,55,1],[160,55,1],[160,55,1],[160,55,1],[160,55,1],[160,55,1],[160,55,0],[160,55,0],[160,55,0],[160,55,0]],
+        bidC:     [[258,145,1],[258,145,1],[258,145,1],[258,145,1],[258,145,1],[258,145,1],[258,145,0],[258,145,0],[258,145,0],[258,145,0]],
+        bidPillA: [[62,192,0],[62,192,1],[62,192,1],[62,192,1],[62,192,1],[62,192,0],[62,192,0],[62,192,0],[62,192,0],[62,192,0]],
+        bidPillB: [[160,94,0],[160,94,1],[160,94,1],[160,94,1],[160,94,1],[160,94,0],[160,94,0],[160,94,0],[160,94,0],[160,94,0]],
+        bidPillC: [[258,192,0],[258,192,1],[258,192,1],[258,192,1],[258,192,1],[258,192,0],[258,192,0],[258,192,0],[258,192,0],[258,192,0]],
+        bondA:    [[62,226,0],[62,226,1],[130,278,1],[130,278,1],[130,278,1],[265,22,1],[265,22,1],[265,22,1],[265,22,1],[75,250,1]],
+        bondB:    [[160,124,0],[160,124,1],[150,278,1],[150,278,1],[150,278,1],[160,94,1],[160,94,0],[160,94,0],[160,94,0],[160,94,0]],
+        bondC:    [[258,226,0],[258,226,1],[178,278,1],[178,278,1],[178,278,1],[258,192,1],[258,192,0],[258,192,0],[258,192,0],[258,192,0]],
+        bounty:   [[62,192,0],[62,192,0],[62,192,0],[62,192,0],[62,192,0],[265,22,1],[265,22,1],[265,22,1],[265,22,1],[75,226,1]],
+        enclave:  [[195,178,0],[195,178,0],[195,178,0],[195,178,0],[195,178,0],[195,178,0],[195,178,1],[195,178,1],[195,178,0],[195,178,0]],
+        state:    [[70,105,0],[70,105,0],[70,105,0],[70,105,0],[70,105,0],[70,105,0],[70,105,1],[195,205,0],[195,205,0],[195,205,0]],
+        diary:    [[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,0],[258,148,1],[228,148,1],[228,148,1]],
+        actionO:  [[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,0],[250,180,1],[218,180,1],[218,180,1]],
+        proof:    [[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,0],[245,214,1],[210,212,1],[210,212,1]],
       };
       const P=isPortrait?PP:PL;
       const p=id=>P[id][step];
@@ -787,24 +857,24 @@
         [372,195,375,185,[8],false,true],
       ];
       const linesP=[
-        [70,104,110,196,[2],true,false],    // A→contract (dashed)
-        [175,62,175,196,[2],true,false],    // B→contract (vertical)
-        [280,102,240,196,[2],true,false],   // C→contract (dashed)
-        [168,245,175,95,[5],false,false],   // bond B returns to B
-        [182,245,280,140,[5],false,false],  // bond C returns to C
-        [105,74,105,92,[6],false,false],    // state→winner (vertical)
-        [105,124,105,170,[6],false,false],  // winner→enclave (vertical)
-        [185,205,230,195,[7],false,false],  // enclave→diary
-        [185,225,205,225,[7],false,false],  // enclave→action
-        [185,248,198,255,[7],false,false],  // enclave→proof
-        [165,160,160,253,[8],false,true],   // diary→contract (accent)
-        [175,190,175,253,[8],false,true],   // action→contract (accent)
-        [185,220,190,253,[8],false,true],   // proof→contract (accent)
+        [62,162,128,270,[2],true,false],    // A→contract
+        [160,72,160,270,[2],true,false],    // B→contract
+        [258,162,180,270,[2],true,false],   // C→contract
+        [148,285,160,105,[5],false,false],  // bond B returns to B
+        [168,285,258,200,[5],false,false],  // bond C returns to C
+        [70,119,75,154,[6],false,false],    // state→winner
+        [91,170,127,183,[6],false,false],   // winner→enclave
+        [263,160,263,152,[7],false,false],  // enclave→diary
+        [263,178,195,182,[7],false,false],  // enclave→action
+        [263,196,182,215,[7],false,false],  // enclave→proof
+        [268,148,183,248,[8],false,true],   // diary→contract
+        [273,180,183,256,[8],false,true],   // action→contract
+        [274,212,183,262,[8],false,true],   // proof→contract
       ];
       const lines=isPortrait?linesP:linesL;
 
       // Mini ring config
-      const rc=isPortrait?28:40,ry=isPortrait?26:34,rr=isPortrait?15:17;
+      const rc=isPortrait?20:40,ry=isPortrait?20:34,rr=isPortrait?13:17;
       const actStart=SA.indexOf(act);
       const actEnd=SA.lastIndexOf(act);
       const stepsInAct=actEnd-actStart+1;
@@ -814,7 +884,7 @@
         fontFamily:F.b,fontSize:'13px',color:C.tx,display:'inline-flex',alignItems:'center',transition:'border-color .2s'};
 
       return h('div',{style:{background:C.el,border:'1px solid '+C.bd,borderRadius:'6px',overflow:'hidden'}},
-        h('svg',{viewBox:`0 0 ${vW} ${vH}`,width:'100%',style:{display:'block',aspectRatio:`${vW}/${vH}`}},
+        h('svg',{viewBox:`0 0 ${vW} ${vH}`,width:'100%',style:{display:'block'}},
           // Defs: arrow markers
           h('defs',null,
             h('marker',{id:'arr',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:5,markerHeight:5,orient:'auto'},
@@ -838,7 +908,7 @@
             return h('g',{key:'rg'+i},bg,fillArc);
           }),
           h(motion.text,{x:rc+rr+6,y:ry,key:'al'+act,dominantBaseline:'central',
-            fontFamily:F.m,fontSize:8.5,fill:C.mu,letterSpacing:'0.05em',opacity:.6,
+            fontFamily:F.m,fontSize:isPortrait?7:8.5,fill:C.mu,letterSpacing:'0.05em',opacity:.6,
             initial:{opacity:0},animate:{opacity:.6},transition:{duration:.25}
           },AL[act].toUpperCase()),
 
@@ -922,19 +992,19 @@
             h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:7,fill:'#92400e'},'bond 0.01\u00a0ETH'))),
 
           // Max bid label (steps 0-2)
-          step<=2?h(motion.text,{x:isPortrait?175:350,y:isPortrait?275:268,textAnchor:'middle',fontFamily:F.m,fontSize:8,fill:C.mu,
+          step<=2?h(motion.text,{x:isPortrait?160:350,y:isPortrait?332:268,textAnchor:'middle',fontFamily:F.m,fontSize:8,fill:C.mu,
             initial:{opacity:0},animate:{opacity:1},transition:{delay:.3,duration:.3}},'Max bid: 0.002 ETH'):null,
 
           // Secure Computing Enclave (includes LLM inside)
           A('enclave',h('g',null,
-            h('rect',{x:-75,y:-50,width:150,height:100,rx:8,fill:'#f0fafa',stroke:C.ac,strokeWidth:1.3,strokeDasharray:'6 3'}),
-            h('text',{textAnchor:'middle',y:-36,fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'Secure Computing Enclave'),
+            h('rect',{x:isPortrait?-68:-75,y:isPortrait?-42:-50,width:isPortrait?136:150,height:isPortrait?84:100,rx:8,fill:'#f0fafa',stroke:C.ac,strokeWidth:1.3,strokeDasharray:'6 3'}),
+            h('text',{textAnchor:'middle',y:isPortrait?-30:-36,fontFamily:F.m,fontSize:9,fontWeight:600,fill:C.ac},'Secure Computing Enclave'),
             h('g',{transform:'translate(0,-10)'},
               h('rect',{x:-7,y:-1,width:14,height:10,rx:2,fill:'none',stroke:C.ac,strokeWidth:1}),
               h('path',{d:'M-3.5,-1 V-5 A3.5,3.5,0,0,1,3.5,-5 V-1',fill:'none',stroke:C.ac,strokeWidth:1})),
-            h('text',{textAnchor:'middle',y:13,fontFamily:F.m,fontSize:7,fill:C.mu},'70B LLM + dm-verity rootfs'),
-            h('text',{textAnchor:'middle',y:24,fontFamily:F.m,fontSize:7,fill:C.mu},'Intel TDX hardware'),
-            step===7?h(motion.text,{textAnchor:'middle',y:36,fontFamily:F.m,fontSize:7,fontWeight:500,fill:C.ac,
+            h('text',{textAnchor:'middle',y:13,fontFamily:F.m,fontSize:isPortrait?6.5:7,fill:C.mu},'70B LLM + dm-verity rootfs'),
+            h('text',{textAnchor:'middle',y:24,fontFamily:F.m,fontSize:isPortrait?6.5:7,fill:C.mu},'Intel TDX hardware'),
+            step===7?h(motion.text,{textAnchor:'middle',y:36,fontFamily:F.m,fontSize:isPortrait?6.5:7,fontWeight:500,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.3,duration:.4}},'running inference\u2026'):null)),
 
           // On-chain State
@@ -946,23 +1016,23 @@
           A('diary',h('g',null,
             h(motion.rect,{x:-40,y:-12,width:80,height:24,rx:12,
               animate:{fill:step>=9?C.as:step>=8?'#f0fafa':C.el,stroke:step>=8?C.ac:C.bd},transition:{duration:.3},strokeWidth:1}),
-            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:8.5,fill:step>=8?C.ad:C.tx},'Diary entry'),
+            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:isPortrait?7.5:8.5,fill:step>=8?C.ad:C.tx},'Diary entry'),
             step===9?h(motion.text,{textAnchor:'middle',y:18,fontFamily:F.m,fontSize:7,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.4,duration:.3}},'\u2713 published'):null)),
 
           // Output: Action
           A('actionO',h('g',null,
-            h(motion.rect,{x:-65,y:-12,width:130,height:24,rx:12,
+            h(motion.rect,{x:isPortrait?-52:-65,y:-12,width:isPortrait?104:130,height:24,rx:12,
               animate:{fill:step>=9?C.as:'#f0fafa',stroke:C.ac},strokeWidth:1}),
-            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:8.5,fontWeight:500,fill:C.ad},'Action: '+action),
+            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:isPortrait?7:8.5,fontWeight:500,fill:C.ad},'Action: '+action),
             step===9?h(motion.text,{textAnchor:'middle',y:18,fontFamily:F.m,fontSize:7,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.7,duration:.3}},'\u2713 executed'):null)),
 
           // Output: Proof
           A('proof',h('g',null,
-            h(motion.rect,{x:-72,y:-12,width:144,height:24,rx:12,
+            h(motion.rect,{x:isPortrait?-58:-72,y:-12,width:isPortrait?116:144,height:24,rx:12,
               animate:{fill:step>=9?C.as:step>=8?'#f0fafa':C.el,stroke:step>=8?C.ac:C.bd},transition:{duration:.3},strokeWidth:1}),
-            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:8,fill:step>=8?C.ad:C.tx},'Proof of valid computation'),
+            h('text',{textAnchor:'middle',dominantBaseline:'central',fontFamily:F.m,fontSize:isPortrait?6.5:8,fill:step>=8?C.ad:C.tx},'Proof of valid computation'),
             step===9?h(motion.text,{textAnchor:'middle',y:18,fontFamily:F.m,fontSize:7,fill:C.ac,
               initial:{opacity:0},animate:{opacity:1},transition:{delay:.2,duration:.3}},'\u2713 verified'):null)),
 
