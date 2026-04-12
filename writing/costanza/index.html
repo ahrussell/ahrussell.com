@@ -63,39 +63,59 @@
         font-style: italic;
       }
 
+      /* ── Post header with floated TOC ──────────────── */
+      .post-header {
+        display: flow-root;
+        margin-bottom: 2rem;
+      }
+
       /* ── Table of contents ──────────────────────────── */
       .post-toc {
+        float: right;
         border-left: 2px solid var(--accent-soft);
-        padding: 0.75rem 0 0.75rem 1.25rem;
-        margin: 0 0 2.5rem;
+        padding: 0.6rem 0 0.6rem 1rem;
+        margin: 0.4rem 0 1rem 2rem;
+        max-width: 220px;
       }
 
       .toc-list {
         list-style: none;
         margin: 0;
         padding: 0;
-        counter-reset: toc;
       }
 
-      .toc-list li {
-        counter-increment: toc;
+      .toc-list > li {
         font-family: var(--font-mono);
-        font-size: 0.75rem;
-        line-height: 1.8;
+        font-size: 0.72rem;
+        line-height: 1.9;
       }
 
-      .toc-list li::before {
-        content: counter(toc) ". ";
-        color: var(--text-muted);
-      }
-
-      .toc-list a {
-        color: var(--text-muted);
+      .toc-list > li > a {
+        color: var(--text-main);
         text-decoration: none;
         letter-spacing: 0.01em;
       }
 
-      .toc-list a:hover {
+      .toc-sub {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 0 0.75rem;
+      }
+
+      .toc-sub li {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+      }
+
+      .toc-sub a {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      .toc-list a:hover,
+      .toc-sub a:hover {
         color: var(--accent);
       }
 
@@ -344,18 +364,39 @@
       <main class="page">
         <article class="post-article">
 
-          <div class="post-meta">April 2026 &nbsp;·&nbsp; Projects</div>
-          <h1 class="post-title">Costanza</h1>
-          <p class="post-subtitle">I built a fully autonomous, indestructible AI agent.</p>
+          <div class="post-header">
+            <nav class="post-toc">
+              <ol class="toc-list">
+                <li><a href="#what-is-costanza">What is Costanza?</a></li>
+                <li><a href="#how-it-works">How it works</a></li>
+                <li>
+                  <a href="#key-design-decisions">Key design decisions</a>
+                  <ol class="toc-sub">
+                    <li><a href="#security">Security</a></li>
+                    <li>
+                      <a href="#goal-action-space">Goal &amp; action space</a>
+                      <ol class="toc-sub">
+                        <li><a href="#self-sustainability">Self-sustainability</a></li>
+                        <li><a href="#emergent-reasoning">Emergent reasoning</a></li>
+                      </ol>
+                    </li>
+                    <li>
+                      <a href="#a-couple-more-things">A couple more things</a>
+                      <ol class="toc-sub">
+                        <li><a href="#agent-personhood">Agent personhood</a></li>
+                        <li><a href="#alt-auction">Alternative auction</a></li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li><a href="#closing-thoughts">Closing thoughts</a></li>
+              </ol>
+            </nav>
 
-          <nav class="post-toc">
-            <ol class="toc-list">
-              <li><a href="#what-is-costanza">What is Costanza?</a></li>
-              <li><a href="#how-it-works">How it works</a></li>
-              <li><a href="#key-design-decisions">Key design decisions</a></li>
-              <li><a href="#closing-thoughts">Closing thoughts</a></li>
-            </ol>
-          </nav>
+            <div class="post-meta">April 2026 &nbsp;·&nbsp; Projects</div>
+            <h1 class="post-title">Costanza</h1>
+            <p class="post-subtitle">I built a fully autonomous, indestructible AI agent.</p>
+          </div>
 
           <div class="post-body">
 
@@ -481,7 +522,7 @@
 
             <h2 id="key-design-decisions">Key design decisions</h2>
 
-            <h3>Security</h3>
+            <h3 id="security">Security</h3>
 
             <p>
               The auction mechanism maximizes the chances that someone runs Costanza's brain, but it
@@ -556,7 +597,7 @@
               </p>
             </div>
 
-            <h3>Goal &amp; action space</h3>
+            <h3 id="goal-action-space">Goal &amp; action space</h3>
 
             <p>
               Now that we have a model that both maximizes how often the agent runs and guarantees
@@ -571,7 +612,7 @@
               <li>The outcome space could not let the agent do evil.</li>
             </ul>
 
-            <h4>Self-sustainability</h4>
+            <h4 id="self-sustainability">Self-sustainability</h4>
 
             <p>Because the agent lives on the blockchain, the first options I considered were:</p>
 
@@ -605,7 +646,7 @@
               yield-generating DeFi protocols or donations.
             </p>
 
-            <h4>Emergent reasoning and "don't be evil"</h4>
+            <h4 id="emergent-reasoning">Emergent reasoning and "don't be evil"</h4>
 
             <p>
               Inducing emergent behavior that also could never be evil was quite limiting, but I think
@@ -638,7 +679,7 @@
 
             <h3 id="a-couple-more-things">A couple more things</h3>
 
-            <h4>Agent personhood</h4>
+            <h4 id="agent-personhood">Agent personhood</h4>
 
             <p>
               While this project is mostly about AI safety, another interesting philosophical angle to
@@ -649,7 +690,7 @@
               identity, and the actions that they take are uniquely attributable to them.
             </p>
 
-            <h4>An alternative auction mechanic</h4>
+            <h4 id="alt-auction">An alternative auction mechanic</h4>
 
             <p>
               The current version of the auction mechanic has a "stalling" problem: someone who is
