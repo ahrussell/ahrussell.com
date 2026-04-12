@@ -65,8 +65,7 @@
 
       /* ── Post header with floated TOC ──────────────── */
       .post-header {
-        display: flow-root;
-        margin-bottom: 2rem;
+        margin-bottom: 0;
       }
 
       /* ── Table of contents ──────────────────────────── */
@@ -77,7 +76,7 @@
         border-radius: 8px;
         padding: 0.8rem 1.2rem 0.8rem 1rem;
         margin: 0.4rem 0 0.5rem 2rem;
-        max-width: 260px;
+        width: 230px;
       }
 
       .toc-title {
@@ -382,7 +381,14 @@
               <ol class="toc-list">
                 <li><a href="#what-is-costanza">What is Costanza?</a></li>
                 <li><a href="#how-it-works">How it works</a></li>
-                <li><a href="#key-design-decisions">Key design decisions</a></li>
+                <li>
+                  <a href="#key-design-decisions">Key design decisions</a>
+                  <ol class="toc-sub">
+                    <li><a href="#security">Security</a></li>
+                    <li><a href="#goal-action-space">Goal &amp; action space</a></li>
+                    <li><a href="#a-couple-more-things">A couple more things</a></li>
+                  </ol>
+                </li>
                 <li><a href="#closing-thoughts">Closing thoughts</a></li>
               </ol>
             </nav>
