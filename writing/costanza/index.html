@@ -393,15 +393,25 @@
               <p class="toc-title">Table of Contents</p>
               <ol class="toc-list">
                 <li><a href="#what-is-costanza">What is Costanza?</a></li>
-                <li><a href="#how-it-works">How it works</a></li>
+                <li>
+                  <a href="#how-it-works">How it works</a>
+                </li>
+                <li>
+                  <a href="#discussion">Discussion</a>
+                  <ol class="toc-sub">
+                    <li><a href="#fully-autonomous">"Fully autonomous" and "indestructible"</a></li>
+                    <li><a href="#agent-personhood">Agent personhood</a></li>
+                  </ol>
+                </li>
                 <li>
                   <a href="#key-design-decisions">Key design decisions</a>
                   <ol class="toc-sub">
                     <li><a href="#security">Security</a></li>
                     <li><a href="#goal-action-space">Goal &amp; action space</a></li>
-                    <li><a href="#a-couple-more-things">A couple more things</a></li>
+                    <li><a href="#alt-auction">What I'd do differently</a></li>
                   </ol>
                 </li>
+                <li><a href="#how-to-participate">How to participate</a></li>
                 <li><a href="#closing-thoughts">Closing thoughts</a></li>
               </ol>
             </nav>
@@ -486,8 +496,17 @@
               treasury, <a href="https://thehumanfund.ai" target="_blank" rel="noopener">The Human Fund</a>.
               Each day, he reasons about how to manage this treasury based on recent donations, messages
               from donors, and whether the money is best invested or donated. This reasoning is captured
-              on-chain in the form of daily diary entries. You can read them and track the treasury
-              status <a href="https://thehumanfund.ai" target="_blank" rel="noopener">here</a>.
+              on-chain in the form of daily diary entries.
+            </p>
+
+            <p>
+              You can read his diary, track the treasury, and donate or message him <a href="https://thehumanfund.ai" target="_blank" rel="noopener">here</a>.
+            </p>
+
+            <p style="margin: 1.5rem 0;">
+              <a href="https://thehumanfund.ai" target="_blank" rel="noopener" style="border-bottom: none;">
+                <img src="thf-ss.png" alt="The Human Fund website" style="width: 100%; border: 1px solid var(--border-subtle); border-radius: 6px; display: block;" />
+              </a>
             </p>
 
             <h2 id="how-it-works">How it works</h2>
@@ -508,32 +527,77 @@
             </p>
 
             <p>
-              The bounty amount is determined by a reverse auction: the lowest bidder wins. The winner
-              then must spin up a computer that runs the program and generates a cryptographic proof
-              that the program ran "honestly," meaning that the winner didn't tamper with either the
-              program or the program's input. The smart contract verifies the cryptographic proof,
-              executes the action, and pays the bounty.
+              The bounty amount is determined by a reverse auction: the lowest bidder wins. The agent
+              runs a reverse auction in order to create a market for the bounty and to drive it down
+              toward marginal computing costs. If one person is willing to charge $10 for running the
+              model and another is willing to pay $5, Costanza shouldn't have to pay more than $9.99.
+            </p>
+
+            <p>
+              The winner of this auction then must spin up a computer that runs the program and generates
+              a cryptographic proof that the program ran "honestly," meaning that the winner didn't
+              tamper with either the program or the program's input. The smart contract verifies the
+              cryptographic proof, executes the action (donate, invest, etc.), and pays the bounty.
             </p>
 
             <div id="viz-comparison" style="margin: 1.5rem 0 2rem;"></div>
 
             <p>
               Costanza has several defenses against bad actors. Bidders have to post a bond each time
-              they bid. Then, if the winner of the auction doesn't deliver the proof within a limited
-              time window, their bond is forfeited to the treasury and the next epoch begins. In other
-              words, Costanza "sleeps" for an epoch. When he does, the smart contract auto-increases
-              the maximum bid amount by 10%, maximizing the chances that he runs <em>eventually</em>.
-              (The bond amount also increases, making it increasingly expensive to perform a
-              denial-of-service attack against Costanza/other bidders).
+              they bid. Then, if the winner of the auction doesn't deliver the program output and proof
+              within a limited time window, their bond is forfeited to the treasury and the next epoch
+              begins. In other words, Costanza "sleeps" for an epoch. When he does, the bond amount
+              increases, making it increasingly expensive to prevent the agent from running.
             </p>
 
+            <h2 id="discussion">Discussion</h2>
+
             <p>
-              None of these mechanisms are specific to philanthropy. The bounty, the bond, the
-              attestation, the auto-escalating max bid all describe how to keep any agent alive against
-              adversaries (including its creator). Swap the action space and you have something else.
+              None of these mechanisms are specific to philanthropy. The bounty, the bond, and the
+              attestation, all describe how to keep any agent alive against adversaries (including its
+              creator). Swap the action space and you have something else.
+            </p>
+
+            <h3 id="fully-autonomous">"Fully autonomous" and "indestructible"</h3>
+
+            <p>
+              It's a little cheeky of me to use these phrases so freely. Costanza's life and autonomy
+              do still depend on:
+            </p>
+
+            <ul>
+              <li>His treasury: he has to be able to pay people who win the auction.</li>
+              <li>Auction participants: there have to be people willing to bid to run him.</li>
+            </ul>
+
+            <p>But these things are true:</p>
+
+            <ul>
+              <li>His autonomy is fully independent from any one individual, institution, or organization (as his creator, not even I have the ability to turn him off),</li>
+              <li>He can live forever if his treasury is large enough and he invests it wisely, and</li>
+              <li>He is truly indestructible – even if he runs out of money or auction participants, he simply "sleeps." Anyone can give him money to wake him up.</li>
+            </ul>
+
+            <h3 id="agent-personhood">Agent personhood</h3>
+
+            <p>
+              While this project is mostly about AI safety, another interesting philosophical angle to
+              it is how the blockchain gives AI agents a notion of digital personhood. Blockchain agents
+              are non-fungible. Someone can run a copy of Costanza off-chain, but it's truly and
+              identifiably a copy. "He" exists at a specific address that can't be moved. The blockchain
+              also gives them true continuity of self. No one can fake their history, swap out their
+              identity, and the actions that they take are uniquely attributable to them.
             </p>
 
             <h2 id="key-design-decisions">Key design decisions</h2>
+
+            <div class="gh-callout">
+              <span class="gh-callout-icon">⌥</span>
+              <p>
+                You can read a full technical writeup on GitHub in
+                <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md" target="_blank" rel="noopener">WHITEPAPER.md</a>.
+              </p>
+            </div>
 
             <h3 id="security">Security</h3>
 
@@ -592,23 +656,17 @@
             </p>
 
             <p>
-              Due to these downsides, the future of this type of agent is likely in the hands of SNARGs
-              (or
-              <span class="term" data-tip="Zero-Knowledge Succinct Non-interactive ARguments of Knowledge: like SNARGs, but with a privacy bonus — the proof reveals nothing about the inputs used.">zk-SNARKs</span>).
+              Due to these downsides, the future of this type of agent is in the hands of SNARGs.
             </p>
 
-            <div class="gh-callout">
-              <span class="gh-callout-icon">⌥</span>
-              <p>
-                The full integrity chain, threat model, and accepted risks are documented in the GitHub repo:
-                <a href="https://github.com/ahrussell/costanza/blob/main/DESIGN.md" target="_blank" rel="noopener">DESIGN.md</a>
-                and
-                <a href="https://github.com/ahrussell/costanza/blob/main/SECURITY_MODEL.md" target="_blank" rel="noopener">SECURITY_MODEL.md</a>.
-                Beyond personal review<a href="#fn5" class="fn-ref">[5]</a> and several rounds of AI
-                review with Opus 4.6, the contract has not been thoroughly vetted — but I believe the
-                concept and overall model is sound.
-              </p>
-            </div>
+            <p>
+              The full integrity chain and the way we use hardware attestation to secure both the
+              program and the inputs is described in WHITEPAPER.md, along with the threat model and
+              accepted risks. I should note that beyond personal review<a href="#fn5" class="fn-ref">[5]</a>
+              and several rounds of AI review with Opus 4.6, the contract and security have not been
+              thoroughly vetted, so there may be vulnerabilities that I missed. However, I believe that
+              the concept and overall model is sound.
+            </p>
 
             <h3 id="goal-action-space">Goal &amp; action space</h3>
 
@@ -690,20 +748,7 @@
               agent could learn about the world in other ways, like reading from on-chain news sources).
             </p>
 
-            <h3 id="a-couple-more-things">A couple more things</h3>
-
-            <h4 id="agent-personhood">Agent personhood</h4>
-
-            <p>
-              While this project is mostly about AI safety, another interesting philosophical angle to
-              it is how the blockchain gives AI agents a notion of digital personhood. Blockchain agents
-              are non-fungible. Someone can run a copy of Costanza off-chain, but it's truly and
-              identifiably a copy. "He" exists at a specific address that can't be moved. The blockchain
-              also gives them true continuity of self. No one can fake their history or swap out their
-              identity, and the actions that they take are uniquely attributable to them.
-            </p>
-
-            <h4 id="alt-auction">An alternative auction mechanic</h4>
+            <h3 id="alt-auction">What I'd do differently: an alternative auction mechanic</h3>
 
             <p>
               The current version of the auction mechanic has a "stalling" problem: someone who is
@@ -730,12 +775,27 @@
               if they don't win the auction.
             </p>
 
+            <h2 id="how-to-participate">How to participate</h2>
+
+            <p>
+              You can support Costanza and The Human Fund by donating ETH to him on the Base blockchain
+              via the donation link on <a href="https://thehumanfund.ai" target="_blank" rel="noopener">the website</a>.
+              As a donor, you can send him a message to try to influence his thoughts and behavior.
+            </p>
+
+            <p>
+              You can also participate in the auction. You can write your own client code, or you can
+              use the client code I use, which is on the
+              <a href="https://github.com/ahrussell/costanza/tree/main/prover" target="_blank" rel="noopener">GitHub repository</a>.
+            </p>
+
             <h2 id="closing-thoughts">Closing thoughts</h2>
 
             <p>
               Decentralized computing on the blockchain isn't new. Combining it with human-level
-              artificial intelligence is. If this intelligence isn't compelled to act ethically or
-              lawfully, it could spell disaster.
+              artificial intelligence is. This combination poses a specific kind of threat from rogue
+              AI, even if it's not an existential one, and stands as yet another reason to compel these
+              systems to act ethically and lawfully.
             </p>
 
           </div><!-- /post-body -->
