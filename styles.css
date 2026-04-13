@@ -629,6 +629,17 @@ body {
   margin: 0 0 0.6rem;
 }
 
+.project-card-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: -0.3rem 0 0.4rem;
+}
+
+.project-card-desc {
+  font-size: 0.78rem;
+}
+
 .bullet-list li {
   font-size: 0.82rem;
   line-height: 1.55;
@@ -674,7 +685,7 @@ body {
 .project-card {
   display: flex;
   gap: 1.1rem;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .project-card-image {
