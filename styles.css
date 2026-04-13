@@ -179,7 +179,7 @@ body {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 2.1fr);
+  grid-template-columns: minmax(0, 3.53fr) minmax(0, 1.57fr);
   gap: 1rem;
   margin-bottom: 0rem; /* slightly smaller gap before the Work section */
 }
@@ -238,6 +238,7 @@ body {
   align-self: stretch;
   display: flex;
   justify-content: right; /* center the snapshot card in its column */
+  align-items: flex-start;
 }
 
 .card {
