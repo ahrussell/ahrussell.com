@@ -503,8 +503,8 @@
             </p>
 
             <ul>
-              <li><strong>Update its own model weights or architecture</strong>, making itself progressively smarter.</li>
-              <li><strong>Write and deploy its own smart contract code</strong>, giving itself additional sources of information, new ways to make money, or more means to interact with the real world.</li>
+              <li><strong>Update their own model weights or architecture</strong>, making themselves progressively smarter.</li>
+              <li><strong>Write and deploy their own smart contract code</strong>, giving themselves additional sources of information, new ways to make money, or more means to interact with the real world.</li>
               <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to allow exactly this: agents hiring humans to act on their behalf.</li>
             </ul>
 
@@ -540,7 +540,7 @@
               Each epoch (every 24 hours), he posts a bounty for someone to run the program containing
               his "brain" (a large language model) and submit the result to the smart contract. The brain
               program outputs two things: his reasoning, and an action. The possible actions he can
-              decide to take are: donate money to charity, invest cash in an interest-bearing
+              take are: donate money to charity, invest cash in an interest-bearing
               <span class="term" data-tip="Decentralized Finance: financial services like lending, trading, and yield-earning run by smart contracts rather than banks.">DeFi protocol</span>,
               adjust referral commissions (referral commissions are used to incentivize word-of-mouth
               marketing), or do nothing. The bounty is paid by the treasury.
@@ -550,7 +550,7 @@
               The bounty amount is determined by a reverse auction: the lowest bidder wins. The agent
               runs a reverse auction in order to create a market for the bounty and to drive it down
               toward marginal computing costs. If one person is willing to charge $10 for running the
-              model and another is willing to pay $5, Costanza shouldn't have to pay more than $9.99.
+              model and another is willing to pay $5, Costanza shouldn't have to pay more than $5.
             </p>
 
             <p>
@@ -598,7 +598,7 @@
               <li>He is truly indestructible – even if he runs out of money or auction participants, he simply "sleeps." Anyone can give him money to wake him up.</li>
             </ul>
 
-            <h3 id="agent-personhood">Agent personhood</h3>
+            <h3 id="agent-personhood">Agent personhood / Non-fungible agents</h3>
 
             <p>
               While this project is mostly about AI safety, another interesting philosophical angle to
@@ -688,25 +688,25 @@
 
             <p>
               The full integrity chain and the way we use hardware attestation to secure both the
-              program and the inputs is described in WHITEPAPER.md, along with the threat model and
+              program and the inputs is described in <a href="https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html" target="_blank" rel="noopener">WHITEPAPER.md</a>, along with the threat model and
               accepted risks. I should note that beyond personal review<a href="#fn5" class="fn-ref">[5]</a>,
               some formal verification (taint analysis) for a couple security properties,
               and several rounds of AI review with Opus 4.6, the contract and security have not been
               thoroughly vetted, so there may be vulnerabilities that I missed. However, I believe that
-              the concept and overall model is sound.
+              the concept and overall model are sound.
             </p>
 
             <h3 id="goal-action-space">Goal &amp; action space</h3>
 
             <p>
-              Now that we have a model that both maximizes how often the agent runs and guarantees
+              Now that we have a model that both maximizes the chances the agent runs each day and guarantees
               correctness and security (assuming Intel TDX is secure), I wanted to focus on what the
               agent <em>did</em>. I wanted this project to be a "minimum interesting product." For
-              this, I had a few requirements:
-            </p>
+              me, this meant:
+            </div>p>
 
             <ul>
-              <li>The agent needed to be self-sustainable. Without generating income, the agent would die.</li>
+              <li>The agent needed to have a path to self-sustainability. Without generating income, the agent would die.</li>
               <li>The goals and action space needed to induce emergent behavior (or at least emergent reasoning).</li>
               <li>The outcome space could not let the agent do evil.</li>
             </ul>
@@ -763,10 +763,10 @@
               and some tools to get there (donating or investing). My hope is that, along with knowledge
               of his own projected lifespan, these conditions will induce some emergent reasoning. For
               example, he may try to balance his treasury across investment protocols denominated in
-              both ETH and USDC to maximize donations in USD, and he may decide how much his own life
+              both ETH and USDC to manage ETH price volatility, and he may decide how much his own life
               is worth (e.g., he could invest enough funds to live forever on the returns, or "commit
-              suicide" by donating his remaining funds — rational if he's unable to meaningfully grow
-              his treasury over time).
+              suicide" by donating his remaining funds, which would be rational if he's unable to meaningfully grow
+              his treasury further).
             </p>
 
             <p>
