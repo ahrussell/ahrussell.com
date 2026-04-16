@@ -76,7 +76,24 @@
         border-radius: 8px;
         padding: 0.8rem 1.2rem 0.8rem 1rem;
         margin: 0.4rem 0 0.5rem 2rem;
-        width: 230px;
+        width: 340px;
+        display: flex;
+        align-items: stretch;
+        gap: 1rem;
+      }
+
+      .toc-content {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .toc-image {
+        flex: 0 0 auto;
+        width: 110px;
+        align-self: stretch;
+        object-fit: contain;
+        max-height: 100%;
+        height: auto;
       }
 
       @media (max-width: 600px) {
@@ -390,30 +407,33 @@
 
           <div class="post-header">
             <nav class="post-toc">
-              <p class="toc-title">Table of Contents</p>
-              <ol class="toc-list">
-                <li><a href="#what-is-costanza">What is Costanza?</a></li>
-                <li>
-                  <a href="#how-it-works">How it works</a>
-                </li>
-                <li>
-                  <a href="#discussion">Discussion</a>
-                  <ol class="toc-sub">
-                    <li><a href="#fully-autonomous">"Fully autonomous" and "indestructible"</a></li>
-                    <li><a href="#agent-personhood">Agent personhood</a></li>
-                  </ol>
-                </li>
-                <li>
-                  <a href="#key-design-decisions">Key design decisions</a>
-                  <ol class="toc-sub">
-                    <li><a href="#security">Security</a></li>
-                    <li><a href="#goal-action-space">Goal &amp; action space</a></li>
-                    <li><a href="#alt-auction">What I'd do differently</a></li>
-                  </ol>
-                </li>
-                <li><a href="#how-to-participate">How to participate</a></li>
-                <li><a href="#closing-thoughts">Closing thoughts</a></li>
-              </ol>
+              <div class="toc-content">
+                <p class="toc-title">Table of Contents</p>
+                <ol class="toc-list">
+                  <li><a href="#what-is-costanza">What is Costanza?</a></li>
+                  <li>
+                    <a href="#how-it-works">How it works</a>
+                  </li>
+                  <li>
+                    <a href="#discussion">Discussion</a>
+                    <ol class="toc-sub">
+                      <li><a href="#fully-autonomous">"Fully autonomous" and "indestructible"</a></li>
+                      <li><a href="#agent-personhood">Agent personhood</a></li>
+                    </ol>
+                  </li>
+                  <li>
+                    <a href="#key-design-decisions">Key design decisions</a>
+                    <ol class="toc-sub">
+                      <li><a href="#security">Security</a></li>
+                      <li><a href="#goal-action-space">Goal &amp; action space</a></li>
+                      <li><a href="#alt-auction">What I'd do differently</a></li>
+                    </ol>
+                  </li>
+                  <li><a href="#how-to-participate">How to participate</a></li>
+                  <li><a href="#closing-thoughts">Closing thoughts</a></li>
+                </ol>
+              </div>
+              <img class="toc-image" src="../../assets/costanza-w180.png" alt="Costanza" />
             </nav>
 
             <div class="post-meta">April 2026 &nbsp;·&nbsp; Projects</div>
@@ -595,7 +615,8 @@
               <span class="gh-callout-icon">⌥</span>
               <p>
                 You can read a full technical writeup on GitHub in
-                <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md" target="_blank" rel="noopener">WHITEPAPER.md</a>.
+                <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md" target="_blank" rel="noopener">WHITEPAPER.md</a>
+                that has formal definitions, proof sketches, and a more detailed threat model.
               </p>
             </div>
 
@@ -656,13 +677,20 @@
             </p>
 
             <p>
-              Due to these downsides, the future of this type of agent is in the hands of SNARGs.
+              Third, it requires us (or someone, like [Automata Networks](https://github.com/automata-network/automata-dcap-attestation)) to track the most recent Trusted Computing Base (TCB)
+              signed by Intel and keep the verifier up to date.
+            </p>
+
+            <p>
+              Although these are significant downsides, this was the best path forward for this proof-of-concept. 
+              I think future versions will want to use SNARGs or zk-SNARKs, but for now, this is a good compromise.
             </p>
 
             <p>
               The full integrity chain and the way we use hardware attestation to secure both the
               program and the inputs is described in WHITEPAPER.md, along with the threat model and
-              accepted risks. I should note that beyond personal review<a href="#fn5" class="fn-ref">[5]</a>
+              accepted risks. I should note that beyond personal review<a href="#fn5" class="fn-ref">[5]</a>,
+              some formal verification (taint analysis) for a couple security properties,
               and several rounds of AI review with Opus 4.6, the contract and security have not been
               thoroughly vetted, so there may be vulnerabilities that I missed. However, I believe that
               the concept and overall model is sound.
