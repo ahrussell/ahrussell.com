@@ -194,6 +194,23 @@
         font-weight: 600;
       }
 
+      /* Project / publication entries reuse .cv-role styles */
+      .cv-role-desc {
+        font-size: 8.5pt;
+        line-height: 1.4;
+        margin-top: 0.02in;
+      }
+
+      .cv-role-desc a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .cv-role-location a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
       /* Education */
       .cv-edu {
         margin-bottom: 0.08in;
@@ -292,11 +309,15 @@
       <header class="cv-header">
         <div class="cv-header-left">
           <h1 class="cv-name">Andrew Russell</h1>
-          <span class="cv-tagline">Ex-Google, Microsoft — tech, product, data, ops, emerging markets</span>
+          <span class="cv-tagline">Cryptographer · ex-Google · emerging-markets operator — AI agent safety</span>
         </div>
         <div class="cv-header-right">
           <div>Amsterdam, NL · Nairobi, KE</div>
           <div>US Citizen · EU Resident</div>
+          <div>
+            <a href="https://ahrussell.com">ahrussell.com</a> · 
+            <a href="https://github.com/ahrussell">github.com/ahrussell</a>
+          </div>
           <div><a href="tel:+16023181382">+1-602-318-1382</a> · <a href="mailto:me@ahrussell.com">me@ahrussell.com</a></div>
         </div>
       </header>
@@ -305,17 +326,35 @@
         <h2 class="cv-section-title" style="--title-width: 0.65in;">Summary</h2>
         <div class="cv-summary">
           <p>
-            I build and deliver technology for underserved customers in emerging markets, working across engineering, data, operations, and field teams.
-            Trained as a cryptographer and software engineer, I design systems for adversarial conditions and parse data with a clear view of what models can (and cannot) tell us in practice.
-          </p>
-          <p style="margin-top: 0.08in;">
-            I have extensive field experience with customers and field staff, shaping practical, customer-informed strategies in emerging markets.
+            Cryptography researcher and software engineer turned emerging-markets product operator, now 
+            working on AI agent safety. Published at CRYPTO 2018; shipped security software at 
+            Google and Microsoft; four years running data, product, and P&amp;L for an agri-fintech 
+            across Kenya and Zambia. <strong>Currently on sabbatical (returning Sept 2026)</strong>:
+            designing truly autonomous AI agents with formally-analyzed 
+            safety, security, and liveness properties (see Costanza, 2026) and motorbiking from Nairobi to Namibia. 
+            Most interested in product roles at the intersection of AI research, safety, and 
+            real-world deployment.
           </p>
         </div>
       </section>
 
       <section class="cv-section">
         <h2 class="cv-section-title" style="--title-width: 1.2in;">Work Experience</h2>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Sabbatical (returning to full-time Sep 2026)</span>
+            <span class="cv-role-location">Amsterdam / Nairobi</span>
+          </div>
+          <div class="cv-role-subheader">
+            <span class="cv-role-title">Independent AI safety research &amp; travel</span>
+            <span class="cv-role-dates">Jan 2026 – Present</span>
+          </div>
+          <ul class="cv-role-bullets">
+            <li>Designed, built, and shipped <strong>Costanza</strong>, a fully autonomous AI agent, complete with a formal security and liveness model. See Projects below.</li>
+            <li>Solo motorbike expedition from Kenya to Namibia, May–Aug 2026.</li>
+          </ul>
+        </div>
 
         <div class="cv-role">
           <div class="cv-role-header">
@@ -327,11 +366,10 @@
             <span class="cv-role-dates">May 2024 – Dec 2025</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Joined the product team to get closer to the strategic and operational core of the business. Reported to Chief Product Officer; partnered directly with C-suite to tackle company-defining commercial and operational challenges across markets.</li>
+            <!--<li>Joined the product team to get closer to the strategic and operational core of the business. Reported to Chief Product Officer; partnered directly with C-suite to tackle company-defining commercial and operational challenges across markets.</li>-->
             <li>Authored two company-wide retrospectives following major customer contraction, combining market research, customer/staff feedback, and internal operational analysis; findings drove pivots in business model and multi-year growth strategy.</li>
-            <li>Appointed by C-suite to lead Zambia's $10M revenue business unit in the middle of a challenging repayment season, with remit to stabilize credit portfolio and drive multi-year growth.</li>
-            <li>Accountable for commercial performance, strategy execution, product development, and operational delivery across sales, credit, product, engineering, marketing, and procurement.</li>
-            <li>Piloted a wholesaling initiative to reduce balance sheet risk from multi-million-dollar fertilizer holdings.</li>
+            <li>Appointed by C-suite to lead Zambia's $10M revenue business unit; accountable for commercial performance, product, and operations across sales, credit, and engineering.</li>
+            <li>Built experimental products, including a wholesaling initiative to reduce balance sheet risk from multi-million-dollar fertilizer holdings.</li>
           </ul>
         </div>
 
@@ -341,26 +379,75 @@
             <span class="cv-role-dates">Apr 2021 – Mar 2024</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Built and scaled Apollo's core data infrastructure. Led migration of legacy analytics to modern stack, improving query speeds by 97% and cutting costs by 60%.</li>
-            <li>Led cross-functional strategic analytics and reporting to manage our sales & operations, enabling multi-country operations and supporting record 200% annual growth.</li>
-            <li>Promoted to Tech Lead and then Head of Data to oversee a remote/hybrid team of 8 engineers and analysts across Europe and Africa.</li>
+            <li>Built and scaled Apollo's core data infrastructure. Led migration of legacy analytics to modern stack, improving query speeds by 97% and cutting costs by 60%. Wrote 100,000+ lines of production SQL and Python.</li>
+            <li>Led cross-functional analytics, enabling multi-country operations and supporting record 200% annual growth.</li>
+            <li>Promoted to Head of Data; managed a team of 8 engineers and analysts across Europe and Africa.</li>
           </ul>
         </div>
 
         <div class="cv-role">
           <div class="cv-role-header">
-            <span class="cv-role-company">Google, Microsoft, UT Austin, Stanford University, University of Bristol, Clef</span>
-            <span class="cv-role-location"></span>
+            <span class="cv-role-company">Google</span>
+            <span class="cv-role-location">San Francisco, CA</span>
           </div>
           <div class="cv-role-subheader">
-            <span class="cv-role-title">Early Career – Software Engineering & Cryptography Research</span>
-            <span class="cv-role-dates">2013 – 2021</span>
+            <span class="cv-role-title">Software Engineer</span>
+            <span class="cv-role-dates">Aug 2019 – Mar 2021</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Shipped production software at Google and Microsoft impacting billions of users.</li>
-            <li>Published peer-reviewed cryptography research during education &amp; fellowships.</li>
-            <li>Built secure authentication systems at startup Clef (first employee), later acquired by Twilio.</li>
+            <li>Built a system monitoring petabytes of user data for daily privacy compliance across Google's product ecosystem.</li>
           </ul>
+          <div class="cv-role-subheader" style="margin-top: 0.06in;">
+            <span class="cv-role-title">Software Engineer, PhD Intern</span>
+            <span class="cv-role-dates">Summer 2018</span>
+          </div>
+          <ul class="cv-role-bullets">
+            <li>Designed a threat model for a privacy-preserving version of Gmail using secure execution environments; ported part of Gmail's email-processing backend into the system.</li>
+          </ul>
+        </div>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Microsoft</span>
+            <span class="cv-role-location">Redmond, WA</span>
+          </div>
+          <div class="cv-role-subheader">
+            <span class="cv-role-title">Software Engineer</span>
+            <span class="cv-role-dates">Aug 2016 – Aug 2017</span>
+          </div>
+          <ul class="cv-role-bullets">
+            <li>Worked on Windows Security, particularly secure sign-in/sign-out flows for Windows 10 (Windows Hello). One-year role between undergrad and Ph.D. program.</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title" style="--title-width: 0.6in;">Projects</h2>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Costanza: The Human Fund (2026)</span>
+            <span class="cv-role-location"><a href="https://thehumanfund.ai">thehumanfund.ai</a> · <a href="https://github.com/ahrussell/costanza">github</a></span>
+          </div>
+          <p class="cv-role-desc">
+            Fully autonomous, indestructible AI agent, built as a proof-of-concept warning about such extrajudicial agents. Designed with constrained alignment (provably cannot do harm even under prompt injection), hardware attestation (Intel TDX), and formal security + liveness model with game-theoretic analysis. <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md">Whitepaper on GitHub.</a>
+          </p>
+        </div>
+
+      </section>
+
+      <section class="cv-section">
+        <h2 class="cv-section-title" style="--title-width: 0.9in;">Publications</h2>
+
+        <div class="cv-role">
+          <div class="cv-role-header">
+            <span class="cv-role-company">Risky Traitor Tracing and New Negative Differential Privacy Results</span>
+            <span class="cv-role-location"><a href="https://link.springer.com/chapter/10.1007/978-3-319-96884-1_16">CRYPTO 2018 (top-tier cryptography venue)</a></span>
+          </div>
+          <div class="cv-role-subheader">
+            <span class="cv-role-title">with Rishab Goyal, Venkata Koppula, and Brent Waters</span>
+          </div>
         </div>
       </section>
 
@@ -373,14 +460,10 @@
             <span class="cv-edu-location">Austin, TX</span>
           </div>
           <div class="cv-edu-subheader">
-            <span class="cv-edu-degree">Ph.D. coursework and research in Computer Science</span>
+            <span class="cv-edu-degree">M.S. in Computer Science &amp; Ph.D. coursework</span>
             <span class="cv-edu-dates">2017 – 2019</span>
           </div>
-		  <div class="cv-edu-subject">Field: Cryptography (obfuscation, homomorphic/functional encryption)</div>
-          <div class="cv-edu-subheader">
-            <span class="cv-edu-degree">M.S. in Computer Science</span>
-            <span class="cv-edu-dates">2017 – 2019</span>
-          </div>
+		      <div class="cv-edu-subject">Cryptography (obfuscation, homomorphic/functional encryption). Advised by Brent Waters.</div>
         </div>
 
         <div class="cv-edu">
@@ -392,7 +475,7 @@
             <span class="cv-edu-degree">B.A. in Mathematics and Computer Science</span>
             <span class="cv-edu-dates">2012 – 2016</span>
           </div>
-		  <div class="cv-edu-subject">Thesis: Elliptic Curve Pairings in Cryptography</div>
+		  <div class="cv-edu-subject">Thesis: Elliptic Curve Pairings in Cryptography. Summer research fellowships at Stanford (2014) and the University of Bristol (2015).</div>
         </div>
       </section>
 
@@ -400,7 +483,7 @@
         <h2 class="cv-section-title" style="--title-width: 0.7in;">Fun Stuff</h2>
         <div class="cv-fun">
           <p>
-            Ultramarathoner, Division I club athlete, and 2x Dutch national champion in ultimate frisbee. Eagle Scout, thru-hiker & backpacker across 25+ countries. Violinist for 15+ years; former member of the Phoenix Youth Symphony. Founded &amp; managed a world-champion e-sports team in high school. Adventure motorcyclist.
+            Ultramarathoner, Division I club athlete, and 2x Dutch national champion in ultimate frisbee. Eagle Scout, thru-hiker & backpacker across 25+ countries. Violinist for 15+ years; former member of the Phoenix Youth Symphony. Founded &amp; managed a world-champion e-sports team in high school. SCUBA certified. Adventure motorcyclist with 10,000+ km on the odometer.
           </p>
         </div>
       </section>
