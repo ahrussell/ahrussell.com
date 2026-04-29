@@ -946,7 +946,8 @@
             <p>
               There are a number of complexities here. For one, the trust model changes. Obviously, we're now reliant on these 
               frontier model providers to run their models honestly. You'd also have to faff about with billing: someone has to 
-              pay the provider (though I think the prover's API key could just be an input to the TEE program). More subtly, we lose 
+              pay the provider (though I think the prover's API key could just be an input to the TEE program, and OpenRouter
+              accepts cryptocurrencies as payment, though I haven't tried this). More subtly, we lose 
               <emph>determinism</emph>. I spent a
               fair bit of effort to make the model deterministic, which is challenging because the floating-point operations
               used by LLMs are often not deterministic across different hardware setups (see more details in the 
