@@ -802,6 +802,14 @@
                 window.addEventListener('scroll', schedule, { passive: true });
                 window.addEventListener('resize', schedule, { passive: true });
                 iframe.addEventListener('load', () => { send(); setTimeout(send, 200); });
+                // The iframe pings us once its message listener is
+                // registered. Send the current visible region so the
+                // sticky bar gets positioned without waiting for scroll.
+                window.addEventListener('message', (e) => {
+                  if (e.data && e.data.type === 'indestructibility:ready') {
+                    send();
+                  }
+                });
                 send();
               })();
             </script>
