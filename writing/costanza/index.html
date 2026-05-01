@@ -914,6 +914,53 @@
               loading="lazy"
               title="Autonomy — interactive diagram"></iframe>
 
+            <!-- Same sticky-bar feeder as the indestructibility iframe.
+                 Sends the autonomy iframe its visible region (in iframe-local
+                 coords) on every scroll tick so its run/reset bar tracks
+                 the user's view. -->
+            <script>
+              (function () {
+                const iframe = document.getElementById('autonomy-iframe');
+                if (!iframe) return;
+
+                const BAR_INSET = 60;
+                const BAR_PAD   = 18;
+                let raf = null;
+
+                function send() {
+                  raf = null;
+                  if (!iframe.contentWindow) return;
+                  const r = iframe.getBoundingClientRect();
+                  const vh = window.innerHeight;
+                  const visible = r.bottom > 0 && r.top < vh;
+                  if (!visible) {
+                    iframe.contentWindow.postMessage(
+                      { type: 'autonomy:stickyBar', visible: false }, '*'
+                    );
+                    return;
+                  }
+                  const desired = vh - BAR_INSET - r.top;
+                  const minY = BAR_PAD;
+                  const maxY = r.height - BAR_INSET;
+                  const top  = Math.max(minY, Math.min(maxY, desired));
+                  iframe.contentWindow.postMessage(
+                    { type: 'autonomy:stickyBar', visible: true, top }, '*'
+                  );
+                }
+                function schedule() {
+                  if (raf == null) raf = requestAnimationFrame(send);
+                }
+
+                window.addEventListener('scroll', schedule, { passive: true });
+                window.addEventListener('resize', schedule, { passive: true });
+                iframe.addEventListener('load', () => { send(); setTimeout(send, 200); });
+                window.addEventListener('message', (e) => {
+                  if (e.data && e.data.type === 'autonomy:ready') send();
+                });
+                send();
+              })();
+            </script>
+
             <p>
               The formal threat model and accepted risks are described in
               <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md" target="_blank" rel="noopener">WHITEPAPER.md</a>.
