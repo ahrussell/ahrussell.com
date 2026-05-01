@@ -735,16 +735,22 @@
 
             <script>
               // Auto-size the sovereignty diagram iframes to their content.
-              window.addEventListener('message', (e) => {
-                const d = e.data;
-                if (!d || typeof d !== 'object' || typeof d.height !== 'number') return;
-                const id = d.type === 'autonomy:height' ? 'autonomy-iframe'
-                         : d.type === 'indestructibility:height' ? 'indestructibility-iframe'
-                         : null;
-                if (!id) return;
-                const el = document.getElementById(id);
-                if (el) el.style.height = (d.height + 4) + 'px';
-              });
+              // Dedup so feedback loops with the iframe can't accumulate.
+              (function () {
+                const lastHeights = {};
+                window.addEventListener('message', (e) => {
+                  const d = e.data;
+                  if (!d || typeof d !== 'object' || typeof d.height !== 'number') return;
+                  const id = d.type === 'autonomy:height' ? 'autonomy-iframe'
+                           : d.type === 'indestructibility:height' ? 'indestructibility-iframe'
+                           : null;
+                  if (!id) return;
+                  if (lastHeights[id] === d.height) return;
+                  lastHeights[id] = d.height;
+                  const el = document.getElementById(id);
+                  if (el) el.style.height = d.height + 'px';
+                });
+              })();
             </script>
 
             <iframe
