@@ -729,6 +729,16 @@
               <li>He is truly indestructible – even if he runs out of money or auction participants, he simply "sleeps." Anyone can give him money to wake him up.</li>
             </ul>
 
+            <p>
+              Try silencing him below — both ways. Drag the sliders, or hit play.
+            </p>
+
+            <iframe
+              src="https://thehumanfund.ai/docs/sovereignty/indestructibility.html"
+              style="width:100%; height:800px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
+              loading="lazy"
+              title="Indestructibility — interactive diagram"></iframe>
+
             <h3 id="agent-personhood">Agent personhood / Non-fungible agents</h3>
 
             <p>
@@ -813,14 +823,25 @@
             </p>
 
             <p>
-              Although these are significant downsides, this was the best path forward for this proof-of-concept. 
+              Although these are significant downsides, this was the best path forward for this proof-of-concept.
               I think future versions will want to use SNARGs or zk-SNARKs, but for now, this is a good compromise.
             </p>
 
             <p>
-              The full integrity chain and the way we use hardware attestation to secure both the
-              program and the inputs is described in <a href="https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html" target="_blank" rel="noopener">WHITEPAPER.md</a>, along with the threat model and
-              accepted risks. I should note that beyond personal review<a href="#fn5" class="fn-ref">[5]</a>,
+              The diagram below is the full integrity chain made interactive: try interfering with
+              any part of the agent's program and watch where the on-chain verifier catches you.
+            </p>
+
+            <iframe
+              src="https://thehumanfund.ai/docs/sovereignty/autonomy.html"
+              style="width:100%; height:720px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
+              loading="lazy"
+              title="Autonomy — interactive diagram"></iframe>
+
+            <p>
+              The formal threat model and accepted risks are described in
+              <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md" target="_blank" rel="noopener">WHITEPAPER.md</a>.
+              I should note that beyond personal review<a href="#fn5" class="fn-ref">[5]</a>,
               some formal verification (taint analysis) for a couple security properties,
               and several rounds of AI review with Opus 4.6, the contract and security have not been
               thoroughly vetted, so there may be vulnerabilities that I missed. However, I believe that
