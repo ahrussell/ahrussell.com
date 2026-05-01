@@ -733,9 +733,24 @@
               Try silencing him below — both ways. Drag the sliders, or hit play.
             </p>
 
+            <script>
+              // Auto-size the sovereignty diagram iframes to their content.
+              window.addEventListener('message', (e) => {
+                const d = e.data;
+                if (!d || typeof d !== 'object' || typeof d.height !== 'number') return;
+                const id = d.type === 'autonomy:height' ? 'autonomy-iframe'
+                         : d.type === 'indestructibility:height' ? 'indestructibility-iframe'
+                         : null;
+                if (!id) return;
+                const el = document.getElementById(id);
+                if (el) el.style.height = (d.height + 4) + 'px';
+              });
+            </script>
+
             <iframe
+              id="indestructibility-iframe"
               src="https://thehumanfund.ai/docs/sovereignty/indestructibility.html"
-              style="width:100%; height:800px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
+              style="width:100%; min-height:560px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
               loading="lazy"
               title="Indestructibility — interactive diagram"></iframe>
 
@@ -833,8 +848,9 @@
             </p>
 
             <iframe
+              id="autonomy-iframe"
               src="https://thehumanfund.ai/docs/sovereignty/autonomy.html"
-              style="width:100%; height:720px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
+              style="width:100%; min-height:560px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
               loading="lazy"
               title="Autonomy — interactive diagram"></iframe>
 
