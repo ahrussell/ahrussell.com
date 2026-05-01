@@ -760,6 +760,93 @@
               loading="lazy"
               title="Indestructibility — interactive diagram"></iframe>
 
+            <!-- Floating play bar for the indestructibility iframe.
+                 Appears while the iframe is on screen so case 1 / case 2
+                 can be replayed without scrolling back up to its slider. -->
+            <style>
+              .ind-fab {
+                position: fixed;
+                bottom: 18px;
+                left: 50%;
+                transform: translateX(-50%) translateY(8px);
+                z-index: 100;
+                display: flex;
+                gap: 4px;
+                align-items: center;
+                background: rgba(255,255,255,0.96);
+                border: 1px solid #d1d5db;
+                border-radius: 9999px;
+                padding: 4px 4px 4px 12px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+                font-size: 13px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s, transform 0.2s;
+              }
+              .ind-fab.visible {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateX(-50%) translateY(0);
+              }
+              .ind-fab .fab-label {
+                color: #6b7280;
+                font-size: 12px;
+                white-space: nowrap;
+              }
+              .ind-fab button {
+                border: 0;
+                padding: 7px 13px;
+                border-radius: 9999px;
+                background: transparent;
+                color: #111827;
+                font-family: inherit;
+                font-size: 13px;
+                cursor: pointer;
+                min-height: 34px;
+                font-weight: 500;
+                transition: background 0.15s;
+              }
+              .ind-fab button:hover { background: #f3f4f6; }
+              .ind-fab .fab-divider { width: 1px; height: 16px; background: #e5e7eb; }
+              @media (max-width: 480px) {
+                .ind-fab { font-size: 12px; padding: 3px 3px 3px 10px; }
+                .ind-fab button { padding: 6px 10px; min-height: 32px; }
+                .ind-fab .fab-label { font-size: 11px; }
+              }
+            </style>
+            <div class="ind-fab" id="ind-fab" role="region" aria-label="Indestructibility playback">
+              <span class="fab-label">▶ play</span>
+              <button type="button" data-play="apathy">apathy</button>
+              <span class="fab-divider"></span>
+              <button type="button" data-play="sabotage">sabotage</button>
+            </div>
+            <script>
+              (function () {
+                const fab = document.getElementById('ind-fab');
+                const iframe = document.getElementById('indestructibility-iframe');
+                if (!fab || !iframe) return;
+                const io = new IntersectionObserver((entries) => {
+                  for (const e of entries) {
+                    fab.classList.toggle('visible', e.isIntersecting);
+                  }
+                }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+                io.observe(iframe);
+                fab.querySelectorAll('button[data-play]').forEach(btn => {
+                  btn.addEventListener('click', () => {
+                    const panel = btn.getAttribute('data-play');
+                    try {
+                      iframe.contentWindow.postMessage(
+                        { type: 'indestructibility:play', panel }, '*'
+                      );
+                    } catch (e) { /* iframe not ready yet — ignore */ }
+                  });
+                });
+              })();
+            </script>
+
             <h3 id="agent-personhood">Agent personhood / Non-fungible agents</h3>
 
             <p>
