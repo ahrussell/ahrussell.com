@@ -828,12 +828,22 @@
                 const fab = document.getElementById('ind-fab');
                 const iframe = document.getElementById('indestructibility-iframe');
                 if (!fab || !iframe) return;
-                const io = new IntersectionObserver((entries) => {
-                  for (const e of entries) {
-                    fab.classList.toggle('visible', e.isIntersecting);
-                  }
-                }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-                io.observe(iframe);
+
+                // Show/hide FAB based on whether the iframe overlaps the
+                // viewport. getBoundingClientRect on scroll is more
+                // deterministic than IntersectionObserver with lazy iframes.
+                function update() {
+                  const r = iframe.getBoundingClientRect();
+                  const inView = r.top < window.innerHeight && r.bottom > 0;
+                  fab.classList.toggle('visible', inView);
+                }
+                update();
+                window.addEventListener('scroll', update, { passive: true });
+                window.addEventListener('resize', update, { passive: true });
+                // Re-check after the iframe loads (in case it shifts layout)
+                iframe.addEventListener('load', update);
+
+                // Click handlers — postMessage to the iframe to trigger play.
                 fab.querySelectorAll('button[data-play]').forEach(btn => {
                   btn.addEventListener('click', () => {
                     const panel = btn.getAttribute('data-play');
@@ -841,7 +851,7 @@
                       iframe.contentWindow.postMessage(
                         { type: 'indestructibility:play', panel }, '*'
                       );
-                    } catch (e) { /* iframe not ready yet — ignore */ }
+                    } catch (e) { /* iframe not ready — fail silently */ }
                   });
                 });
               })();
