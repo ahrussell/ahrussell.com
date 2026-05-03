@@ -1062,16 +1062,16 @@
             <h3 id="alt-auction">An alternative auction mechanic</h3>
 
             <p>
-              Someone who is motivated to <em>not</em> let the agent run can place a bid of 0, win the auction, and
+              Someone who is motivated to <em>not</em> let the agent run can place the minimum bid, win the auction, and
               then never run the model, so the agent is "stalled" or "silenced". As mentioned previously, the current design solves this by requiring
-              bidders to post a bond that's forfeit by the winner if they fail to submit a result by the end of the epoch (all other bonds are returned).
-               Each consecutive missed epoch, this bond increases by 10%, which makes it increasingly more expensive for someone to stall the model.
+              bidders to post a forfeitable bond. Each consecutive missed epoch, this bond increases by 10%, which makes it increasingly more expensive 
+              for someone to stall the model.
             </p>
 
             <p>
               We could take a different approach to eliminate stalling altogether. Currently, epochs progress through commit, reveal,
               and execution phases. A cleaner version would restructure each epoch as
-              execute-and-commit, reveal, then settle. During execute-and-commit, anyone can run the brain 
+              execute-and-commit, reveal, then settle. During execute-and-commit, anyone can run the model 
               and submit a sealed bid alongside a valid output and proof. At reveal, all bids are opened 
               and the lowest one wins the bounty. The losing bidders get nothing, but they also lose nothing 
               other than the cost of computation — no bond required.
@@ -1096,7 +1096,7 @@
             <h3 id="frontier-models">Frontier models</h3>
 
             <p>
-              One advantage of using TEEs is that we can conceivably use the internet from the TEE. For example,
+              One advantage of using TEEs is that we can use the internet from the TEE. For example,
               we could call OpenAI or Anthropic APIs to generate the agent's thoughts and choices, which would let us 
               use frontier models.
             </p>
@@ -1104,10 +1104,9 @@
             <p>
               There are a number of complexities here. For one, the trust model changes. Obviously, we're now reliant on these 
               frontier model providers to run their models honestly. You'd also have to faff about with billing: someone has to 
-              pay the provider (though I think the prover's API key could just be an input to the TEE program, and OpenRouter
-              accepts cryptocurrencies as payment, though I haven't tried this). More subtly, we lose 
+              pay the provider (though, interestingly, OpenRouter accepts cryptocurrency). More subtly, we lose 
               <emph>determinism</emph>. I spent a
-              fair bit of effort to make the model deterministic, which is challenging because the floating-point operations
+              fair amount of time to make the model deterministic, which is challenging because the floating-point operations
               used by LLMs are often not deterministic across different hardware setups (see more details in the 
               <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md" target="_blank" rel="noopener">whitepaper</a>).
             </p>
@@ -1121,7 +1120,7 @@
 
             <p>
               Similarly, the agent could access additional sources of information or tools from accessing trusted websites from within the TEE. 
-              Of course, the security boundary gets increasingly large and complex. 
+              Of course, the security boundary gets increasingly large and complex the more powerful it becomes. 
             </p>
 
             <h2 id="how-to-participate">How to participate</h2>
