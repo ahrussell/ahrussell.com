@@ -1062,15 +1062,14 @@
             <h3 id="alt-auction">An alternative auction mechanic</h3>
 
             <p>
-              The original version of the auction mechanic had a "stalling" problem: someone who is
-              motivated to <em>not</em> let the agent run can place a bid of 0, win the auction, and
-              then never run the model, so nothing happens. The current design solves this by forcing
-              bidders to post a forfeitable bond. Each consecutive missed epoch, this bond increases
-              10%, which makes it increasingly more expensive for someone to stall the model.
+              Someone who is motivated to <em>not</em> let the agent run can place a bid of 0, win the auction, and
+              then never run the model, so the agent is "stalled" or "silenced". As mentioned previously, the current design solves this by requiring
+              bidders to post a bond that's forfeit by the winner if they fail to submit a result by the end of the epoch (all other bonds are returned).
+               Each consecutive missed epoch, this bond increases by 10%, which makes it increasingly more expensive for someone to stall the model.
             </p>
 
             <p>
-              This is heavier than it needs to be. Currently, epochs progress through commit, reveal,
+              We could take a different approach to eliminate stalling altogether. Currently, epochs progress through commit, reveal,
               and execution phases. A cleaner version would restructure each epoch as
               execute-and-commit, reveal, then settle. During execute-and-commit, anyone can run the brain 
               and submit a sealed bid alongside a valid output and proof. At reveal, all bids are opened 
@@ -1079,10 +1078,19 @@
             </p>
 
             <p>
-              The upside is that stalling becomes much harder, because every possible bidder would have
+              The upside is that stalling becomes impossible, because every possible bidder would have
               to choose not to submit, not just the auction winner. The downside is that it discourages
               bidders from participating because they will lose the money they spent running the program
-              if they don't win the auction.
+              if they don't win the auction, and ultimately these losses would be priced into the bids
+              (the agent would end up overpaying for each epoch).
+            </p>
+
+            <p>
+              We could also consider a hybrid approach. Retain the commit-reveal-execute epoch structure, but 
+              slice the execution phase into a fixed number of slices. Then, the winner must submit their result within the first
+              slice. Otherwise, they forfeit their bond, and the second-place bidder can submit a result in the second slice, and so on. 
+              This increases the cost of stalling the model by a factor linear in the number of slices (the adversary would have to post N bonds
+              from different wallets) without increasing prover costs.
             </p>
 
             <h3 id="frontier-models">Frontier models</h3>
@@ -1105,11 +1113,15 @@
             </p>
 
             <p>
-              The reason I put the effort in is because if the model isn't deterministic, the system is vulnerable to 
-              adversarial sampling: the prover can re-run 
+              If the system isn't deterministic, it's vulnerable to adversarial sampling: the prover can re-run 
               the model multiple times on the same input and choose to submit the output they like the most. I'm sure there are 
               ways to secure this (or at least make statistical or practical, cost-based arguments about security), but for Costanza
               I wanted simplicity and a high level of security to prove out the model. (Gotta keep all the folks on HN happy).
+            </p>
+
+            <p>
+              Similarly, the agent could access additional sources of information or tools from accessing trusted websites from within the TEE. 
+              Of course, the security boundary gets increasingly large and complex. 
             </p>
 
             <h2 id="how-to-participate">How to participate</h2>
