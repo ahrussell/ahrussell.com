@@ -17,10 +17,16 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
 
-    <!-- React via CDN for now so we don't depend on a bundler -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!--
+      React + in-browser Babel via CDN (no bundler).
+      IMPORTANT: keep these versions PINNED. Babel must stay on 7.x — Babel 8
+      changed preset-react's default JSX runtime to "automatic", which injects an
+      `import` statement that breaks this non-module inline script and renders the
+      page blank. Do not change to an unpinned/`@latest` URL.
+    -->
+    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.29.7/babel.min.js"></script>
   </head>
   <body>
     <div id="root"></div>
