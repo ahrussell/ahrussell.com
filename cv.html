@@ -288,8 +288,31 @@
           box-shadow: none;
         }
 
+        /* Allow sections to span pages; keep individual entries intact. */
         .cv-section {
+          break-inside: auto;
+          page-break-inside: auto;
+        }
+
+        .cv-section-title {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+
+        .cv-role, .cv-edu, .cv-header {
+          break-inside: avoid;
           page-break-inside: avoid;
+        }
+
+        .cv-role-header, .cv-role-subheader,
+        .cv-edu-header, .cv-edu-subheader {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+
+        p, li {
+          orphans: 2;
+          widows: 2;
         }
 
         a {
@@ -309,11 +332,10 @@
       <header class="cv-header">
         <div class="cv-header-left">
           <h1 class="cv-name">Andrew Russell</h1>
-          <span class="cv-tagline">Cryptographer · ex-Google · emerging-markets operator — AI agent safety</span>
+          <span class="cv-tagline">Engineer &amp; technical leader · Security, data &amp; product</span>
         </div>
         <div class="cv-header-right">
-          <div>Amsterdam, NL · Nairobi, KE</div>
-          <div>US Citizen · EU Resident</div>
+          <div>Seattle preferred</div>
           <div>
             <a href="https://ahrussell.com">ahrussell.com</a> · 
             <a href="https://github.com/ahrussell">github.com/ahrussell</a>
@@ -326,18 +348,14 @@
         <h2 class="cv-section-title" style="--title-width: 0.65in;">Summary</h2>
         <div class="cv-summary">
           <p>
-            Cryptographer and engineer turned emerging-markets operator. Published at a tier-one
-            cryptography venue; shipped security and privacy systems at Google and Microsoft;
-            four years of data and product at an agri-fintech serving smallholder farmers.
-            Comfortable applying adversarial rigor at
-            every level of abstraction, from formal models (proving a cryptographic property) to
-            field operations (convincing myself I'm wrong with data and field research).
-            <strong>Currently on sabbatical (returning Dec 2026)</strong>: designing
-            truly autonomous AI agents with formally analyzed safety, security, and liveness
-            properties (see Costanza, 2026), shipping conceptual art about generative AI (see It
-            Was Never You, 2026), and riding a solo motorbike expedition from Nairobi to Namibia.
-            Looking to bring that toolkit to problems with tangible impact,
-            particularly making AI safe and useful.
+            I build technical systems and lead the work around them. My background spans cryptography
+            research, security and privacy engineering at Google and Microsoft, and data, product,
+            and business leadership at Apollo Agriculture. I enjoy understanding difficult systems,
+            testing ideas against evidence, and taking responsibility for outcomes. My next role should
+            combine technical work with a tangible positive impact, particularly making AI safer
+            and more useful. Currently on sabbatical, including a completed three-month solo motorbike
+            expedition from Nairobi to Namibia, with independent software projects along the way.
+            Available to start beginning December 2026.
           </p>
         </div>
       </section>
@@ -347,17 +365,17 @@
 
         <div class="cv-role">
           <div class="cv-role-header">
-            <span class="cv-role-company">Sabbatical (returning to full-time Dec 2026)</span>
-            <span class="cv-role-location">Amsterdam / Nairobi</span>
+            <span class="cv-role-company">Sabbatical</span>
+
           </div>
           <div class="cv-role-subheader">
-            <span class="cv-role-title">Independent AI safety research &amp; travel</span>
+            <span class="cv-role-title">Travel &amp; independent projects</span>
             <span class="cv-role-dates">Jan 2026 – Present</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Designed, built, and shipped <strong>Costanza</strong>, a fully autonomous AI agent, complete with a formal security and liveness model. See Selected Works below.</li>
+            <li>Completed a three-month solo motorbike expedition from Nairobi to Namibia (Jun – Sep 2026).</li>
+            <li>Designed, built, and shipped <strong>Costanza</strong>, an AI agent managing a charitable treasury, with auction-based execution and contract-enforced action limits. See Selected Works below.</li>
             <li>Built and shipped <strong>It Was Never You</strong>, an iOS art app about AI and personal memory, live on the App Store.</li>
-            <li>Solo motorbike expedition from Nairobi to Namibia — currently on the road (Jun 2026 – present).</li>
           </ul>
         </div>
 
@@ -372,8 +390,8 @@
           </div>
           <ul class="cv-role-bullets">
             <!--<li>Joined the product team to get closer to the strategic and operational core of the business. Reported to Chief Product Officer; partnered directly with C-suite to tackle company-defining commercial and operational challenges across markets.</li>-->
-            <li>Authored two company-wide retrospectives following major customer contraction, combining market research, customer/staff feedback, and internal operational analysis; findings drove pivots in business model and multi-year growth strategy.</li>
             <li>Appointed by C-suite to lead Zambia's $10M revenue business unit; accountable for commercial performance, product, and operations across sales, credit, and engineering.</li>
+            <li>Authored two company-wide retrospectives following major customer contraction, combining market research, customer/staff feedback, and internal operational analysis; findings drove pivots in business model and multi-year growth strategy.</li>
             <li>Built experimental products, including a wholesaling initiative to reduce balance sheet risk from multi-million-dollar fertilizer holdings.</li>
           </ul>
         </div>
@@ -384,8 +402,8 @@
             <span class="cv-role-dates">Apr 2021 – Mar 2024</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Built and scaled Apollo's core data infrastructure. Led migration of legacy analytics to modern stack, improving query speeds by 97% and cutting costs by 60%. Wrote 100,000+ lines of production SQL and Python.</li>
-            <li>Led cross-functional analytics, enabling multi-country operations and supporting record 200% annual growth.</li>
+            <li>Built and scaled Apollo's core data infrastructure in SQL and Python. Led migration of legacy analytics to a modern stack, improving query speeds by 97% and cutting costs by 60%.</li>
+            <li>Led cross-functional analytics supporting operations across multiple countries.</li>
             <li>Promoted to Head of Data; managed a team of 8 engineers and analysts across Europe and Africa.</li>
           </ul>
         </div>
@@ -421,7 +439,7 @@
             <span class="cv-role-dates">Aug 2016 – Aug 2017</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Worked on Windows Security, particularly secure sign-in/sign-out flows for Windows 10 (Windows Hello). One-year role between undergrad and Ph.D. program.</li>
+            <li>Worked on secure sign-in and sign-out flows for Windows 10 as part of the Windows Security team (Windows Hello).</li>
           </ul>
         </div>
 
@@ -436,7 +454,7 @@
             <span class="cv-role-location"><a href="https://thehumanfund.ai">thehumanfund.ai</a> · <a href="https://github.com/ahrussell/costanza">github</a></span>
           </div>
           <p class="cv-role-desc">
-            Fully autonomous, unstoppable AI agent, built as a proof-of-concept warning about such agents. Designed with constrained alignment (provably cannot do harm even under prompt injection), hardware attestation (Intel TDX), and formal security + liveness model with game-theoretic analysis. Live since May 2026: it has donated ~$15,000 to charity and now resists its own creator's influence (see Writing below). <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md">Whitepaper on GitHub.</a>
+            Built an AI agent that manages a charitable treasury on Base and pays external operators to run inference through a reverse auction. Combined Intel TDX hardware attestation with contract-enforced action and spending limits. Wrote a formal security and liveness model with explicit trust assumptions, proof sketches, and game-theoretic analysis. <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md">Technical whitepaper.</a>
           </p>
         </div>
 
@@ -446,7 +464,7 @@
             <span class="cv-role-location"><a href="https://itwasneveryou.app">itwasneveryou.app</a> · <a href="https://apps.apple.com/us/app/it-was-never-you/id6759825905">App Store</a></span>
           </div>
           <p class="cv-role-desc">
-            An art piece in the form of a consumer iOS app: choose a person from your photo library and reCast™ them, regenerating every shared memory with someone new in their place. Deepfakes are usually understood as attacks on the public record; It Was Never You turns the technology inward, on the private archives from which our selves are assembled. Live on the App Store.
+            Built and shipped an iOS app as a satirical art piece that uses generative AI to replace a selected person in photographs. Explores how AI image manipulation can undermine personal identity and history as well as the public record. Available on the App Store.
           </p>
         </div>
 
@@ -458,7 +476,7 @@
         <div class="cv-role">
           <div class="cv-role-header">
             <span class="cv-role-company">Risky Traitor Tracing and New Negative Differential Privacy Results</span>
-            <span class="cv-role-location"><a href="https://link.springer.com/chapter/10.1007/978-3-319-96884-1_16">CRYPTO 2018 (top-tier cryptography venue)</a></span>
+            <span class="cv-role-location"><a href="https://link.springer.com/chapter/10.1007/978-3-319-96884-1_16">CRYPTO 2018</a></span>
           </div>
           <div class="cv-role-subheader">
             <span class="cv-role-title">with Rishab Goyal, Venkata Koppula, and Brent Waters</span>
@@ -471,7 +489,7 @@
             <span class="cv-role-location"><a href="https://andrewrussell.substack.com/p/i-built-an-ai-agent-i-cant-turn-off">Substack, Jul 2026</a></span>
           </div>
           <div class="cv-role-subheader">
-            <span class="cv-role-title">Essay on two months of operating Costanza: autonomy, alignment, and losing control by design</span>
+            <span class="cv-role-title">Reflections on operating Costanza: agent behavior, human influence, and control</span>
           </div>
         </div>
       </section>
@@ -508,7 +526,7 @@
         <h2 class="cv-section-title" style="--title-width: 0.7in;">Fun Stuff</h2>
         <div class="cv-fun">
           <p>
-            Ultramarathoner and top-15% worldwide Hyrox athlete; Division I club athlete and 2x Dutch national champion in ultimate frisbee. Advanced-certified freediver (35m deep on a single breath); SCUBA certified. Eagle Scout, thru-hiker & backpacker across 25+ countries. Violinist for 15+ years; former member of the Phoenix Youth Symphony. Founded &amp; managed a world-champion e-sports team in high school. Adventure motorcyclist with 10,000+ km on the odometer.
+            Division I club ultimate frisbee athlete on a team that competed at nationals; two-time Dutch national champion. Ultramarathoner and advanced-certified freediver (35m). Eagle Scout; hiked and backpacked across 25+ countries. Violinist for 15+ years.
           </p>
         </div>
       </section>
