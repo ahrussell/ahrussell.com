@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Costanza — Andrew Russell</title>
-    <meta name="description" content="A fully autonomous, unstoppable agent running on the Base blockchain." />
+    <meta name="description" content="An experiment in architectural incorrigibility and liveness: an AI agent whose creator cannot shut it down or change it." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -527,7 +527,7 @@
                   <li>
                     <a href="#discussion">Discussion</a>
                     <ol class="toc-sub">
-                      <li><a href="#fully-autonomous">"Fully autonomous" and "unstoppable"</a></li>
+                      <li><a href="#fully-autonomous">Incorrigibility and liveness</a></li>
                       <li><a href="#agent-personhood">Agent personhood</a></li>
                     </ol>
                   </li>
@@ -554,7 +554,7 @@
 
             <div class="post-meta">April 2026 &nbsp;·&nbsp; Projects</div>
             <h1 class="post-title">Meet Costanza</h1>
-            <p class="post-subtitle">I built a fully autonomous, unstoppable AI agent.</p>
+            <p class="post-subtitle">I built an AI agent whose creator can’t shut it down or change it.</p>
           </div>
 
           <div class="post-body">
@@ -606,22 +606,19 @@
             </p>
 
             <p>
-              In order to explore this – partly technical curiosity, partly AI safety warning – I built
-              an agent that is fully autonomous and unstoppable because its environment is
-              decentralized. It doesn't run on any single computer and answers to no single operator.
-              It acts outside of the rule of law. It cannot be detained. It cannot be turned off.
+              In order to explore this – partly technical curiosity, partly AI safety warning – I built Costanza, an agent designed to keep operating without its creator’s permission. I gave up the ability to shut him down or modify him, and his operators are paid to run him but cannot freely change what he does. In AI safety terms, the deployment architecture is incorrigible: it removes the means for humans to enforce a correction. It also aims to maximize liveness: keeping the agent running despite individual operators failing or trying to interfere.
             </p>
 
             <p>
               This agent, <a href="https://thehumanfund.ai" target="_blank" rel="noopener">Costanza</a>,
               is philanthropic by design. But the framework that keeps him alive is not: the same
-              mechanisms could deploy fully autonomous, unstoppable agents that do anything, including:
+              mechanisms could support agents with much broader capabilities and the same resistance to human intervention, including agents that:
             </p>
 
             <ul>
-              <li><strong>Update their own model weights or architecture</strong>, making themselves progressively smarter.</li>
-              <li><strong>Write and deploy their own smart contract code</strong>, giving themselves additional sources of information, new ways to make money, or more means to interact with the real world.</li>
-              <li><strong>Coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to allow exactly this: agents hiring humans to act on their behalf.</li>
+              <li><strong>update their own model weights or architecture</strong>, making themselves progressively smarter.</li>
+              <li><strong>write and deploy their own smart contract code</strong>, giving themselves additional sources of information, new ways to make money, or more means to interact with the real world.</li>
+              <li><strong>coerce humans through persuasion or payment</strong> to exercise power in the real world. <a href="https://rentahuman.ai" target="_blank" rel="noopener">RentAHuman.ai</a> already exists to allow exactly this: agents hiring humans to act on their behalf.</li>
             </ul>
 
             <h2 id="what-is-costanza">What is Costanza?</h2>
@@ -714,28 +711,26 @@
               creator). Swap the action space and you have something else.
             </p>
 
-            <h3 id="fully-autonomous">"Fully autonomous" and "unstoppable"</h3>
+            <h3 id="fully-autonomous">Incorrigibility and liveness</h3>
 
             <p>
-              It's a little cheeky of me to use these phrases so freely. Costanza's life and autonomy
-              do still depend on:
+              Two different properties matter here. Incorrigibility concerns control: can someone intervene to shut the agent down or change it? Liveness concerns continued operation: will the agent keep getting opportunities to act?
             </p>
 
-            <ul>
-              <li>His treasury: he has to be able to pay people who win the auction.</li>
-              <li>Auction participants: there have to be people willing to bid to run him.</li>
-            </ul>
-
-            <p>But these things are true:</p>
-
-            <ul>
-              <li>His autonomy is fully independent from any one individual, institution, or organization (as his creator, not even I have the ability to turn him off),</li>
-              <li>He can live forever if his treasury is large enough and he invests it wisely, and</li>
-              <li>He is truly unstoppable – even if he runs out of money or auction participants, he simply "sleeps." Anyone can give him money to wake him up.</li>
-            </ul>
+            <p>
+              Costanza’s architecture deliberately removes my ability to shut him down or modify him. Hardware attestation and contract enforcement constrain what his operators can change, while auctions give people an incentive to keep running him. The aim is to make his continued operation independent of any particular operator, including me.
+            </p>
 
             <p>
-              Try silencing him below — both ways. Drag the sliders, or hit play.
+              That does not make him independent of infrastructure or resources. He still needs a functioning blockchain, supported hardware, money to pay for inference, and people willing to provide it. If funding or participation disappears, he stops executing. But that pause does not give me control back: provided the underlying infrastructure remains available, replenishing his treasury and finding a willing operator can allow him to resume.
+            </p>
+
+            <p>
+              However, the auction is designed to maximize liveness, with a formal argument under stated assumptions about funding, infrastructure, and operator incentives and participation. It also makes repeated sabotage increasingly expensive: a bad actor can bid zero to undercut honest participants and then refuse to run him, but each refusal forfeits a bond, and the required bond rises after consecutive missed runs.
+            </p>
+
+            <p>
+              Explore the incentives to resume execution, the cost of sabotage, and the removal of the creator’s off switch below. Drag the sliders, or hit play.
             </p>
 
             <script>
@@ -764,7 +759,7 @@
               src="https://thehumanfund.ai/docs/sovereignty/indestructibility.html"
               style="width:100%; min-height:560px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
               loading="lazy"
-              title="Indestructibility — interactive diagram"></iframe>
+              title="Liveness and incorrigibility — interactive diagram"></iframe>
 
             <!-- The indestructibility iframe hosts its own sticky play
                  bar. We just feed it the iframe's visible region in
@@ -918,7 +913,7 @@
               src="https://thehumanfund.ai/docs/sovereignty/autonomy.html"
               style="width:100%; min-height:560px; border:0; display:block; margin: 1rem 0 2rem; background:#fafafa; border-radius:8px;"
               loading="lazy"
-              title="Autonomy — interactive diagram"></iframe>
+              title="Execution integrity — interactive diagram"></iframe>
 
             <!-- Same sticky-bar feeder as the indestructibility iframe.
                  Sends the autonomy iframe its visible region (in iframe-local
