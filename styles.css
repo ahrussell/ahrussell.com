@@ -799,9 +799,9 @@ body {
   }
 
   .project-costanza { order: 1; }
-  .project-vor { order: 2; }
-  .project-iwny { order: 3; }
-  .project-writing { order: 4; }
+  .project-vor { order: 4; }
+  .project-iwny { order: 2; }
+  .project-writing { order: 3; }
 
   .top-bar-inner {
     align-items: flex-start;
