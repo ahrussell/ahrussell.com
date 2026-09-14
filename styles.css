@@ -734,6 +734,41 @@ body {
   text-decoration: underline;
 }
 
+/* Longer project descriptions wrap around the illustration, then use the full card. */
+.project-card-wrap {
+  display: flow-root;
+}
+
+.project-card-wrap .project-card-body > .project-card-link {
+  float: right;
+  max-width: 38%;
+  margin: 0.2rem 0 1rem 1.3rem;
+}
+
+.project-card-wrap .project-card-image {
+  width: 150px;
+  max-width: 100%;
+}
+
+.project-costanza.project-card-wrap .project-card-image {
+  width: 110px;
+}
+
+.project-card-wrap .project-card-links {
+  clear: both;
+  padding-top: 0.35rem;
+}
+
+@media (max-width: 520px) {
+  .project-card-wrap .project-card-body > .project-card-link {
+    max-width: 32%;
+    margin: 0.15rem 0 0.8rem 0.9rem;
+  }
+
+  .project-card-wrap .project-card-image { width: 100px; }
+  .project-costanza.project-card-wrap .project-card-image { width: 80px; }
+}
+
 /* ── Writing list ──────────────────────────────── */
 .writing-list {
   list-style: none;
@@ -798,10 +833,11 @@ body {
     display: contents;
   }
 
+  .project-larry { order: 2; }
   .project-costanza { order: 1; }
-  .project-vor { order: 4; }
-  .project-iwny { order: 2; }
-  .project-writing { order: 3; }
+  .project-vor { order: 5; }
+  .project-iwny { order: 3; }
+  .project-writing { order: 4; }
 
   .top-bar-inner {
     align-items: flex-start;

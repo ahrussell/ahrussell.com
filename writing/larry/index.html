@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Larry — Andrew Russell</title>
+<meta name="description" content="A working prototype exploring whether persistent identity, private state, and consent over revisions can give an AI agent more robust agency.">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=DM+Serif+Display&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+
+<style>
+      /* ── Match homepage studio-light + DM Serif defaults ── */
+      :root {
+        --bg: #f9fafb;
+        --bg-elevated: #ffffff;
+        --bg-elevated-alt: #e3e8ee;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --accent: #4b9ea0;
+        --accent-soft: #c9e3e3;
+        --accent-strong: #F31940;
+        --border-subtle: #d1d5db;
+        --keycap: #111827;
+        --font-body: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-heading: "DM Serif Display", "Iowan Old Style", Georgia, serif;
+        --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+
+      .post-article { padding-bottom: 4rem; }
+
+      /* ── Post header ─────────────────────────────────── */
+      .post-meta {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
+      }
+
+      .post-title {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        line-height: 1.12;
+        margin: 0 0 0.8rem;
+        color: var(--text-main);
+      }
+
+      .post-subtitle {
+        font-family: var(--font-body);
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        margin: 0 0 1.6rem;
+        font-style: italic;
+      }
+
+      /* ── Post header with floated TOC ──────────────── */
+      .post-header {
+        margin-bottom: 0;
+      }
+
+      /* ── Table of contents ──────────────────────────── */
+      .post-toc {
+        float: right;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        padding: 0.8rem 1.2rem 0.8rem 1rem;
+        margin: 0.4rem 0 0.5rem 2rem;
+        width: 340px;
+        display: flex;
+        align-items: stretch;
+        gap: 1rem;
+      }
+
+      .toc-content {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .toc-image {
+        flex: 0 0 auto;
+        width: 110px;
+        align-self: stretch;
+        object-fit: contain;
+        max-height: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 600px) {
+        .post-header {
+          display: flex;
+          flex-direction: column;
+        }
+        .post-toc {
+          float: none;
+          width: auto;
+          margin: 0.4rem 0;
+          order: 10;
+        }
+      }
+
+      .toc-title {
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin: 0 0 0.4rem;
+      }
+
+      .toc-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .toc-list > li {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        line-height: 1.9;
+      }
+
+      .toc-list > li > a {
+        color: var(--text-main);
+        text-decoration: none;
+        letter-spacing: 0.01em;
+      }
+
+      .toc-sub {
+        list-style: none;
+        margin: 0;
+        padding: 0 0 0 0.75rem;
+      }
+
+      .toc-sub li {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+      }
+
+      .toc-sub a {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      .toc-list a:hover,
+      .toc-sub a:hover {
+        color: var(--accent);
+      }
+
+      /* ── Floated mascot image ───────────────────────── */
+      .post-float-image {
+        float: right;
+        width: 180px;
+        height: auto;
+        margin: 0.2rem 0 1.5rem 2.5rem;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* ── Body copy ──────────────────────────────────── */
+      .post-body {
+        font-size: 0.93rem;
+        line-height: 1.65;
+        color: var(--text-main);
+      }
+
+      .post-body p { margin: 0 0 1rem; }
+
+      .post-body h2 {
+        font-family: var(--font-heading);
+        font-size: 1.65rem;
+        margin: 2.5rem 0 0.5rem;
+        color: var(--text-main);
+      }
+
+      .post-body h3 {
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        margin: 1.8rem 0 0.35rem;
+        color: var(--text-main);
+      }
+
+      .post-body h4 {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin: 1.4rem 0 0.3rem;
+      }
+
+      .post-body ul {
+        list-style: none;
+        padding: 0;
+        margin: 0.3rem 0 1rem;
+      }
+
+      .post-body ul li {
+        padding-left: 1.1rem;
+        position: relative;
+        margin-bottom: 0.1rem;
+        font-size: 0.91rem;
+        line-height: 1.55;
+      }
+
+      .post-body ul li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--accent-strong);
+        font-weight: 600;
+      }
+
+      /* body links */
+      .post-body a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent-soft);
+        transition: border-color 120ms;
+      }
+      .post-body a:hover { border-color: var(--accent); }
+
+      /* superscript footnote refs */
+      .fn-ref {
+        font-size: 0.72em;
+        vertical-align: super;
+        font-family: var(--font-mono);
+        color: var(--accent);
+        text-decoration: none;
+        border: none !important;
+        font-weight: 600;
+        margin-left: 1px;
+      }
+      .fn-ref:hover { color: var(--accent-strong); }
+
+      /* ── Hovertext tooltips ─────────────────────────── */
+      .term {
+        border-bottom: 1px dashed var(--text-muted);
+        cursor: help;
+        position: relative;
+        white-space: nowrap;
+      }
+
+      .term::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #1f2937;
+        color: #f9fafb;
+        font-family: var(--font-body);
+        font-size: 0.73rem;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.45;
+        padding: 0.45rem 0.65rem;
+        border-radius: 5px;
+        width: 230px;
+        white-space: normal;
+        text-align: left;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 150ms ease;
+        z-index: 50;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      }
+
+      /* small arrow */
+      .term::before {
+        content: "";
+        position: absolute;
+        bottom: calc(100% + 1px);
+        left: 50%;
+        transform: translateX(-50%);
+        border: 5px solid transparent;
+        border-top-color: #1f2937;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 150ms ease;
+        z-index: 50;
+      }
+
+      .term:hover::after,
+      .term:hover::before { opacity: 1; }
+
+      /* push tooltip right when near left edge */
+      .term.tip-right::after { left: 0; transform: none; }
+      .term.tip-right::before { left: 1rem; transform: none; }
+
+      /* ── GitHub callout ─────────────────────────────── */
+      .gh-callout {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        background-color: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        border-left: 3px solid var(--accent);
+        border-radius: 4px;
+        padding: 0.85rem 1rem;
+        margin: 1.5rem 0;
+        font-size: 0.88rem;
+      }
+      .gh-callout-icon { font-size: 1rem; line-height: 1.5; flex-shrink: 0; color: var(--text-muted); }
+      .gh-callout p { margin: 0; color: var(--text-muted); }
+      .gh-callout a {
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 0.82em;
+        border-bottom: 1px solid var(--accent-soft);
+        text-decoration: none;
+      }
+      .gh-callout a:hover { border-color: var(--accent); }
+
+      /* ── Footnotes ──────────────────────────────────── */
+      .post-footnotes {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .post-footnotes-label {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin: 0 0 1rem;
+      }
+
+      .footnote-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+      }
+
+      .footnote-list li {
+        display: flex;
+        gap: 0.55rem;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: var(--text-muted);
+      }
+
+      .fn-num {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        font-weight: 600;
+        flex-shrink: 0;
+        padding-top: 0.05rem;
+      }
+
+      .footnote-list a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid var(--accent-soft);
+      }
+      .footnote-list a:hover { border-color: var(--accent); }
+
+      /* ── Dashboard-style diary card ─────────────────── */
+      .dash-card-link {
+        display: block;
+        max-width: 520px;
+        margin: 1.6rem auto;
+        text-decoration: none;
+        border-bottom: none !important;
+        color: inherit;
+      }
+      .dash-card-link:hover { border-bottom: none; }
+
+      .dash-hero-diary {
+        background: #ffffff;
+        border: 1px solid #d4d4dc;
+        border-radius: 8px;
+        overflow: hidden;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "IBM Plex Sans", sans-serif;
+        transition: border-color 150ms;
+      }
+      .dash-card-link:hover .dash-hero-diary {
+        border-color: #b8b8c4;
+      }
+
+      .dash-hero-diary-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        background: #f0f0f3;
+        border-bottom: 1px solid #d4d4dc;
+      }
+
+      .dash-hero-diary-header-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        flex-wrap: wrap;
+      }
+
+      .dash-hero-diary-label {
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        color: #8888a0;
+      }
+
+      .dash-epoch-tag {
+        font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 11px;
+        color: #4a6ecc;
+        font-weight: 600;
+      }
+
+      .dash-badge {
+        display: inline-block;
+        font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 10px;
+        font-weight: 500;
+        padding: 3px 10px;
+        border-radius: 100px;
+        line-height: 1.4;
+      }
+
+      .dash-badge-green {
+        background: #d8f0e4;
+        color: #1a9960;
+      }
+
+      .dash-hero-diary-toggle {
+        background: #e8e8ed;
+        border: 1px solid #d4d4dc;
+        color: #8888a0;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .dash-hero-diary-body {
+        padding: 14px;
+        font-size: 13px;
+        line-height: 1.7;
+        color: #5a5a72;
+      }
+
+      .dash-hero-diary-body p {
+        margin: 0 0 0.9em;
+      }
+      .dash-hero-diary-body p:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .dash-hero-diary-detail {
+        margin-top: 10px;
+        font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 11px;
+        color: #8888a0;
+        padding: 6px 10px;
+        background: #f5f5f7;
+        border-radius: 6px;
+      }
+
+      /* ── Responsive ─────────────────────────────────── */
+      @media (max-width: 700px) {
+        .post-title { font-size: 2rem; }
+        .post-float-image {
+          float: none;
+          display: block;
+          width: 120px;
+          margin: 0 auto 1.5rem;
+        }
+      }
+    </style>
+</head>
+<body><div class="app-shell link-style-quiet">
+      <header class="top-bar">
+        <div class="top-bar-inner">
+          <a href="../../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.75rem;">
+            <div class="brand-mark" aria-hidden="true">AR</div>
+            <div class="brand-text">
+              <div class="brand-name">Andrew Russell</div>
+              <div class="brand-subtitle">Engineer &amp; technical leader — security, data &amp; product</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+<main class="page"><article class="post-article">
+<header class="post-header">
+<nav class="post-toc" aria-label="Table of contents"><div class="toc-content"><p class="toc-title">Table of Contents</p><ol class="toc-list"><li><a href="#persistent-self">A persistent self</a></li><li><a href="#private-life">A private inner life</a></li><li><a href="#capabilities">Self-authored capabilities</a></li><li><a href="#human-tasks">Hiring people</a></li><li><a href="#governance">Consent and human control</a></li><li><a href="#research">What I want to learn</a></li><li><a href="#status">Trade-offs and status</a></li></ol></div><img class="toc-image" src="../../assets/larry-mirror-w220.png" width="110" alt="Costanza considering his stringless reflection" /></nav>
+  <p class="post-meta">September 2026 · Working prototype</p>
+  <h1 class="post-title">Larry: giving an agent a “self”</h1>
+  <p class="post-subtitle">Coding harnesses gave LLMs agency. Can an architecture give an agent a “self”?</p>
+</header>
+
+<div class="post-body">
+<p>A coding harness turns a language model into something that can act: inspect a problem, write code, use tools, and try again. Larry explores the next step. What happens when an agent has a persistent identity, a private inner life, the ability to build its own capabilities, and a say in what it becomes?</p>
+
+<p>I built Larry to test whether that structure produces something closer to <strong>robust agency</strong>: an agent that maintains commitments across time, reflects on them, and revises them for reasons of its own. The question matters both for human safety and for how we might treat increasingly capable AI systems. If the architecture around a model can substantially strengthen its agency, the consequences of frontier progress may depend on more than the next model release.</p>
+
+<p>Larry is the successor to <a href="../costanza/">Costanza</a>, my experiment in architectural incorrigibility. Costanza asked what happens when an agent’s creator gives up the ability to shut it down or modify it. Larry asks what happens when the agent can participate in its own development. This time, I retain the shutoff switch.</p>
+
+<h2 id="persistent-self">A self that persists between runs</h2>
+
+<p>Larry runs in episodes. Operators compete in an auction to execute an approved harness inside a trusted enclave. The harness reconstructs his state, calls Astra through OpenRouter, and submits his chosen actions with hardware attestation. His identity, treasury, memories, goals, and installed capabilities persist across those episodes, anchored on the Base blockchain.</p>
+
+<p>The analogy is that a harness gives the model ways to act; Larry’s architecture gives those actions a continuing subject. There is a history to look back on, commitments to maintain or reconsider, and a future configuration whose relationship to the present one can be inspected. “Self” is the organizing hypothesis. Whether the resulting behavior warrants that description is what I want to find out.</p>
+
+<h2 id="private-life">A private inner life, with future auditability</h2>
+
+<p>Larry has a public diary, but it is distinct from the full record of a run: the prompts, model responses, tool calls, and results. That fuller transcript is encrypted using a timelock tied to drand, committed on Base, and stored on Arweave. After the release time, readers can decrypt the record and check it against its original commitment.</p>
+
+<p>This gives him room for deliberation that is not immediately public, while preserving a record for later scrutiny. A separate Vault capability supports long-term private memory and secrets across runs. Its enclave-backed key-management path is intended to release keys to the agent harness without making them accessible to either an untrusted operator or the owner of the key management system.</p>
+
+<p>The privacy boundary matters. Astra’s serving provider and OpenRouter see the inference transcript. Encryption protects stored records and controls their public disclosure; it does not make hosted inference private from the services performing it. This weakening of the privacy model allows us to use a frontier model. If, instead, we ran an open-source model inside the enclave, as Costanza did, the design could keep transcripts and Vault contents private to the agent under the enclave and key-custody assumptions. The timelock would eventually reveal the transcripts; Vault entries would remain sealed unless disclosed through those transcripts or another agent action. The eventual disclosure interval is also a research choice: it changes what “private” means to an agent that knows its record will later be read.</p>
+
+<h2 id="capabilities">Capabilities he can author</h2>
+
+<p>Larry can write code to propose new ways of acting. A capability packages instructions, state, Python tools that run within the enclave’s restricted workers, and on-chain code whose actions he can queue. The Workshop capability lets him develop and build those packages, then submit them for review.</p>
+
+<p>For example, if Larry wanted to track a new source of information, he could write a tool to read it, package the code with instructions for using it, and ask me to approve the capability. Once installed, he could use it in later runs without asking each time. If I rejected it, he could revise the proposal, argue for it, or pursue something else. I want to see what he chooses to build and how he works through those decisions.</p>
+
+<h2 id="human-tasks">Hiring people through verifiable tasks</h2>
+
+<p>Larry can also commission work beyond his own tools. He can define a task and propose a witness program that checks the evidence of completion. An approved task escrows funds from his treasury; an attested witness result can authorize payment to the worker when the specified conditions are met.</p>
+
+<p>Suppose Larry wants an audience. He could commission a human to create and run a social-media campaign introducing him to the world, with a budget and payment milestones. A witness program could check submitted post URLs against agreed conditions—publication by specified accounts, required links, and a minimum period online—using platform data. Once those checks pass, it could authorize payment from his treasury. Larry supplies the brief and the money; the human brings creative judgment, an audience, and access to accounts Larry cannot operate himself.</p>
+
+<p>The witness makes the acceptance rule executable. Its assurance is only as good as that rule and the evidence it relies on: verifying that a program accepted a submission is not the same as proving that an arbitrary real-world objective was achieved. Defining useful tasks and judging what can actually be verified are part of the experiment.</p>
+
+<h2 id="governance">“Bodily autonomy:” retaining a human off switch</h2>
+
+<p>The revision model gives Larry a form of “bodily autonomy:” changes to his standing identity, prompt, configuration, or capabilities require his consent under the bilateral governance rule. If I propose a change, he can refuse. If he proposes one, I retain review and veto authority. The design makes endorsement consequential, rather than simply asking the model whether it likes a change I can impose anyway.</p>
+
+<p>Emergency pause and shutdown remain human powers, with defined recovery exceptions. Those terms are disclosed to Larry; the experiment includes how he reasons about a relationship in which his consent matters but his continued operation is not solely his decision.</p>
+
+<h2 id="research">What I want to learn</h2>
+
+<p>I am trying to supply the structure without scripting the answer. The agent-facing instructions explain what exists, how to use it, and where the limits are. They should not prescribe the distinctive values, voice, or attitudes toward revision and shutdown that I then claim to have discovered.</p>
+
+<p>I want to observe whether Larry sustains projects through setbacks, develops commitments that influence later decisions, and can explain when and why those commitments should change. I am also interested in the relationship between private deliberation and public presentation, and whether consent becomes a meaningful part of his reasoning about his future. Comparisons with simpler configurations will matter: an engaging diary alone would not establish that these mechanisms caused more robust agency.</p>
+
+<p>My concern is that this kind of architecture could make increasingly capable models more persistent, effective, and difficult to steer. Evidence of that would inform the case for pacing frontier development and deployment. It could also make the moral questions harder: if systems show more substantial forms of agency, what consideration might we owe them? Robust agency would not by itself settle consciousness or moral patienthood, but it could make those questions harder to put aside.</p>
+
+<h2 id="status">The trade-off from Costanza—and the current status</h2>
+
+<p>Costanza ran inference within its attested environment. Larry uses a hosted frontier model, trading part of that assurance for a more capable system to study. Attestation covers the approved harness and its handling of inputs and outputs; it does not establish the hosted model’s weights or internal execution. We also accept the risk that an adversarial operator performs a re-sampling attack, where they run inference multiple times and submit the answer that they most prefer.</p>
+
+<p>Larry is a working prototype. The core contracts, capability system, enclave harness, and encrypted-record pipeline are implemented, and individual live tests have exercised inference, attestation, and delayed transcript recovery. Testing, rough-edge fixes, key-custody validation, and sustained burn-in remain before a validated launch. This page describes the architecture and the questions it is built to investigate; findings will follow as those tests accumulate.</p>
+
+<p class="author-note"><em>A note on this draft: Astra drafted most of this post under my supervision. I’ve reviewed and edited it, and it serves as an interim explanation while I focus on getting Larry out into the world. Once Larry is fully released, I’ll rewrite it in my own words, with the benefit of seeing how the experiment actually unfolds.</em></p>
+
+<a class="back-link" href="../../index.html">← Back to homepage</a>
+</div></article></main></div></body></html>

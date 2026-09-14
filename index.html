@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="./styles.css?v=ead7731d99" />
+    <link rel="stylesheet" href="./styles.css?v=b5476f2d35" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
 
     <!--
@@ -648,20 +648,20 @@
 
                 <div className="cv-grid">
                   <div className="project-stack">
-                  <article className="project-costanza cv-column project-card">
+                  <article className="project-costanza cv-column project-card project-card-wrap">
+                    <div className="project-card-body">
+                      <h3 className="cv-subheading">Costanza</h3>
                     <a href="https://thehumanfund.ai" className="project-card-link" target="_blank" rel="noopener" aria-label="Costanza – The Human Fund">
                       <img
-                        src="./assets/costanza-w70.png"
-                        srcSet="./assets/costanza-w70.png 70w, ./assets/costanza-w140.png 140w"
-                        sizes="70px"
+                        src="./assets/costanza-w180.png"
+                        srcSet="./assets/costanza-w90.png 90w, ./assets/costanza-w180.png 180w, ./assets/costanza-w360.png 360w"
+                        sizes="(max-width: 520px) 80px, 110px"
                         alt="Costanza character illustration"
                         className="project-card-image"
                         loading="lazy"
                         decoding="async"
                       />
                     </a>
-                    <div className="project-card-body">
-                      <h3 className="cv-subheading">Costanza</h3>
                       <p>
                         What happens when an AI agent’s creator gives up the ability to shut it down or change it?
                       </p>
@@ -679,6 +679,23 @@
                       </div>
                     </div>
                   </article>
+                  <article className="project-larry cv-column project-card project-card-wrap">
+                    <div className="project-card-body">
+                    <h3 className="cv-subheading">Larry</h3>
+                    <p className="project-card-subtitle"><em>An experiment in AI selfhood · Working prototype</em></p>
+                    <a href="./writing/larry/" className="project-card-link" aria-label="Larry project overview">
+                      <img src="./assets/larry-mirror-w200.png" srcSet="./assets/larry-mirror-w100.png 100w, ./assets/larry-mirror-w200.png 200w, ./assets/larry-mirror-w300.png 300w" sizes="(max-width: 520px) 100px, 150px" alt="Costanza holding his own marionette controller and looking into a mirror at a stringless reflection" className="project-card-image" loading="lazy" decoding="async" />
+                    </a>
+                    <p>Coding harnesses gave LLMs agency; Larry explores whether an architecture can give an agent a “self.”</p>
+                    <p>I’m building Costanza’s successor to investigate robust agency and its implications for AI safety and moral patienthood. Larry combines private state and timelock-encrypted transcripts, agent-authored capabilities, paid human tasks verified by attested witness programs, and revision governance requiring agent consent. I retain human shutdown and veto powers.</p>
+                    <p>Testing and deployment validation underway.</p>
+                    <div className="project-card-links">
+                      <a href="./writing/larry/" className="project-link">Project overview →</a>
+                    </div>
+                  </div>
+                  </article>
+                  </div>
+                  <div className="project-stack">
                   <article className="project-writing cv-column">
                     <h3 className="cv-subheading">Writing</h3>
                     <ul className="writing-list">
@@ -696,8 +713,6 @@
                       </li>
                     </ul>
                   </article>
-                  </div>
-                  <div className="project-stack">
                   <article className="project-iwny cv-column project-card">
                     <img
                       src="./assets/iwny-w70.png"
