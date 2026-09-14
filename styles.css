@@ -579,6 +579,13 @@ body {
   gap: 1.25rem;
 }
 
+.project-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
 .cv-column {
   background-color: var(--bg-elevated);
   border-radius: 6px;
@@ -786,6 +793,15 @@ body {
   .cv-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .project-stack {
+    display: contents;
+  }
+
+  .project-costanza { order: 1; }
+  .project-vor { order: 2; }
+  .project-iwny { order: 3; }
+  .project-writing { order: 4; }
 
   .top-bar-inner {
     align-items: flex-start;

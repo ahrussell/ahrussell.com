@@ -647,7 +647,8 @@
                 </div>
 
                 <div className="cv-grid">
-                  <article className="cv-column project-card">
+                  <div className="project-stack">
+                  <article className="project-costanza cv-column project-card">
                     <a href="https://thehumanfund.ai" className="project-card-link" target="_blank" rel="noopener" aria-label="Costanza – The Human Fund">
                       <img
                         src="./assets/costanza-w70.png"
@@ -678,30 +679,7 @@
                       </div>
                     </div>
                   </article>
-
-                  <article className="cv-column project-card">
-                    <img
-                      src="./assets/phonebooth-80.png"
-                      srcSet="./assets/phonebooth-80.png 80w, ./assets/phonebooth-160.png 160w"
-                      sizes="80px"
-                      alt="Phone booth illustration"
-                      className="project-card-image"
-                      style={{ width: '80px' }}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="project-card-body">
-                      <h3 className="cv-subheading">The Voicemail of Reason</h3>
-                      <p>
-                        A risky confessional in the form of a phone booth. Built for Burning Man 2025, but remains undeployed due to the weather that year.
-                      </p>
-                      <div className="project-card-links">
-                        <a href="https://voicemailofreason.com/" className="project-link" target="_blank" rel="noopener">voicemailofreason.com ↗</a>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article className="cv-column project-card">
+                  <article className="project-iwny cv-column project-card">
                     <img
                       src="./assets/iwny-w70.png"
                       srcSet="./assets/iwny-w70.png 70w, ./assets/iwny-w140.png 140w"
@@ -724,8 +702,30 @@
                       </div>
                     </div>
                   </article>
-
-                  <article className="cv-column">
+                  </div>
+                  <div className="project-stack">
+                  <article className="project-vor cv-column project-card">
+                    <img
+                      src="./assets/phonebooth-80.png"
+                      srcSet="./assets/phonebooth-80.png 80w, ./assets/phonebooth-160.png 160w"
+                      sizes="80px"
+                      alt="Phone booth illustration"
+                      className="project-card-image"
+                      style={{ width: '80px' }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="project-card-body">
+                      <h3 className="cv-subheading">The Voicemail of Reason</h3>
+                      <p>
+                        A risky confessional in the form of a phone booth. Built for Burning Man 2025, but remains undeployed due to the weather that year.
+                      </p>
+                      <div className="project-card-links">
+                        <a href="https://voicemailofreason.com/" className="project-link" target="_blank" rel="noopener">voicemailofreason.com ↗</a>
+                      </div>
+                    </div>
+                  </article>
+                  <article className="project-writing cv-column">
                     <h3 className="cv-subheading">Writing</h3>
                     <ul className="writing-list">
                       <li>
@@ -738,6 +738,7 @@
                       </li>
                     </ul>
                   </article>
+                  </div>
                 </div>
               </section>
 
