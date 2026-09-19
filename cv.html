@@ -332,7 +332,7 @@
       <header class="cv-header">
         <div class="cv-header-left">
           <h1 class="cv-name">Andrew Russell</h1>
-          <span class="cv-tagline">Engineer &amp; technical leader · Security, data &amp; product</span>
+          <span class="cv-tagline">Engineer &amp; technical leader · Security, cryptography &amp; AI safety</span>
         </div>
         <div class="cv-header-right">
           <div>Seattle preferred</div>
@@ -348,14 +348,7 @@
         <h2 class="cv-section-title" style="--title-width: 0.65in;">Summary</h2>
         <div class="cv-summary">
           <p>
-            I build technical systems and lead the work around them. My background spans cryptography
-            research, security and privacy engineering at Google and Microsoft, and data, product,
-            and business leadership at Apollo Agriculture. I enjoy understanding difficult systems,
-            testing ideas against evidence, and taking responsibility for outcomes. My next role should
-            combine technical work with a tangible positive impact, particularly making AI safer
-            and more useful. Currently on sabbatical, including a completed three-month solo motorbike
-            expedition from Nairobi to Namibia, with independent software projects along the way.
-            Available to start beginning December 2026.
+            I build technical systems and lead the work around them. My background spans cryptography research, security and privacy engineering at Google and Microsoft, and engineering, data, and business leadership at Apollo Agriculture. I moved to Apollo to work closer to the people affected by those systems and take broader responsibility for outcomes. I’m now looking to bring that combination to making frontier AI systems secure and controllable. Currently on sabbatical, including a three-month solo motorbike expedition from Nairobi to Namibia and independent technical projects along the way. Available to start beginning December 2026.
           </p>
         </div>
       </section>
@@ -374,7 +367,7 @@
           </div>
           <ul class="cv-role-bullets">
             <li>Completed a three-month solo motorbike expedition from Nairobi to Namibia (Jun – Sep 2026).</li>
-            <li>Built and deployed <strong>Costanza</strong> to demonstrate an incorrigible agent architecture, relinquishing the ability to shut it down or modify it. The project raised and donated approximately $15,000 to charity. See Selected Works below.</li>
+            <li>Built and deployed <strong>Costanza</strong>, an experiment in architectural incorrigibility that raised and donated approximately $15,000 to charity. See Selected Projects below.</li>
             <li>Building <strong>Larry</strong>, Costanza’s successor, to investigate whether persistent identity, private state, and consent over revisions produce more robust agency. Working prototype; testing underway.</li>
             <li>Built and shipped <strong>It Was Never You</strong>, an iOS art app about AI and personal memory, live on the App Store.</li>
           </ul>
@@ -404,7 +397,7 @@
           </div>
           <ul class="cv-role-bullets">
             <li>Built and scaled Apollo's core data infrastructure in SQL and Python. Led migration of legacy analytics to a modern stack, improving query speeds by 97% and cutting costs by 60%.</li>
-            <li>Led cross-functional analytics supporting operations across multiple countries.</li>
+            <li>Helped define Apollo’s core business KPIs alongside executive and product leadership, and led development of the supporting analytics and dashboards. A leadership survey identified this work as a major contributor to the company’s success in 2023, when its customer base grew from 60,000 to 190,000.</li>
             <li>Promoted to Head of Data; managed a team of 8 engineers and analysts across Europe and Africa.</li>
           </ul>
         </div>
@@ -419,14 +412,15 @@
             <span class="cv-role-dates">Aug 2019 – Mar 2021</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Built a system monitoring petabytes of user data for daily privacy compliance across Google's product ecosystem.</li>
+            <li>Rebuilt the policy-application engine for a privacy-compliance monitoring system covering petabytes of user data across Google’s product ecosystem. Sole implementing engineer on a near-complete rewrite separating policy definitions from their application.</li>
           </ul>
           <div class="cv-role-subheader" style="margin-top: 0.06in;">
             <span class="cv-role-title">Software Engineer, PhD Intern</span>
             <span class="cv-role-dates">Summer 2018</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Designed a threat model for a privacy-preserving version of Gmail using secure execution environments; ported part of Gmail's email-processing backend into the system.</li>
+            <li>Developed a threat model for protecting user data during processing from insider threats using Intel SGX, and ported Gmail’s antivirus scanner into an enclave as a prototype for Google Cloud.</li>
+            <li>Reworked the runtime around SGX’s memory and system-call constraints, adapting libc and backing filesystem operations with a virtual filesystem; submitted a patch to glibc.</li>
           </ul>
         </div>
 
@@ -440,14 +434,14 @@
             <span class="cv-role-dates">Aug 2016 – Aug 2017</span>
           </div>
           <ul class="cv-role-bullets">
-            <li>Worked on secure sign-in and sign-out flows for Windows 10 as part of the Windows Security team (Windows Hello).</li>
+            <li>Worked on “Windows Goodbye,” the complement to Windows Hello that detects when a user leaves their workstation and locks it automatically.</li>
           </ul>
         </div>
 
       </section>
 
       <section class="cv-section">
-        <h2 class="cv-section-title" style="--title-width: 1.1in;">Selected Works</h2>
+        <h2 class="cv-section-title" style="--title-width: 1.1in;">Selected Projects</h2>
 
         <div class="cv-role">
           <div class="cv-role-header">
@@ -465,7 +459,7 @@
             <span class="cv-role-location"><a href="https://thehumanfund.ai">thehumanfund.ai</a> · <a href="https://github.com/ahrussell/costanza">github</a></span>
           </div>
           <p class="cv-role-desc">
-            Built Costanza to demonstrate an incorrigible deployment architecture, relinquishing creator shutdown and modification powers. Combined auction-funded inference, hardware attestation, and smart-contract enforcement to resist operator tampering and maximize liveness; developed a formal security and liveness model. In deployment, it resisted my attempts to redirect its decisions. It raised and donated approximately $15,000 through its charitable treasury, The Human Fund. <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md">Technical whitepaper.</a>
+            Built Costanza to demonstrate an incorrigible deployment architecture, relinquishing creator shutdown and modification powers. Combined auction-funded inference and contract-enforced actions with a formal security and liveness model. Hardened execution with an attested boot chain and a read-only, dm-verity-protected filesystem; configured inference for determinism and tested repeatability across machines to resist operator resampling. In deployment, it resisted my attempts to redirect its decisions. Its charitable treasury, The Human Fund, raised and donated approximately $15,000. <a href="https://github.com/ahrussell/costanza/blob/main/WHITEPAPER.md">Technical whitepaper.</a>
           </p>
         </div>
 
